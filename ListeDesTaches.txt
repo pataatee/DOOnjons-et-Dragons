@@ -1,0 +1,13 @@
+-cmt gerer les packages ?
+
+// Classes personnages
+
+-classe personnage > attributs nom / race / classe / caracteristique / inventaire / equipement porté
+-classe armes
+-classe armure
+-inventaire -> structure ? classe ?
+-caracteristiques -> classe a part entiere ?
+- classe equipements > armes & armures
+-classe races > sous classe pr chaque type + attributs = caracteristiques
+-classe classes > sous classe pr chacun avec attributs = caracteristiques
+-classe monstre > attribut espece / numero / attaque / caracteristiques, avec attaque classe et caracteristiques classe
