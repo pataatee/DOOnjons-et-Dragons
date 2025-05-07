@@ -8,6 +8,7 @@ skinparam style strictuml
 hide empty members
 
 class Personnage {
+    +<<create>> Personnage()
     -m_nom:String
     -m_race:Race
     -m_caracteristique:Caracteristique

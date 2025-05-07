@@ -1,0 +1,2 @@
+V0.txt : Version du projet 0
+-> version avant celle du rendu
