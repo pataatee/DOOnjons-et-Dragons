@@ -8,6 +8,7 @@ skinparam style strictuml
 hide empty members
 
 class Personnage {
+    +<<create>> Personnage()
     -m_nom:String
     -m_race:Race
     -m_caracteristique:Caracteristique
@@ -16,16 +17,45 @@ class Personnage {
 }
 
 class Race {
-    -m_nom:String
-    -
+    +<<create>> race()
+    -m_type:String
+    -m_caracteristique:Caracteristique
 }
 
 class Caracteristique {
+    +<<create>> Caracteristique()
     -m_pv:Integer
     -m_force:Integer
     -m_dexterite:Integer
     -m_vitesse:Integer
     -m_initiative:Integer
+}
+
+class Classe {
+    +<<Create>> Classe()
+    -m_nom:String
+    -m_caracteristique:Caracteristique
+}
+
+class Armurerie {
+    +<<Create>> Armurerie():Armurerie
+    -m_armes:List<Armes>
+    -m_armures:List<Armures>
+}
+
+class Arme {
+    -m_nom:String
+    -m_degat:Integer
+    -m_portee:Integer
+}
+
+class Des {
+
+}
+
+class Armure {
+    -m_nom:String
+    -m_
 }
 
 @enduml

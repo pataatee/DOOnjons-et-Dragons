@@ -1,0 +1,3 @@
+Début UML + code
+Beaucoup de réflexion sur les classes, les liens entre celles-ci
+Majorité du travail sur feuille pour organiser nos idées 
