@@ -1,7 +1,7 @@
 package gameContent.items;
 
-import items.armes.Arme;
-import items.armures.Armure;
+import gameContent.items.armes.Arme;
+import gameContent.items.armures.Armure;
 
 public class Equipement {
 
