@@ -2,8 +2,8 @@ package personnages;
 
 import java.util.List;
 
-import armurerie.Armurerie;
-import armurerie.Equipement;
+import gameContent.items.Armurerie;
+import items.Equipement;
 import personnages.race.Race;
 
 public class Personnage {

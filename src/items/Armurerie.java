@@ -1,4 +1,4 @@
-package armurerie;
+package items;
 
 public class Armurerie {
 }
