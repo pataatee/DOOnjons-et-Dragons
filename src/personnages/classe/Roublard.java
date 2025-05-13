@@ -1,4 +1,0 @@
-package personnages.classe;
-
-public class Roublard {
-}
