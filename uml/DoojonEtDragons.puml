@@ -19,9 +19,11 @@ package gameContent
             -m_inventaire:List<Armurerie>
             -m_equipement:Equipement
         }
+        Personnage --> race
+        Personnage --> classe
 
-        package Race{
-            class Race {
+        package race{
+            abstract class Race {
                 +<<create>> race()
                 -m_type:String
                 -m_caracteristique:Caracteristique
@@ -34,6 +36,10 @@ package gameContent
             }
             class Nain {
             }
+            Humain --|> Race
+            Nain --|> Race
+            Elfe --|> Race
+            Halfelin --|> Race
         }
 
         class Caracteristiques {
@@ -44,11 +50,12 @@ package gameContent
             -m_vitesse:Integer
             -m_initiative:Integer
         }
-        package Classe{
-            class Classe {
+        package classe{
+            abstract class Classe {
                 +<<Create>> Classe()
                 -m_nom:String
-                -m_caracteristique:Caracteristique
+                -m_pvs:Integer
+                -m_armurerie:Armurerie
             }
             class Clerc {
             }
@@ -58,6 +65,11 @@ package gameContent
             }
             class Roublard {
             }
+            Clerc --|> Classe
+            Guerrier --|> Classe
+            Magicien --|> Classe
+            Roublard --|> Classe
+            Classe --> gameContent.items.Armurerie
         }
 
 
@@ -131,5 +143,8 @@ package mdj {
     class Map{
     }
 }
+
+
+
 
 @enduml

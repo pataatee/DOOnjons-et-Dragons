@@ -14,4 +14,13 @@ public class Personnage {
     protected Caracteristiques m_caracteristiques;
     protected List<Armurerie> m_inventaire;
     protected Equipement m_equipements;
+
+    public Personnage(String nom, Race race, Classe classe){
+        this.m_nom = nom;
+        this.m_race = race;
+        this.m_classe = classe;
+    }
+    public String getM_nom(){
+        return m_nom;
+    }
 }

@@ -1,4 +1,9 @@
 package gameContent.personnages.classe;
 
-public class Classe {
+import gameContent.items.Armurerie;
+
+public abstract class Classe {
+    protected String m_nom;
+    protected int m_pvs;
+    protected Armurerie m_armurerie;
 }
