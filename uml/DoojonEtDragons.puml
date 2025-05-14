@@ -20,11 +20,31 @@ package gameContent
             -m_equipement:Equipement
         }
 
-        class Race {
-            +<<create>> race()
-            -m_type:String
-            -m_caracteristique:Caracteristique
+        package race {
+
+            abstract class Race <<abstract>> {
+                +<<create>> race()
+                -m_type:String
+                -m_caracteristique:Caracteristique
+            }
+
+            class Elfe {
+
+            }
+
+            class Halfelin {
+
+            }
+
+            class Humain {
+
+            }
+
+            class Nain {
+
+            }
         }
+
 
         class Caracteristique {
             +<<create>> Caracteristique()
@@ -92,7 +112,10 @@ package gameContent
 
         }
 
-
+        class Equipement {
+            -m_arme:Arme
+            -m_armure:Armure
+        }
 
 
 
