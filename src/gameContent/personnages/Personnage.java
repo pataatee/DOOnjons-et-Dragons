@@ -1,5 +1,6 @@
 package gameContent.personnages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gameContent.items.Armurerie;
@@ -12,7 +13,7 @@ public class Personnage {
     protected Race m_race;
     protected Classe m_classe;
     protected Caracteristiques m_caracteristiques;
-    protected List<Armurerie> m_inventaire;
+    protected List<Armurerie> m_inventaire = new ArrayList<>();
     protected Equipement m_equipements;
 
     public Personnage(String nom, Race race, Classe classe){
@@ -22,5 +23,13 @@ public class Personnage {
     }
     public String getM_nom(){
         return m_nom;
+    }
+
+    public void setM_inventaire(List<Armurerie> m_inventaire) {
+        this.m_inventaire = m_inventaire;
+    }
+
+    public List<Armurerie> getM_inventaire(){
+        return this.m_inventaire;
     }
 }

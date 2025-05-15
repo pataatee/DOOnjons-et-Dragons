@@ -1,7 +1,18 @@
 package gameContent.items.armes;
 
-public class Arme {
-    protected String m_nom;
-    protected int m_degats;
-    protected int m_portée;
+import gameContent.items.Armurerie;
+
+public abstract class Arme implements Armurerie {
+    private final String m_nom;
+    private final int m_degats;
+    private final int m_portée;
+    public Arme (String nom, int attaque, int portee){
+        this.m_nom = nom;
+        this.m_degats = attaque;
+        this.m_portée = portee;
+    }
+    public String getNom() {
+        return m_nom;
+    }
+
 }
