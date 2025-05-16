@@ -1,6 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
-scale 1
+scale 0.5
+
 
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
@@ -14,19 +15,21 @@ package gameContent
         class Personnage {
             +<<create>> Personnage()
             -m_nom:String
-            -m_race:Race
-            -m_caracteristique:Caracteristique
-            -m_inventaire:List<Armurerie>
-            -m_equipement:Equipement
         }
+
+        Personnage "1" o--> "1-m_caracteristique" gameContent.personnages.Caracteristique : possède >
+        Personnage "1" *--> "1..*-m_inventaire" gameContent.items.Armurerie : possède >
+        Personnage "1" *--> "1-m_equipement" gameContent.items.Equipement : possède >
+        Personnage "1" o--> "1-m_equipement" gameContent.personnages.race.Race : est un.e >
+        Personnage "1" o--> "1-m_classe" gameContent.personnages.classe.Classe : est un.e >
 
         package race {
 
             abstract class Race <<abstract>> {
-                +<<create>> race()
+                +<<create>> Race()
                 -m_type:String
-                -m_caracteristique:Caracteristique
             }
+            Race "1" o--> "1-m_caracteristique" gameContent.personnages.Caracteristique : possède >
 
             class Elfe {
 
@@ -43,8 +46,46 @@ package gameContent
             class Nain {
 
             }
+
+            Humain --|> Race
+            Nain --|> Race
+            Elfe --|> Race
+            Halfelin --|> Race
+
         }
 
+
+        package classe {
+
+            interface Classe <<interface>> {
+                +<<Create>> Classe()
+                -m_
+            }
+            Classe "1" o--> "1-m_caracteristique" gameContent.personnages.Caracteristique : possède des >
+
+            class Clerc {
+
+            }
+
+            class Guerrier {
+
+            }
+
+            class Magicien {
+
+            }
+
+            class Roublard {
+
+            }
+
+            Clerc --|> Classe
+            Guerrier --|> Classe
+            Magicien --|> Classe
+            Roublard --|> Classe
+            Classe --> gameContent.items.Armurerie
+
+        }
 
         class Caracteristique {
             +<<create>> Caracteristique()
@@ -55,11 +96,8 @@ package gameContent
             -m_initiative:Integer
         }
 
-        class Classe {
-            +<<Create>> Classe()
-            -m_nom:String
-            -m_caracteristique:Caracteristique
-        }
+
+
 
 
     }
@@ -69,8 +107,6 @@ package gameContent
 
         class Armurerie {
             +<<Create>> Armurerie():Armurerie
-            -m_armes:List<Armes>
-            -m_armures:List<Armures>
         }
 
         package shield {
@@ -80,11 +116,11 @@ package gameContent
                 -m_
             }
 
-            class lourde {
+            class Lourde extends Armure {
 
             }
 
-            class legere {
+            class Legere extends Armure {
 
             }
 
@@ -98,17 +134,23 @@ package gameContent
                 -m_portee:Integer
             }
 
-            class couranteCaC {
+            class CouranteCaC extends Arme {
+                -m_type:Type
 
             }
 
-            class guerreCaC {
+            class GuerreCaC extends Arme {
 
             }
 
-            class distance {
+            class Distance extends Arme {
 
             }
+
+            Arme "1" o--> "0..*-m_armes" Armurerie : est contenue dans >
+            Armure "1" o--> "0..*m_armure" Armurerie : est contenue dans >
+
+
 
         }
 
@@ -127,6 +169,9 @@ package fontionnement {
 
     class Des {
 
+    }
+
+    package affichage {
     }
 
 }
