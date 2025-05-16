@@ -1,12 +1,17 @@
 package gameContent.personnages.classe;
 
 import gameContent.items.Armurerie;
+import gameContent.personnages.Personnage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Classe {
     protected String m_nom;
-    protected int m_pvs;
-    protected List<Armurerie> m_armurerie = new ArrayList<>();
+    protected Armurerie m_armurerie;
+    protected int pvs = 0;
+
+    public int getPvs() {
+        return pvs;
+    }
 }

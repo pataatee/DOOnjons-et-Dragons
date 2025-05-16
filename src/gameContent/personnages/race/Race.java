@@ -1,10 +1,9 @@
 package gameContent.personnages.race;
 
+import gameContent.personnages.Caracteristiques;
+import gameContent.personnages.Personnage;
+
 public abstract class Race {
     protected String m_nom;
-    protected int m_Force;
-    protected int m_Dexterite;
-    protected int m_Vitesse;
-    protected int m_Initiative;
-    protected int m_Pvs;
+    protected Caracteristiques m_caracteristiques = new Caracteristiques();
 }

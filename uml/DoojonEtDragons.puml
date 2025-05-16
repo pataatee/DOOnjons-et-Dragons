@@ -14,19 +14,17 @@ package gameContent
         class Personnage {
             +<<create>> Personnage()
             -m_nom:String
-            -m_race:Race
-            -m_caracteristique:Caracteristique
-            -m_inventaire:List<Armurerie>
-            -m_equipement:Equipement
         }
         Personnage --> race
         Personnage --> classe
+        Personnage --> Caracteristiques
+        Personnage --> gameContent.items.Armurerie
+        Personnage --> gameContent.items.Equipement
 
         package race{
-            abstract class Race {
+            abstract class Race <<abstract>>{
                 +<<create>> race()
                 -m_type:String
-                -m_caracteristique:Caracteristique
             }
             class Elfe {
             }
@@ -41,6 +39,7 @@ package gameContent
             Elfe --|> Race
             Halfelin --|> Race
         }
+        Race --> Caracteristiques
 
         class Caracteristiques {
             +<<create>> Caracteristiques()
@@ -51,11 +50,10 @@ package gameContent
             -m_initiative:Integer
         }
         package classe{
-            abstract class Classe {
+            abstract class Classe <<abstract>> {
                 +<<Create>> Classe()
                 -m_nom:String
                 -m_pvs:Integer
-                -m_armurerie:Armurerie
             }
             class Clerc {
             }
@@ -71,24 +69,29 @@ package gameContent
             Roublard --|> Classe
             Classe --> gameContent.items.Armurerie
         }
-
-
     }
 
     package items
     {
 
         class Armurerie {
-            +<<Create>> Armurerie():Armurerie
-            -m_armes:List<Armes>
-            -m_armures:List<Armures>
+            +<<Create>> Armurerie()
+
         }
+        Armurerie --> shield.Armure
+        Armurerie -->  weapons.Arme
+
+        class Equipement {
+            +<<Create>> Equipement()
+        }
+        Equipement --> shield.Armure
+        Equipement --> weapons.Arme
 
         package shield {
 
-            class Armure {
+            abstract class Armure <<abstract>> {
                 -m_nom:String
-                -m_
+                -m_classeArmure:Integer
             }
 
             class ArmureLourde {
@@ -98,6 +101,8 @@ package gameContent
             class Armurelegere {
 
             }
+            Armurelegere --|> Armure
+            ArmureLourde --|> Armure
 
         }
 
@@ -113,13 +118,16 @@ package gameContent
 
             }
 
-            class ArneGuerre {
+            class ArmeGuerre {
 
             }
 
             class ArmeDistance {
 
             }
+            ArmeCourante --|> Arme
+            ArmeDistance --|> Arme
+            ArmeGuerre --|> Arme
 
         }
 
@@ -143,8 +151,5 @@ package mdj {
     class Map{
     }
 }
-
-
-
 
 @enduml
