@@ -17,7 +17,7 @@ package gameContent
             -m_nom:String
         }
 
-        Personnage "1" o--> "1-m_caracteristique" gameContent.personnages.Caracteristique : possède >
+        Personnage "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
         Personnage "1" *--> "1..*-m_inventaire" gameContent.items.Armurerie : possède >
         Personnage "1" *--> "1-m_equipement" gameContent.items.Equipement : possède >
         Personnage "1" o--> "1-m_equipement" gameContent.personnages.race.Race : est un.e >
@@ -29,7 +29,7 @@ package gameContent
                 +<<create>> Race()
                 -m_type:String
             }
-            Race "1" o--> "1-m_caracteristique" gameContent.personnages.Caracteristique : possède >
+            Race "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
 
             class Elfe {
 
@@ -59,9 +59,9 @@ package gameContent
 
             interface Classe <<interface>> {
                 +<<Create>> Classe()
-                -m_
+
             }
-            Classe "1" o--> "1-m_caracteristique" gameContent.personnages.Caracteristique : possède des >
+            Classe "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède des >
 
             class Clerc {
 
@@ -79,6 +79,8 @@ package gameContent
 
             }
 
+
+
             Clerc --|> Classe
             Guerrier --|> Classe
             Magicien --|> Classe
@@ -87,26 +89,70 @@ package gameContent
 
         }
 
-        class Caracteristique {
+        abstract class Caracteristique <<abstract>> {
             +<<create>> Caracteristique()
             -m_pv:Integer
             -m_force:Integer
             -m_dexterite:Integer
-            -m_vitesse:Integer
             -m_initiative:Integer
+            +getPv():Integer
+            +getForce():Integer
+            +getDexterite():Integer
+            +getInitiative():Integer
         }
 
 
 
+        class CaracteristiqueMonstre {
+            -m_classeArmure:Integer
+            +getClassArmure():Integer
+        }
+
+        class CaracteristiquePersonnage {
+            -m_vitesse:Integer
+            +getVitesse():Integer
+        }
+
+        CaracteristiqueMonstre --|> Caracteristique
+        CaracteristiquePersonnage --|> Caracteristique
+
+
+
+
+    package monstre {
+        
+        class Monstre {
+            +<<create>> Monstre():Monstre
+            -m_espece:String
+            -m_numero:Integer
+            +getEspece():String
+            +getNumero():Integer
+            +attaquer():Integer
+        }
+        Monstre "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiqueMonstre
+        Attaque "1" o--> "1-m_caracteristique" gameContent.personnages.monstre.Attaque
+
+
+        class Attaque {
+            -m_nom:String
+            -m_portee:Integer
+            -m_degats:Integer
+            +getNom():String
+            +getPortee():Integer
+            +getDegats():Integer
+        }
+
+    }
 
 
     }
 
+
     package items
     {
 
-        class Armurerie {
-            +<<Create>> Armurerie():Armurerie
+        class Inventaire {
+            +<<Create>> Inventaire():Inventaire
         }
 
         package shield {
