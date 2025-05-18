@@ -15,16 +15,16 @@ package gameContent
             +<<create>> Personnage()
             -m_nom:String
         }
-        Personnage --> race
-        Personnage --> classe
+        Personnage --> race.Race
+        Personnage --> classe.Classe
         Personnage --> Caracteristiques
         Personnage --> gameContent.items.Armurerie
         Personnage --> gameContent.items.Equipement
 
         package race{
             abstract class Race <<abstract>>{
-                +<<create>> race()
-                -m_type:String
+                +<<create>> Race()
+                #m_type:String
             }
             class Elfe {
             }
@@ -52,8 +52,8 @@ package gameContent
         package classe{
             abstract class Classe <<abstract>> {
                 +<<Create>> Classe()
-                -m_nom:String
-                -m_pvs:Integer
+                #m_nom:String
+                #m_pvs:Integer
             }
             class Clerc {
             }
@@ -75,8 +75,13 @@ package gameContent
     {
 
         class Armurerie {
+            -m_armes:List<Arme>
+            -m_armures:List<Armure>
             +<<Create>> Armurerie()
-
+            +getM_armes():List<Arme>
+            +getM_armures():List<Armure>
+            +addM_armes(Arme)
+            +addM_armures(Armure)
         }
         Armurerie --> shield.Armure
         Armurerie -->  weapons.Arme
@@ -90,8 +95,8 @@ package gameContent
         package shield {
 
             abstract class Armure <<abstract>> {
-                -m_nom:String
-                -m_classeArmure:Integer
+                #m_nom:String
+                #m_classeArmure:Integer
             }
 
             class ArmureLourde {
@@ -109,9 +114,9 @@ package gameContent
         package weapons {
 
             abstract class Arme <<abstract>> {
-                -m_nom:String
-                -m_degat:Integer
-                -m_portee:Integer
+                #m_nom:String
+                #m_degat:Integer
+                #m_portee:Integer
             }
 
             class ArmeCourante {
@@ -149,7 +154,26 @@ package de {
 }
 package mdj {
     class Map{
+    -m_map:Integer[15][25]
+    +createRandomMap():Integer[15][25]
+    +getM_map():Integer[15][25]
+    +createOwnMap():Integer[15][25]
     }
+    class Mdj{
+    -m_nbJoueurs:Integer
+    -m_joueurs:Personnage[m_nbJoueurs]
+    -m_tour:Integer
+    +<<Create>> Mdj()
+    +getM_nbJoueurs():Integer
+    +getM_joueurs():Personnage[m_nbJoueurs]
+    +getM_map():Map
+    +chooseRace():Race
+    +chooseClasse():Classe
+    +createJoueur():Personnage
+    }
+    Mdj o--> De
+    Mdj --> Map
+    Mdj --> gameContent.personnages.Personnage
 }
 
 @enduml
