@@ -120,7 +120,7 @@ package gameContent
 
 
     package monstre {
-        
+
         class Monstre {
             +<<create>> Monstre():Monstre
             -m_espece:String
