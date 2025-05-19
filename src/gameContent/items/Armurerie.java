@@ -1,0 +1,23 @@
+package gameContent.items;
+
+import gameContent.items.armes.Arme;
+import gameContent.items.armures.Armure;
+import java.util.List;
+public class Armurerie {
+    private List<Arme> m_armes;
+    private List<Armure> m_armures;
+
+    public List<Arme> getM_armes() {
+        return m_armes;
+    }
+    public void addM_armes(Arme m_armes) {
+        this.m_armes.add(m_armes);
+    }
+    public List<Armure> getM_armures() {
+        return m_armures;
+    }
+    public void addM_armures(Armure m_armures) {
+        this.m_armures.add(m_armures);
+    }
+}
+
