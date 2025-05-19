@@ -7,6 +7,19 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
+package affichage{
+    class Affichage {
+        +afficherCarte(Map)
+        +afficherJoueur(Personnage)
+        +afficherMonstre(Monstre)
+        +afficherArme(Arme)
+        +afficherArmure(Armure)
+        +afficher(String)
+        +afficherErreur(String)
+        +afficherAction(String)
+    }
+
+}
 package gameContent
 {
     package personnages
@@ -14,12 +27,14 @@ package gameContent
         class Personnage {
             +<<create>> Personnage()
             -m_nom:String
+            +attaquer(Monstre)
         }
-        Personnage --> race.Race
-        Personnage --> classe.Classe
-        Personnage --> Caracteristiques
-        Personnage --> gameContent.items.Armurerie
-        Personnage --> gameContent.items.Equipement
+        Personnage "1" --> "1"race.Race : appartient à >
+        Personnage "1"--> "1"classe.Classe : est >
+        Personnage "1"--> "1"caracteristiques.CaracteristiquePersonnage : possède des >
+        Personnage "1"--> "1"gameContent.items.Armurerie:possède >
+        Personnage "1"--> "1"gameContent.items.Equipement:possède >
+        Personnage .> monstre.Monstre : <<utilise>>
 
         package race{
             abstract class Race <<abstract>>{
@@ -39,19 +54,29 @@ package gameContent
             Elfe --|> Race
             Halfelin --|> Race
         }
-        Race --> Caracteristiques
+        Race "1"--> "1"caracteristiques.CaracteristiquePersonnage: possède des >
 
-        class Caracteristiques {
-            +<<create>> Caracteristiques()
-            -m_pv:Integer
-            -m_force:Integer
-            -m_dexterite:Integer
-            -m_vitesse:Integer
-            -m_initiative:Integer
+        package caracteristiques{
+            abstract class Caracteristiques <<abstract>> {
+                +<<create>> Caracteristiques()
+                #m_pv:Integer
+                #m_force:Integer
+                #m_dexterite:Integer
+                #m_vitesse:Integer
+                #m_initiative:Integer
+            }
+            class CaracteristiqueMonstre {
+                -m_classeArmure:Integer
+                +getClassArmure():Integer
+            }
+            class CaracteristiquePersonnage {
+            }
+            CaracteristiquePersonnage --|> Caracteristiques
+            CaracteristiqueMonstre --|> Caracteristiques
         }
         package classe{
             abstract class Classe <<abstract>> {
-                +<<Create>> Classe()
+                +<<create>> Classe()
                 #m_nom:String
                 #m_pvs:Integer
             }
@@ -63,38 +88,52 @@ package gameContent
             }
             class Roublard {
             }
+            Classe "1" --> "1"gameContent.items.Armurerie
             Clerc --|> Classe
             Guerrier --|> Classe
             Magicien --|> Classe
             Roublard --|> Classe
-            Classe --> gameContent.items.Armurerie
+
         }
+        package monstre {
+            class Monstre {
+                +<<create>> Monstre():Monstre
+                -m_espece:String
+                -m_numero:Integer
+                +getEspece():String
+                +getNumero():Integer
+                +attaquer(Personnage)
+            }
+            Monstre "1" o--> "1" gameContent.personnages.caracteristiques.CaracteristiqueMonstre
+            Monstre .> Personnage :>
+        }
+
     }
 
     package items
     {
-
         class Armurerie {
-            -m_armes:List<Arme>
-            -m_armures:List<Armure>
-            +<<Create>> Armurerie()
-            +getM_armes():List<Arme>
-            +getM_armures():List<Armure>
+            +<<create>> Armurerie()
+            +getM_armes():Arme[*]
+            +getM_armures():Armure[*]
             +addM_armes(Arme)
             +addM_armures(Armure)
+            +delM_armes(Arme)
+            +delM_armures(Armure)
         }
-        Armurerie --> shield.Armure
-        Armurerie -->  weapons.Arme
+        Armurerie "1" --> "0..*" armures.Armure:possède >
+        Armurerie "1" --> "0..*" armes.Arme:possède >
 
         class Equipement {
             +<<Create>> Equipement()
         }
-        Equipement --> shield.Armure
-        Equipement --> weapons.Arme
+        Equipement "1"--> "0..1"armures.Armure
+        Equipement "1"--> "0..1"armes.Arme
 
-        package shield {
+        package armures {
 
             abstract class Armure <<abstract>> {
+                +<<create>> Armure()
                 #m_nom:String
                 #m_classeArmure:Integer
             }
@@ -111,9 +150,10 @@ package gameContent
 
         }
 
-        package weapons {
+        package armes {
 
             abstract class Arme <<abstract>> {
+                +<<create>> Arme()
                 #m_nom:String
                 #m_degat:Integer
                 #m_portee:Integer
@@ -135,12 +175,6 @@ package gameContent
             ArmeGuerre --|> Arme
 
         }
-
-
-
-
-
-
     }
 }
 
@@ -148,7 +182,7 @@ package de {
     class De {
         -m_faces
         -m_nbdedes
-        +<<Create>> De(int, int):De
+        +<<create>> De(int, int):De
         +lancerde():int
     }
 }
@@ -159,11 +193,14 @@ package mdj {
     +getM_map():Integer[15][25]
     +createOwnMap():Integer[15][25]
     }
+    Map "1" *--> "1..*" Monstre : contient >
+    Map "1" *--> "1..*" Personnage : contient >
+
     class Mdj{
     -m_nbJoueurs:Integer
     -m_joueurs:Personnage[m_nbJoueurs]
     -m_tour:Integer
-    +<<Create>> Mdj()
+    +<<create>> Mdj()
     +getM_nbJoueurs():Integer
     +getM_joueurs():Personnage[m_nbJoueurs]
     +getM_map():Map
@@ -171,9 +208,10 @@ package mdj {
     +chooseClasse():Classe
     +createJoueur():Personnage
     }
-    Mdj o--> De
-    Mdj --> Map
-    Mdj --> gameContent.personnages.Personnage
+    Mdj "1"-->"1" Map
+    Mdj "1" --> "0..*" gameContent.personnages.Personnage
+    Mdj .> affichage.Affichage:Utilise
+    Mdj .> De :<<utilise>>
 }
 
 @enduml
