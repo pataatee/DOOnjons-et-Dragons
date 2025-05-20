@@ -7,6 +7,6 @@ public class Magicien extends Classe {
         this.m_nom = "Magicien";
         this.m_armurerie.addM_armes(ArmeCourante.Baton);
         this.m_armurerie.addM_armes(ArmeDistance.Fronde);
-        //this.m_personnage.getM_caracteristiques().setM_pvs(1);
+        this.m_pvs=12;
     }
 }

@@ -13,27 +13,26 @@ public class Personnage {
     protected Race m_race;
     protected Classe m_classe;
     protected Caracteristiques m_caracteristiques;
-    protected Armurerie m_inventaire;
+    protected Armurerie m_inventaire = new Armurerie();
     protected Equipement m_equipements;
 
     public Personnage(String nom, Race race, Classe classe){
         this.m_nom = nom;
         this.m_race = race;
         this.m_classe = classe;
-        race.SetM_pers(this);
-        race.getM_pers().setM_caracteristiques(this.m_caracteristiques);
-        classe.SetM_personnage(this);
-        //TODO s'occuper de Classe, y'a un pb avec les pvs et les caractéritiques
+        this.setM_caracteristiques(this.m_race.getM_caracteristiques());
+        this.setM_inventaire(this.m_classe.getM_armurerie());
+        this.m_caracteristiques.setM_pvs(this.m_classe.getM_Pvs());
     }
     public String getM_nom(){
         return m_nom;
     }
 
-    public void setM_inventaire(List<Armurerie> inventaire) {
+    public void setM_inventaire(Armurerie inventaire) {
         this.m_inventaire = inventaire;
     }
 
-    public List<Armurerie> getM_inventaire(){
+    public Armurerie getM_inventaire(){
         return this.m_inventaire;
     }
 

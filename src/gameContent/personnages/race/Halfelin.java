@@ -10,7 +10,5 @@ public class Halfelin extends Race{
         this.m_caracteristiques.setM_vitesse(2);
     }
 
-    public String getNom() {
-        return m_nom;
-    }
+
 }

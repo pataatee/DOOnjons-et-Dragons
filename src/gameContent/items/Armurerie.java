@@ -2,10 +2,17 @@ package gameContent.items;
 
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
+
+import java.util.ArrayList;
 import java.util.List;
 public class Armurerie {
     private List<Arme> m_armes;
     private List<Armure> m_armures;
+
+    public Armurerie(){
+        this.m_armures = new ArrayList<Armure>();
+        this.m_armes = new ArrayList<Arme>();
+    }
 
     public List<Arme> getM_armes() {
         return m_armes;
