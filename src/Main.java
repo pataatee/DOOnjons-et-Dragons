@@ -3,6 +3,7 @@ import gameContent.personnages.Personnage;
 import gameContent.personnages.race.*;
 import gameContent.personnages.classe.*;
 import mdj.Map;
+import mdj.Mdj;
 
 public class Main {
     public static void main(String args[]) {
@@ -20,11 +21,13 @@ public class Main {
         System.out.println(pers1.getM_caracteristiques().getM_dexterite());
         System.out.println(pers1.getM_caracteristiques().getM_pvs());*/
 
-        Map map = new Map();
+        /*Map map = new Map();
         affichage.Affichage.afficherMap(map);
         Map map2 = new Map(15,20);
         affichage.Affichage.afficherMap(map2);
         Map map3 = new Map(10,12);
-        affichage.Affichage.afficherMap(map3);
+        affichage.Affichage.afficherMap(map3);*/
+
+        Mdj mdj = new Mdj();
     }
 }

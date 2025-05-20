@@ -1,4 +1,4 @@
 package gameContent.personnages.classe;
 
-public class Roublard {
+public class Roublard extends Classe {
 }

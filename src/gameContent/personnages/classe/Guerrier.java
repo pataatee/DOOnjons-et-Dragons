@@ -1,4 +1,4 @@
 package gameContent.personnages.classe;
 
-public class Guerrier {
+public class Guerrier extends Classe {
 }

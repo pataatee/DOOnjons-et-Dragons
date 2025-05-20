@@ -1,4 +1,4 @@
 package gameContent.personnages.classe;
 
-public class Clerc {
+public class Clerc extends Classe {
 }
