@@ -1,8 +1,5 @@
 package gameContent.personnages;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
 import gameContent.personnages.classe.Classe;

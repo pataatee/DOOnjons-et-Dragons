@@ -7,10 +7,7 @@ public class Caracteristiques {
     private int m_dexterite = 0;
     private int m_vitesse= 0;
     private int m_initiative=0;
-    public Caracteristiques(Personnage pers){
-        this.m_pers = pers;
-        M_pers_set_Caracteristiques();
-    }
+
     public Caracteristiques(){}
 
     public int getM_pvs() {
@@ -51,9 +48,5 @@ public class Caracteristiques {
 
     public void setM_vitesse(int m_vitesse) {
         this.m_vitesse += m_vitesse;
-    }
-
-    public void M_pers_set_Caracteristiques(){
-        this.m_pers.setM_caracteristiques(this);
     }
 }

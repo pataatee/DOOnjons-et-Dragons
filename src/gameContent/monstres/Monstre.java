@@ -5,8 +5,11 @@ import gameContent.personnages.Caracteristiques;
 public class Monstre {
     private String m_espece;
     private int m_numero;
-    private int m_attaque_portee;
-    private int m_attaque_degats;
+    private Attaque m_attaque;
     private Caracteristiques m_caracteristiques;
-    private int m_armure;
+
+    public Monstre(String espece, int numero) {
+        this.m_espece = espece;
+        this.m_numero = numero;
+    }
 }
