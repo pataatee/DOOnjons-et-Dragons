@@ -13,6 +13,8 @@ public abstract class Caracteristique {
         m_initiative = initiative;
     }
 
+    // methodes get
+
     public int getPv() {
         return m_pv;
     }
@@ -28,4 +30,43 @@ public abstract class Caracteristique {
     public int getInitiative() {
         return m_initiative;
     }
+
+
+    // methodes modify
+
+    public void modifyPvs(int pv) {
+        this.m_pv = pv;
+    }
+
+    public void modifyForce(int force) {
+        this.m_force = force;
+    }
+
+    public void modifyDexterite(int dex) {
+        this.m_dexterite = dex;
+    }
+
+    public void modifyInitiative(int ini) {
+        this.m_initiative = ini;
+    }
+
+
+    // methodes bonus
+
+    public void bonusPv(int bonus) {
+        this.m_pv += bonus;
+    }
+
+    public void bonusForce(int bonus) {
+        this.m_force += bonus;
+    }
+
+    public void bonusDexterite(int bonus) {
+        this.m_dexterite += bonus;
+    }
+
+    public void bonusInitiative(int bonus) {
+        this.m_initiative += bonus;
+    }
+
 }

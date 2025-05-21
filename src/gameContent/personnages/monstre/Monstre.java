@@ -2,6 +2,7 @@ package gameContent.personnages.monstre;
 import gameContent.*;
 import gameContent.personnages.Caracteristique;
 import gameContent.personnages.CaracteristiqueMonstre;
+import gameContent.personnages.Personnage;
 
 public class Monstre {
     private String m_espece;
@@ -17,26 +18,22 @@ public class Monstre {
     }
 
     public Monstre(int numero, CaracteristiqueMonstre caracteristique, Attaque attaque) {
-        m_espece = "dragon";
-        m_numero = numero;
-        m_caracteristique = caracteristique;
-        m_attaque = attaque;
+        this("dragon", numero, caracteristique, attaque);
     }
 
     public Monstre(int numero, CaracteristiqueMonstre caracteristique) {
-        m_espece = "dragon";
-        m_numero = numero;
-        m_caracteristique = caracteristique;
-        Attaque attaque = new Attaque("rafale de feu", 5, 50); //degats a modif bcs c sense etre selon les des
-        m_attaque = attaque;
+        this(numero, caracteristique, new Attaque("rafale de feu", 5, 50));
     }
 
-    public boolean attaquerPersonnage() {
+    public boolean attaquerPersonnage(Personnage perso) {
         //on utilise m_attaque
         //perso touché -> pv-degats
         //return true si on a touché, false sinon
         //dit qqch de diff si oui ou nn a touché sa cible
-        return false;
+        int pvPerso = perso.getCaracteriques().getPv();
+        pvPerso -= m_attaque.getDegats();
+        perso.getCaracteriques().modifyPvs(pvPerso);
+        return true;
     }
 
     public void seDeplacer() {

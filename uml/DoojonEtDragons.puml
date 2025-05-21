@@ -17,11 +17,11 @@ package gameContent
             -m_nom:String
         }
 
-        Personnage "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
+        Personnage "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
         Personnage "1" *--> "1..*-m_inventaire" gameContent.items.Armurerie : possède >
         Personnage "1" *--> "1-m_equipement" gameContent.items.Equipement : possède >
-        Personnage "1" o--> "1-m_equipement" gameContent.personnages.race.Race : est un.e >
-        Personnage "1" o--> "1-m_classe" gameContent.personnages.classe.Classe : est un.e >
+        Personnage "1" *--> "1-m_equipement" gameContent.personnages.race.Race : est un.e >
+        Personnage "1" *--> "1-m_classe" gameContent.personnages.classe.Classe : est un.e >
 
         package race {
 
@@ -29,7 +29,7 @@ package gameContent
                 +<<create>> Race()
                 -m_type:String
             }
-            Race "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
+            Race "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
 
             class Elfe {
 
@@ -61,7 +61,7 @@ package gameContent
                 +<<Create>> Classe()
 
             }
-            Classe "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède des >
+            Classe "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède des >
 
             class Clerc {
 
@@ -180,7 +180,7 @@ package gameContent
             }
 
             class CouranteCaC extends Arme {
-                -m_type:Type
+                -m_nom:String
 
             }
 

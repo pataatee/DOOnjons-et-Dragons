@@ -198,7 +198,6 @@ package mdj {
 
     class Mdj{
     -m_nbJoueurs:Integer
-    -m_joueurs:Personnage[m_nbJoueurs]
     -m_tour:Integer
     +<<create>> Mdj()
     +getM_nbJoueurs():Integer
@@ -208,6 +207,7 @@ package mdj {
     +chooseClasse():Classe
     +createJoueur():Personnage
     }
+    Mdj "1" *--> "1..* m_joueurs" gameContent.personnages.Personnage
     Mdj "1"-->"1" Map
     Mdj "1" --> "0..*" gameContent.personnages.Personnage
     Mdj .> affichage.Affichage:Utilise
