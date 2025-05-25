@@ -1,0 +1,223 @@
+@startuml
+'https://plantuml.com/class-diagram
+scale 1
+
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+package gameContent
+{
+    package personnages
+    {
+        class Personnage {
+            +<<create>> Personnage()
+            -m_nom:String
+        }
+
+        Personnage "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
+        Personnage "1" *--> "1..*-m_inventaire" gameContent.items.Armurerie : possède >
+        Personnage "1" *--> "1-m_equipement" gameContent.items.Equipement : possède >
+        Personnage "1" *--> "1-m_equipement" gameContent.personnages.race.Race : est un.e >
+        Personnage "1" *--> "1-m_classe" gameContent.personnages.classe.Classe : est un.e >
+
+        package race {
+
+            abstract class Race <<abstract>> {
+                +<<create>> Race()
+                -m_type:String
+            }
+            Race "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
+
+            class Elfe {
+
+            }
+
+            class Halfelin {
+
+            }
+
+            class Humain {
+
+            }
+
+            class Nain {
+
+            }
+
+            Humain --|> Race
+            Nain --|> Race
+            Elfe --|> Race
+            Halfelin --|> Race
+
+        }
+
+
+        package classe {
+
+            interface Classe <<interface>> {
+                +<<Create>> Classe()
+
+            }
+            Classe "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède des >
+
+            class Clerc {
+
+            }
+
+            class Guerrier {
+
+            }
+
+            class Magicien {
+
+            }
+
+            class Roublard {
+
+            }
+
+
+
+            Clerc --|> Classe
+            Guerrier --|> Classe
+            Magicien --|> Classe
+            Roublard --|> Classe
+            Classe --> gameContent.items.Armurerie
+
+        }
+
+        abstract class Caracteristique <<abstract>> {
+            +<<create>> Caracteristique()
+            -m_pv:Integer
+            -m_force:Integer
+            -m_dexterite:Integer
+            -m_initiative:Integer
+            +getPv():Integer
+            +getForce():Integer
+            +getDexterite():Integer
+            +getInitiative():Integer
+        }
+
+
+
+        class CaracteristiqueMonstre {
+            -m_classeArmure:Integer
+            +getClassArmure():Integer
+        }
+
+        class CaracteristiquePersonnage {
+            -m_vitesse:Integer
+            +getVitesse():Integer
+        }
+
+        CaracteristiqueMonstre --|> Caracteristique
+        CaracteristiquePersonnage --|> Caracteristique
+
+
+
+
+    package monstre {
+
+        class Monstre {
+            +<<create>> Monstre():Monstre
+            -m_espece:String
+            -m_numero:Integer
+            +getEspece():String
+            +getNumero():Integer
+            +attaquer():Integer
+        }
+        Monstre "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiqueMonstre
+        Attaque "1" o--> "1-m_caracteristique" gameContent.personnages.monstre.Attaque
+
+
+        class Attaque {
+            -m_nom:String
+            -m_portee:Integer
+            -m_degats:Integer
+            +getNom():String
+            +getPortee():Integer
+            +getDegats():Integer
+        }
+
+    }
+
+    }
+
+
+    package items
+    {
+
+        class Inventaire {
+            +<<Create>> Inventaire():Inventaire
+        }
+
+        package shield {
+
+            class Armure {
+                -m_nom:String
+                -m_
+            }
+
+            class Lourde extends Armure {
+
+            }
+
+            class Legere extends Armure {
+
+            }
+
+        }
+
+        package weapons {
+
+            abstract class Arme <<abstract>> {
+                -m_nom:String
+                -m_degat:Integer
+                -m_portee:Integer
+            }
+
+            class CouranteCaC extends Arme {
+                -m_nom:String
+
+            }
+
+            class GuerreCaC extends Arme {
+
+            }
+
+            class Distance extends Arme {
+
+            }
+
+            Arme "1" o--> "0..*-m_armes" Armurerie : est contenue dans >
+            Armure "1" o--> "0..*m_armure" Armurerie : est contenue dans >
+
+
+
+        }
+
+        class Equipement {
+            -m_arme:Arme
+            -m_armure:Armure
+        }
+
+
+
+
+    }
+}
+
+package fontionnement {
+
+    class Des {
+
+    }
+
+    package affichage {
+    }
+
+}
+@enduml
