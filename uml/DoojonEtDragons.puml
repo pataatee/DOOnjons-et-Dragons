@@ -63,8 +63,7 @@ package gameContent
             Elfe --|> Race
             Halfelin --|> Race
         }
-        Race "1"*--> "1"caracteristiques.CaracteristiquePersonnage: possède des >
-
+        Race "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
         package caracteristiques{
             abstract class Caracteristiques <<abstract>> {
                 +<<create>> Caracteristiques()

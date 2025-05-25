@@ -11,7 +11,7 @@ public class Personnage {
     protected String m_nom;
     protected Race m_race;
     protected Classe m_classe;
-    protected Caracteristiques m_caracteristiques;
+    protected CaracteristiquesPersonnage m_caracteristiques;
     protected Armurerie m_inventaire = new Armurerie();
     protected Equipement m_equipements = new Equipement();
 
@@ -35,16 +35,29 @@ public class Personnage {
         return this.m_inventaire;
     }
 
-    public void setM_caracteristiques(Caracteristiques caracteristiques){
+    public void setM_caracteristiques(CaracteristiquesPersonnage caracteristiques){
         this.m_caracteristiques = caracteristiques;
 
     }
-    public Caracteristiques getM_caracteristiques(){
+    public CaracteristiquesPersonnage getM_caracteristiques(){
         return this.m_caracteristiques;
     }
     public int getPvs(){
         return this.m_caracteristiques.getM_pvs(); //TODO faire le reste
     }
+
+    public int getForce() {
+        return m_caracteristiques.getForce();
+    }
+
+    public int getDexterite() {
+        return m_caracteristiques.getDexterite();
+    }
+
+    public int getInitiative() {
+        return m_caracteristiques.getInitiative();
+    }
+
 
     public String getNom() {
         return this.m_nom;
