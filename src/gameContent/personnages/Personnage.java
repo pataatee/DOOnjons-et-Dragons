@@ -2,6 +2,8 @@ package gameContent.personnages;
 
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
+import gameContent.items.armes.Arme;
+import gameContent.items.armures.Armure;
 import gameContent.personnages.classe.Classe;
 import gameContent.personnages.race.Race;
 
@@ -11,7 +13,7 @@ public class Personnage {
     protected Classe m_classe;
     protected Caracteristiques m_caracteristiques;
     protected Armurerie m_inventaire = new Armurerie();
-    protected Equipement m_equipements;
+    protected Equipement m_equipements = new Equipement();
 
     public Personnage(String nom, Race race, Classe classe){
         this.m_nom = nom;
@@ -39,5 +41,19 @@ public class Personnage {
     }
     public Caracteristiques getM_caracteristiques(){
         return this.m_caracteristiques;
+    }
+    public int getPvs(){
+        return this.m_caracteristiques.getM_pvs(); //TODO faire le reste
+    }
+
+    public String getNom() {
+        return this.m_nom;
+    }
+
+    public Arme getArme_equipee() {
+        return this.m_equipements.getM_arme();
+    }
+    public Armure getArmure_equipee() {
+        return this.m_equipements.getM_armure();
     }
 }

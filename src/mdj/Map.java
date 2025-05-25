@@ -2,6 +2,9 @@ package mdj;
 
 import affichage.Affichage;
 
+import java.util.Random;
+
+
 public class Map {
     private int[][] m_carte;
     private int m_longueur;
@@ -18,7 +21,23 @@ public class Map {
         }
         this.m_longueur = longueur;
         this.m_largeur = largeur;
-        this.createMap();
+        this.m_carte = new int[this.m_longueur][this.m_largeur];
+        demanderMap();
+    }
+
+    public void demanderMap(){
+        Affichage.afficher("Voulez vous une map random (O/N) ?");
+        String choix = affichage.Affichage.ScanString();
+        if (choix.equals("O")||(choix.equals("o"))){
+            createRandomMap();
+        }
+        else if (choix.equals("N")||(choix.equals("n"))) {
+            this.createMap();
+        }
+        else {
+            Affichage.afficherErreur("Choix non valide");
+            demanderMap();
+        }
     }
 
     public void createMap(){
@@ -37,6 +56,14 @@ public class Map {
     }
     public int getM_largeur(){
         return m_largeur;
+    }
+
+    public void createRandomMap(){
+        Random random = new Random();
+        int obstacles = random.nextInt((this.m_longueur * this.m_largeur) / 8, (this.m_longueur * this.m_largeur) / 12);
+        int monstres = random.nextInt(3, 5);
+        int tresors = random.nextInt(2, 4);
+
     }
 }
 

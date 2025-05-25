@@ -13,6 +13,11 @@ public class Equipement {
         this.m_arme = arme;
         this.m_armure = armure;
     }
+    public void Equipement(){
+        this.m_arme = null;
+        this.m_armure = null;
+    }
+
 
     public Arme getM_arme() {
         return m_arme;

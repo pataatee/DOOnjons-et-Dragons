@@ -1,6 +1,11 @@
 package affichage;
 
+import gameContent.items.armes.Arme;
+import gameContent.items.armures.Armure;
+import gameContent.personnages.Personnage;
 import mdj.Map;
+
+import java.util.Scanner;
 
 public class Affichage {
 
@@ -13,6 +18,7 @@ public class Affichage {
     }
 
     public static void afficherMap(Map map) {
+        afficherlignelettremap(map.getM_largeur());
         affichelignemap(map.getM_largeur());
 
         for (int i = 0; i< map.getM_longueur();i++){
@@ -44,5 +50,61 @@ public class Affichage {
         }
         System.out.print("-*");
         System.out.println();
+    }
+    public static void afficherlignelettremap(int largeur){
+        System.out.print("      ");
+        for (int i = 65; i <= (64+largeur); i++) {
+            System.out.print((char) i + "  ");
+        }
+        System.out.println();
+    }
+
+    public static String ScanString() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextLine();
+    }
+    public static int ScanInt() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextInt();
+    }
+
+    public static void afficherTour(int tour, Personnage pers, Map map){
+        afficher("---------------------------------------------------");
+        afficher("                Tour n°" + tour);
+        afficher("             Personnage : " + pers.getNom());
+        afficher("---------------------------------------------------");
+        afficher("");
+        afficher("Vie : " +pers.getPvs()); //TODO creer un maxPVS, on a zappé et on en a besoin
+
+        if (pers.getArme_equipee()!= null){
+            afficher("Arme : " + pers.getArme_equipee().getNom());
+        }
+        else {
+            afficher("Arme : Non Equipé");
+        }
+
+        if (pers.getArmure_equipee() != null){
+            afficher("Armure : " + pers.getArmure_equipee().getNom());
+        }
+        else {
+            afficher("Armure : Non Equipé");
+        }
+
+
+
+        String inventaire = "";
+        for (Arme arme : pers.getM_inventaire().getM_armes()){ //TODO a modif car pas droit a double getteur
+            inventaire += arme.getNom() + " - ";
+        }
+        for (Armure armure : pers.getM_inventaire().getM_armures()){ //TODO a modif car pas droit a double getteur
+            inventaire += armure.getNom() + " - ";
+        }
+        afficher("Inventaire : " + inventaire);
+
+        afficher("");
+        afficherMap(map);
+
+
+
     }
 }
