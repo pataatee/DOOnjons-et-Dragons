@@ -11,7 +11,7 @@ public class Personnage {
     protected String m_nom;
     protected Race m_race;
     protected Classe m_classe;
-    protected CaracteristiquesPersonnage m_caracteristiques;
+    protected CaracteristiquePersonnage m_caracteristiques;
     protected Armurerie m_inventaire = new Armurerie();
     protected Equipement m_equipements = new Equipement();
 
@@ -21,7 +21,7 @@ public class Personnage {
         this.m_classe = classe;
         this.setM_caracteristiques(this.m_race.getM_caracteristiques());
         this.setM_inventaire(this.m_classe.getM_armurerie());
-        this.m_caracteristiques.setM_pvs(this.m_classe.getM_Pvs());
+        this.m_caracteristiques.bonusPvs(this.m_classe.getM_Pvs());
     }
     public String getM_nom(){
         return m_nom;
@@ -35,15 +35,15 @@ public class Personnage {
         return this.m_inventaire;
     }
 
-    public void setM_caracteristiques(CaracteristiquesPersonnage caracteristiques){
+    public void setM_caracteristiques(CaracteristiquePersonnage caracteristiques){
         this.m_caracteristiques = caracteristiques;
 
     }
-    public CaracteristiquesPersonnage getM_caracteristiques(){
+    public CaracteristiquePersonnage getM_caracteristiques(){
         return this.m_caracteristiques;
     }
     public int getPvs(){
-        return this.m_caracteristiques.getM_pvs(); //TODO faire le reste
+        return this.m_caracteristiques.getPvs(); //TODO faire le reste
     }
 
     public int getForce() {
@@ -56,6 +56,10 @@ public class Personnage {
 
     public int getInitiative() {
         return m_caracteristiques.getInitiative();
+    }
+
+    public CaracteristiquePersonnage getCaracteristiques(){
+        return m_caracteristiques;
     }
 
 

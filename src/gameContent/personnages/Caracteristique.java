@@ -15,7 +15,7 @@ public abstract class Caracteristique {
 
     // methodes get
 
-    public int getPv() {
+    public int getPvs() {
         return m_pv;
     }
 
@@ -53,7 +53,7 @@ public abstract class Caracteristique {
 
     // methodes bonus
 
-    public void bonusPv(int bonus) {
+    public void bonusPvs(int bonus) {
         this.m_pv += bonus;
     }
 

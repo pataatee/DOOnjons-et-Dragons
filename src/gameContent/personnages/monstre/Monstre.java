@@ -1,5 +1,4 @@
 package gameContent.personnages.monstre;
-import gameContent.*;
 import gameContent.personnages.Caracteristique;
 import gameContent.personnages.CaracteristiqueMonstre;
 import gameContent.personnages.Personnage;
@@ -30,9 +29,9 @@ public class Monstre {
         //perso touché -> pv-degats
         //return true si on a touché, false sinon
         //dit qqch de diff si oui ou nn a touché sa cible
-        int pvPerso = perso.getCaracteriques().getPv();
+        int pvPerso = perso.getPvs();
         pvPerso -= m_attaque.getDegats();
-        perso.getCaracteriques().modifyPvs(pvPerso);
+        perso.getCaracteristiques().modifyPvs(pvPerso);
         return true;
     }
 
