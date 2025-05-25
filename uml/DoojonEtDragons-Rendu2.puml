@@ -9,18 +9,13 @@ hide empty members
 
 package affichage{
     class Affichage {
-        +afficher(String)
-        +afficherErreur(String)
-        +afficherMap(Map)
-        +afficherlignemap(Integer)
-        +afficherlignelettremap(Integer)
-        +afficherTour(Integer, Personnage, Map)
-        +ScanString():String
-        +ScanInt():Integer
+        +afficherCarte(Map)
         +afficherJoueur(Personnage)
         +afficherMonstre(Monstre)
         +afficherArme(Arme)
         +afficherArmure(Armure)
+        +afficher(String)
+        +afficherErreur(String)
         +afficherAction(String)
     }
 
@@ -36,7 +31,7 @@ package gameContent
         }
         Personnage "1" --> "1"race.Race : appartient à >
         Personnage "1"--> "1"classe.Classe : est >
-        Personnage "1"*--> "1"caracteristiques.CaracteristiquePersonnage : possède des >
+        Personnage "1"--> "1"caracteristiques.CaracteristiquePersonnage : possède des >
         Personnage "1"--> "1"gameContent.items.Armurerie:possède >
         Personnage "1"--> "1"gameContent.items.Equipement:possède >
         Personnage .> monstre.Monstre : <<utilise>>
@@ -44,26 +39,22 @@ package gameContent
         package race{
             abstract class Race <<abstract>>{
                 +<<create>> Race()
-                -m_type:String
+                #m_type:String
             }
             class Elfe {
-            +<<create>> Elfe()
             }
             class Halfelin {
-            +<<create>> Halfelin()
             }
             class Humain {
-            +<<create>> Humain()
             }
             class Nain {
-            +<<create>> Nain()
             }
             Humain --|> Race
             Nain --|> Race
             Elfe --|> Race
             Halfelin --|> Race
         }
-        Race "1"*--> "1"caracteristiques.CaracteristiquePersonnage: possède des >
+        Race "1"--> "1"caracteristiques.CaracteristiquePersonnage: possède des >
 
         package caracteristiques{
             abstract class Caracteristiques <<abstract>> {
@@ -90,77 +81,31 @@ package gameContent
                 #m_pvs:Integer
             }
             class Clerc {
-            +<<create>> Clerc()
             }
             class Guerrier {
-            +<<create>> Guerrier()
             }
             class Magicien {
-            +<<create>> Magicien()
             }
             class Roublard {
-            +<<create>> Roublard()
             }
             Classe "1" --> "1"gameContent.items.Armurerie
             Clerc --|> Classe
             Guerrier --|> Classe
             Magicien --|> Classe
             Roublard --|> Classe
-            Classe --> gameContent.items.Armurerie
 
         }
-
-        abstract class Caracteristique <<abstract>> {
-            +<<create>> Caracteristique()
-            -m_pv:Integer
-            -m_force:Integer
-            -m_dexterite:Integer
-            -m_initiative:Integer
-            +getPv():Integer
-            +getForce():Integer
-            +getDexterite():Integer
-            +getInitiative():Integer
-        }
-
-
-
-        class CaracteristiqueMonstre {
-            -m_classeArmure:Integer
-            +getClassArmure():Integer
-        }
-
-        class CaracteristiquePersonnage {
-            -m_vitesse:Integer
-            +getVitesse():Integer
-        }
-
-        CaracteristiqueMonstre --|> Caracteristique
-        CaracteristiquePersonnage --|> Caracteristique
-
-
-
-
-    package monstre {
-
-        class Monstre {
-            +<<create>> Monstre():Monstre
-            -m_espece:String
-            -m_numero:Integer
-            +getEspece():String
-            +getNumero():Integer
-            +attaquer():Integer
-        }
-        Monstre "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiqueMonstre
-        Attaque "1" o--> "1-m_caracteristique" gameContent.personnages.monstre.Attaque
-
-
-        class Attaque {
-            -m_nom:String
-            -m_portee:Integer
-            -m_degats:Integer
-            +getNom():String
-            +getPortee():Integer
-            +getDegats():Integer
+        package monstre {
+            class Monstre {
+                +<<create>> Monstre():Monstre
+                -m_espece:String
+                -m_numero:Integer
+                +getEspece():String
+                +getNumero():Integer
+                +attaquer(Personnage)
+            }
+            Monstre "1" o--> "1" gameContent.personnages.caracteristiques.CaracteristiqueMonstre
+            Monstre .> Personnage :>
         }
 
     }
@@ -194,13 +139,13 @@ package gameContent
             }
 
             class ArmureLourde {
-                +<<create>> ArmureLourde()
+
             }
 
-            class ArmureLegere {
-                +<<create>> ArmureLegere()
+            class Armurelegere {
+
             }
-            ArmureLegere --|> Armure
+            Armurelegere --|> Armure
             ArmureLourde --|> Armure
 
         }
@@ -215,15 +160,15 @@ package gameContent
             }
 
             class ArmeCourante {
-                +<<create>> ArmeCourante()
+
             }
 
             class ArmeGuerre {
-                +<<create>> ArmeGuerre()
+
             }
 
             class ArmeDistance {
-                +<<create>> ArmeDistance()
+
             }
             ArmeCourante --|> Arme
             ArmeDistance --|> Arme
@@ -244,15 +189,8 @@ package de {
 package mdj {
     class Map{
     -m_map:Integer[15][25]
-    -m_longueur:Integer
-    -m_largeur:Integer
-    +<<create>> Map(Integer, Integer)
-    +demanderMap()
-    +createMap()
     +createRandomMap():Integer[15][25]
     +getM_map():Integer[15][25]
-    +getLongueur():Integer
-    +getLargeur():Integer
     +createOwnMap():Integer[15][25]
     }
     Map "1" *--> "1..*" Monstre : contient >
@@ -260,7 +198,6 @@ package mdj {
 
     class Mdj{
     -m_nbJoueurs:Integer
-    -m_joueurs:Personnage[m_nbJoueurs]
     -m_tour:Integer
     +<<create>> Mdj()
     +getM_nbJoueurs():Integer
@@ -269,10 +206,8 @@ package mdj {
     +chooseRace():Race
     +chooseClasse():Classe
     +createJoueur():Personnage
-    +mdjCreateMap():Map
-    +tours()
-    +verifyMorts():Boolean
     }
+    Mdj "1" *--> "1..* m_joueurs" gameContent.personnages.Personnage
     Mdj "1"-->"1" Map
     Mdj "1" --> "0..*" gameContent.personnages.Personnage
     Mdj .> affichage.Affichage:Utilise
