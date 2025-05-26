@@ -2,7 +2,7 @@ package gameContent.personnages;
 
 public abstract class Entite {
     //les attributs communs
-    //private
+    //enft y'en a pas
 
 
     // création d'une interface entité pour réunir les méthodes communes à Monstre et Personnage
@@ -19,6 +19,6 @@ public abstract class Entite {
     public abstract int getPvs();
 
     //getters
-
+    //no getters bcs no attributes
 
 }

@@ -1,12 +1,9 @@
 package gameContent.personnages.monstre;
-import gameContent.personnages.Caracteristique;
-import gameContent.personnages.CaracteristiqueMonstre;
-import gameContent.personnages.Entite;
-import gameContent.personnages.Personnage;
+import gameContent.personnages.*;
 
 public class Monstre extends Entite {
     private Espece m_espece;
-    private Caracteristique m_caracteristique;
+    private CaracteristiqueMonstre m_caracteristique;
     private Attaque m_attaque;
 
     public Monstre(Espece espece, CaracteristiqueMonstre caracteristique, Attaque attaque) {
@@ -36,8 +33,8 @@ public class Monstre extends Entite {
     }
 
     @Override
-    public Caracteristique getCaracteristiques() {
-        return null;
+    public CaracteristiqueMonstre getCaracteristiques() {
+        return m_caracteristique;
     }
 
     @Override

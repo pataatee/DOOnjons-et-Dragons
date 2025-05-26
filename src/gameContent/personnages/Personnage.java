@@ -59,6 +59,7 @@ public class Personnage extends Entite {
         return m_caracteristiques.getInitiative();
     }
 
+    @Override
     public CaracteristiquePersonnage getCaracteristiques(){
         return m_caracteristiques;
     }
