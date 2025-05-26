@@ -1,9 +1,10 @@
 package gameContent.personnages.monstre;
 import gameContent.personnages.Caracteristique;
 import gameContent.personnages.CaracteristiqueMonstre;
+import gameContent.personnages.Entite;
 import gameContent.personnages.Personnage;
 
-public class Monstre {
+public class Monstre extends Entite {
     private String m_espece;
     private int m_numero;
     private Caracteristique m_caracteristique;
@@ -24,17 +25,29 @@ public class Monstre {
         this(numero, caracteristique, new Attaque("rafale de feu", 5, 50));
     }
 
-    public boolean attaquerPersonnage(Personnage perso) {
+    @Override
+    public boolean attaquer(Entite entite) {
         //on utilise m_attaque
         //perso touché -> pv-degats
         //return true si on a touché, false sinon
         //dit qqch de diff si oui ou nn a touché sa cible
-        int pvPerso = perso.getPvs();
+        int pvPerso = entite.getPvs();
         pvPerso -= m_attaque.getDegats();
-        perso.getCaracteristiques().modifyPvs(pvPerso);
+        entite.getCaracteristiques().modifyPvs(pvPerso);
         return true;
     }
 
+    @Override
+    public Caracteristique getCaracteristiques() {
+        return null;
+    }
+
+    @Override
+    public int getPvs() {
+        return 0;
+    }
+
+    @Override
     public void seDeplacer() {
         //
     }
