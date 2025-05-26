@@ -27,6 +27,16 @@ public class Personnage {
         return m_nom;
     }
 
+    public void setEquipement_Arme(Arme arme){
+        int vitessebonus = this.m_equipements.setArme(arme);
+        this.m_caracteristiques.bonusVitesse(vitessebonus);
+    }
+
+    public void setEquipement_Armure(Armure armure){
+        int vitessebonus = this.m_equipements.setArmure(armure);
+        this.m_caracteristiques.bonusVitesse(vitessebonus);
+    }
+
     public void setM_inventaire(Armurerie inventaire) {
         this.m_inventaire = inventaire;
     }

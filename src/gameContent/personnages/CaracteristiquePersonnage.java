@@ -11,4 +11,10 @@ public class CaracteristiquePersonnage extends Caracteristique {
     public int getVitesse() {
         return m_vitesse;
     }
+    public void modifyVitesse(int vitesse) {
+        this.m_vitesse = vitesse;
+    }
+    public void bonusVitesse(int bonus) {
+        this.m_vitesse += bonus;
+    }
 }
