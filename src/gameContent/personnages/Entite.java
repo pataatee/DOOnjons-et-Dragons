@@ -2,6 +2,7 @@ package gameContent.personnages;
 
 public abstract class Entite {
     //les attributs communs
+    //private
 
 
     // création d'une interface entité pour réunir les méthodes communes à Monstre et Personnage

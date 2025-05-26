@@ -5,24 +5,22 @@ import gameContent.personnages.Entite;
 import gameContent.personnages.Personnage;
 
 public class Monstre extends Entite {
-    private String m_espece;
-    private int m_numero;
+    private Espece m_espece;
     private Caracteristique m_caracteristique;
     private Attaque m_attaque;
 
-    public Monstre(String espece, int numero, CaracteristiqueMonstre caracteristique, Attaque attaque) {
+    public Monstre(Espece espece, CaracteristiqueMonstre caracteristique, Attaque attaque) {
         m_espece = espece;
-        m_numero = numero;
         m_caracteristique = caracteristique;
         m_attaque = attaque;
     }
 
-    public Monstre(int numero, CaracteristiqueMonstre caracteristique, Attaque attaque) {
-        this("dragon", numero, caracteristique, attaque);
+    public Monstre(CaracteristiqueMonstre caracteristique, Attaque attaque) {
+        this(new Espece("dragon", 1), caracteristique, attaque);
     }
 
-    public Monstre(int numero, CaracteristiqueMonstre caracteristique) {
-        this(numero, caracteristique, new Attaque("rafale de feu", 5, 50));
+    public Monstre(CaracteristiqueMonstre caracteristique) {
+        this(caracteristique, new Attaque("rafale de feu", 5, 50));
     }
 
     @Override
