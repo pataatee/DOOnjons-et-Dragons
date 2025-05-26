@@ -1,0 +1,20 @@
+-cmt gerer les packages ?
+
+// Classes personnages
+
+-classe personnage > attributs nom / race / classe / caracteristique / inventaire / equipement porté
+-classe armes
+-classe armure
+-inventaire -> structure ? classe ?
+-caracteristiques -> classe a part entiere ?
+- classe equipements > armes & armures
+-classe races > sous classe pr chaque type + attributs = caracteristiques
+-classe classes > sous classe pr chacun avec attributs = caracteristiques
+-classe monstre > attribut espece / numero / attaque / caracteristiques, avec attaque classe et caracteristiques classe
+
+à noter : 3d4 --> 3 lancers de dés à 4 faces
+randint between 1 and 4
+--> etre capable de separer les 3 trucs de la cdc pr savoir
+1er caractR = nb de x on relance
+2e ignoré (ou ptet d comme ça on sait c un dé idk idk)
+3e nb de faces donc randint entre 1 et ce nb inclus
