@@ -15,10 +15,14 @@ public abstract class Entite {
         return false;
     }
 
+
+    //getters abstract
+
     public abstract Caracteristique getCaracteristiques();
     public abstract int getPvs();
+    public abstract int getForce();
+    public abstract int getDexterite();
+    public abstract int getInitiative();
 
-    //getters
-    //no getters bcs no attributes
 
 }

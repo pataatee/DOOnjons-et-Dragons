@@ -43,6 +43,21 @@ public class Monstre extends Entite {
     }
 
     @Override
+    public int getForce() {
+        return m_caracteristique.getForce();
+    }
+
+    @Override
+    public int getDexterite() {
+        return m_caracteristique.getDexterite();
+    }
+
+    @Override
+    public int getInitiative() {
+        return m_caracteristique.getInitiative();
+    }
+
+    @Override
     public void seDeplacer() {
         //
     }

@@ -47,14 +47,17 @@ public class Personnage extends Entite {
         return this.m_caracteristiques.getPvs(); //TODO faire le reste
     }
 
+    @Override
     public int getForce() {
         return m_caracteristiques.getForce();
     }
 
+    @Override
     public int getDexterite() {
         return m_caracteristiques.getDexterite();
     }
 
+    @Override
     public int getInitiative() {
         return m_caracteristiques.getInitiative();
     }
