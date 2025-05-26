@@ -12,6 +12,13 @@ public abstract class Entite {
 
     }
     public boolean attaquer(Entite entite) {
+        //on utilise m_attaque
+        //perso touché -> pv-degats
+        //return true si on a touché, false sinon
+        //dit qqch de diff si oui ou nn a touché sa cible
+//        int pvPerso = entite.getPvs();
+//        pvPerso -= m_attaque.getDegats();
+//        entite.getCaracteristiques().modifyPvs(pvPerso);
         return false;
     }
 

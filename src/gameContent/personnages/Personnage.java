@@ -79,13 +79,5 @@ public class Personnage extends Entite {
         return this.m_equipements.getM_armure();
     }
 
-    @Override
-    public void seDeplacer() {
 
-    }
-
-    @Override
-    public boolean attaquer(Entite entite) {
-        return false;
-    }
 }

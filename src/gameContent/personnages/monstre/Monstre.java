@@ -20,17 +20,6 @@ public class Monstre extends Entite {
         this(caracteristique, new Attaque("rafale de feu", 5, 50));
     }
 
-    @Override
-    public boolean attaquer(Entite entite) {
-        //on utilise m_attaque
-        //perso touché -> pv-degats
-        //return true si on a touché, false sinon
-        //dit qqch de diff si oui ou nn a touché sa cible
-        int pvPerso = entite.getPvs();
-        pvPerso -= m_attaque.getDegats();
-        entite.getCaracteristiques().modifyPvs(pvPerso);
-        return true;
-    }
 
     @Override
     public CaracteristiqueMonstre getCaracteristiques() {
@@ -57,8 +46,11 @@ public class Monstre extends Entite {
         return m_caracteristique.getInitiative();
     }
 
-    @Override
-    public void seDeplacer() {
-        //
+    public Espece getEspece() {
+        return m_espece;
+    }
+
+    public Attaque getAttaque() {
+        return m_attaque;
     }
 }
