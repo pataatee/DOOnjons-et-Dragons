@@ -30,9 +30,9 @@ public class Monstre {
         //perso touché -> pv-degats
         //return true si on a touché, false sinon
         //dit qqch de diff si oui ou nn a touché sa cible
-        int pvPerso = perso.getCaracteriques().getPv();
+        int pvPerso = perso.getCaracteristiques().getPv();
         pvPerso -= m_attaque.getDegats();
-        perso.getCaracteriques().modifyPvs(pvPerso);
+        perso.getCaracteristiques().modifyPvs(pvPerso);
         return true;
     }
 

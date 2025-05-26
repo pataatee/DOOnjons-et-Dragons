@@ -9,7 +9,7 @@ public class Personnage {
     protected Classe m_classe;
     protected CaracteristiquePersonnage m_caracteristiques;
 
-    public CaracteristiquePersonnage getCaracteriques() {
+    public CaracteristiquePersonnage getCaracteristiques() {
         return m_caracteristiques;
     }
 
