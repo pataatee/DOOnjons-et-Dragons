@@ -1,4 +1,4 @@
-package gameContent.personnages.race;
+package gameContent.personnages.perso.race;
 
 public class Elfe extends Race{
     public Elfe() {

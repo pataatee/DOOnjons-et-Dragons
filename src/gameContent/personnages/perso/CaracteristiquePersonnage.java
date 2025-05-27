@@ -1,4 +1,6 @@
-package gameContent.personnages;
+package gameContent.personnages.perso;
+
+import gameContent.personnages.Caracteristique;
 
 public class CaracteristiquePersonnage extends Caracteristique {
     private int m_vitesse;

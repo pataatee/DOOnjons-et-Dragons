@@ -19,6 +19,11 @@ public abstract class Entite {
 //        int pvPerso = entite.getPvs();
 //        pvPerso -= m_attaque.getDegats();
 //        entite.getCaracteristiques().modifyPvs(pvPerso);
+
+        int pvCible = entite.getPvs();
+        //int degats = this.getDegats();
+        //il faut qu'un perso ait une attaque qui a des degats tt ça en fonction de l'arme utilisee + caracteristiques
+
         return false;
     }
 

@@ -1,10 +1,9 @@
 package mdj;
 
 import affichage.Affichage;
-import com.sun.nio.sctp.AbstractNotificationHandler;
-import gameContent.personnages.Personnage;
-import gameContent.personnages.classe.*;
-import gameContent.personnages.race.*;
+import gameContent.personnages.perso.Personnage;
+import gameContent.personnages.perso.classe.*;
+import gameContent.personnages.perso.race.*;
 
 import java.util.Objects;
 

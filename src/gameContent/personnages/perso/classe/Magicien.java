@@ -1,4 +1,4 @@
-package gameContent.personnages.classe;
+package gameContent.personnages.perso.classe;
 
 import gameContent.items.armes.*;
 

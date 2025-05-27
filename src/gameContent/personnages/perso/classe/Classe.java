@@ -1,10 +1,6 @@
-package gameContent.personnages.classe;
+package gameContent.personnages.perso.classe;
 
 import gameContent.items.Armurerie;
-import gameContent.personnages.Personnage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Classe {
     protected String m_nom;
