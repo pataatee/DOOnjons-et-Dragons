@@ -28,7 +28,7 @@ public class Mdj {
             Personnage personnage = new Personnage(nom,race, classe);
             this.m_joueurs[i] = personnage;
         }
-        this.m_map = mdj_create_Map();
+        this.m_map = mdj_map_dimensions();
         Affichage.afficherMap(this.m_map);
 
         this.m_nbMonstres = 0;
@@ -86,19 +86,31 @@ public class Mdj {
         }
 
     }
-    public Map mdj_create_Map(){
-        Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
-        int longueur = affichage.Affichage.ScanInt();
-        Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
-        int largeur = affichage.Affichage.ScanInt();
-        Map test = new Map(longueur, largeur);
-        if (test.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
-            Affichage.afficherErreur("Erreur lors de la creation de la carte");
-            return mdj_create_Map();
+    public Map mdj_map_dimensions(){
+        Map map;
+        Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
+        String ouinon = affichage.Affichage.ScanString();
+        if (Objects.equals(ouinon, "O")){
+            map = new Map();
         }
-        else{
-            return test;
+        else if (Objects.equals(ouinon, "N")){
+            Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
+            int longueur = affichage.Affichage.ScanInt();
+            Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
+            int largeur = affichage.Affichage.ScanInt();
+            map = new Map(longueur, largeur);
+            if (map.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
+                Affichage.afficherErreur("Erreur lors de la creation de la carte");
+                return mdj_map_dimensions();
+            }
         }
+        else {
+            affichage.Affichage.afficherErreur("Choix non valide");
+            return mdj_map_dimensions();
+        }
+        return map;
+
+
     }
 
     public void tours(){

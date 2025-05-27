@@ -19,8 +19,8 @@ public class Personnage {
         this.m_nom = nom;
         this.m_race = race;
         this.m_classe = classe;
-        this.setM_caracteristiques(this.m_race.getM_caracteristiques());
-        this.setM_inventaire(this.m_classe.getM_armurerie());
+        this.setCaracteristiques(this.m_race.getM_caracteristiques());
+        this.setInventaire(this.m_classe.getM_armurerie());
         this.m_caracteristiques.bonusPvs(this.m_classe.getM_Pvs());
     }
     public String getM_nom(){
@@ -37,15 +37,15 @@ public class Personnage {
         this.m_caracteristiques.bonusVitesse(vitessebonus);
     }
 
-    public void setM_inventaire(Armurerie inventaire) {
+    public void setInventaire(Armurerie inventaire) {
         this.m_inventaire = inventaire;
     }
 
-    public Armurerie getM_inventaire(){
+    public Armurerie getInventaire(){
         return this.m_inventaire;
     }
 
-    public void setM_caracteristiques(CaracteristiquePersonnage caracteristiques){
+    public void setCaracteristiques(CaracteristiquePersonnage caracteristiques){
         this.m_caracteristiques = caracteristiques;
 
     }

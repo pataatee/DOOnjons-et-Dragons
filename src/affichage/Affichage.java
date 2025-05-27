@@ -30,11 +30,20 @@ public class Affichage {
             }
             System.out.print("| ");
             for (int j = 0; j< map.getM_largeur();j++){
-                if (map.getM_carte()[i][j]==0){
+                if (map.getM_carte()[i][j]==0){ // Case vide
                     System.out.print(" . ");
                 }
+                else if (map.getM_carte()[i][j]==-1){ // Case mur
+                    System.out.print("[ ]");
+                }
+                else if (map.getM_carte()[i][j] == 1){ // case Monstre
+                    System.out.print(" X(");
+                }
+                else if (map.getM_carte()[i][j] == 2){ //case Trésor
+                    System.out.print(" * ");
+                }
                 else{
-                    System.out.print(map.getM_carte()[i][j]);
+                    System.out.print(" "+ map.getM_carte()[i][j]+ " ");
                 }
 
             }
@@ -93,10 +102,10 @@ public class Affichage {
 
 
         String inventaire = "";
-        for (Arme arme : pers.getM_inventaire().getM_armes()){ //TODO a modif car pas droit a double getteur
+        for (Arme arme : pers.getInventaire().getM_armes()){ //TODO a modif car pas droit a double getteur
             inventaire += arme.getNom() + " - ";
         }
-        for (Armure armure : pers.getM_inventaire().getM_armures()){ //TODO a modif car pas droit a double getteur
+        for (Armure armure : pers.getInventaire().getM_armures()){ //TODO a modif car pas droit a double getteur
             inventaire += armure.getNom() + " - ";
         }
         afficher("Inventaire : " + inventaire);
