@@ -1,45 +1,29 @@
 package gameContent.personnages.monstre;
-import gameContent.personnages.Caracteristique;
-import gameContent.personnages.CaracteristiqueMonstre;
-import gameContent.personnages.Entite;
-import gameContent.personnages.Personnage;
+import gameContent.personnages.*;
 
 public class Monstre extends Entite {
-    private String m_espece;
-    private int m_numero;
-    private Caracteristique m_caracteristique;
+    private Espece m_espece;
+    private CaracteristiqueMonstre m_caracteristique;
     private Attaque m_attaque;
 
-    public Monstre(String espece, int numero, CaracteristiqueMonstre caracteristique, Attaque attaque) {
+    public Monstre(Espece espece, CaracteristiqueMonstre caracteristique, Attaque attaque) {
         m_espece = espece;
-        m_numero = numero;
         m_caracteristique = caracteristique;
         m_attaque = attaque;
     }
 
-    public Monstre(int numero, CaracteristiqueMonstre caracteristique, Attaque attaque) {
-        this("dragon", numero, caracteristique, attaque);
+    public Monstre(CaracteristiqueMonstre caracteristique, Attaque attaque) {
+        this(new Espece("dragon", 1), caracteristique, attaque);
     }
 
-    public Monstre(int numero, CaracteristiqueMonstre caracteristique) {
-        this(numero, caracteristique, new Attaque("rafale de feu", 5, 50));
+    public Monstre(CaracteristiqueMonstre caracteristique) {
+        this(caracteristique, new Attaque("rafale de feu", 5, 50));
     }
 
-    @Override
-    public boolean attaquer(Entite entite) {
-        //on utilise m_attaque
-        //perso touché -> pv-degats
-        //return true si on a touché, false sinon
-        //dit qqch de diff si oui ou nn a touché sa cible
-        int pvPerso = entite.getPvs();
-        pvPerso -= m_attaque.getDegats();
-        entite.getCaracteristiques().modifyPvs(pvPerso);
-        return true;
-    }
 
     @Override
-    public Caracteristique getCaracteristiques() {
-        return null;
+    public CaracteristiqueMonstre getCaracteristiques() {
+        return m_caracteristique;
     }
 
     @Override
@@ -48,7 +32,25 @@ public class Monstre extends Entite {
     }
 
     @Override
-    public void seDeplacer() {
-        //
+    public int getForce() {
+        return m_caracteristique.getForce();
+    }
+
+    @Override
+    public int getDexterite() {
+        return m_caracteristique.getDexterite();
+    }
+
+    @Override
+    public int getInitiative() {
+        return m_caracteristique.getInitiative();
+    }
+
+    public Espece getEspece() {
+        return m_espece;
+    }
+
+    public Attaque getAttaque() {
+        return m_attaque;
     }
 }
