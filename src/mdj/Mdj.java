@@ -17,12 +17,12 @@ public class Mdj {
 
     public Mdj() {
         Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
-        this.m_nbJoueurs = affichage.Affichage.ScanInt();
+        this.m_nbJoueurs = Affichage.ScanInt();
         this.m_joueurs = new Personnage[this.m_nbJoueurs];
         for (int i=0; i<this.m_nbJoueurs; i++){
             Affichage.afficher("joueur "+(i+1));
             Affichage.afficher("Selectionnez le nom du personnage : ");
-            String nom= affichage.Affichage.ScanString();
+            String nom= Affichage.ScanString();
             Race race = chooseRace();
             Classe classe = chooseClasse();
             Personnage personnage = new Personnage(nom,race, classe);
@@ -38,7 +38,7 @@ public class Mdj {
     public Race chooseRace(){
         Affichage.afficher("Selectionnez la race du personnage : ");
         Race race= null;
-        String resultat = affichage.Affichage.ScanString();
+        String resultat = Affichage.ScanString();
         if (Objects.equals(resultat, "Halfelin")){
             race = new Halfelin();
             return race;
@@ -63,7 +63,7 @@ public class Mdj {
     public Classe chooseClasse(){
         Affichage.afficher("Selectionnez la classe du personnage : ");
         Classe classe= null;
-        String resultat = affichage.Affichage.ScanString();
+        String resultat = Affichage.ScanString();
         if (Objects.equals(resultat, "Clerc")){
             classe = new Clerc();
             return classe;
@@ -89,7 +89,7 @@ public class Mdj {
     public Map mdj_map_dimensions(){
         Map map;
         Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
-        String ouinon = affichage.Affichage.ScanString();
+        String ouinon = Affichage.ScanString();
         if (Objects.equals(ouinon, "O")){
             map = new Map();
         }
@@ -105,7 +105,7 @@ public class Mdj {
             }
         }
         else {
-            affichage.Affichage.afficherErreur("Choix non valide");
+            Affichage.afficherErreur("Choix non valide");
             return mdj_map_dimensions();
         }
         return map;
@@ -118,13 +118,13 @@ public class Mdj {
         int i = 0;
         while ((!morts) && (i < 10)){ //et que le donjon est pas fini, mais pas encore testé TODO a enlever le i, c temporaire pour éviter une boucle infinie
             for (int pers = 0; pers<m_nbJoueurs; pers++){
-                affichage.Affichage.afficherTour(i, this.m_joueurs[pers], this.m_map);
+                Affichage.afficherTour(i, this.m_joueurs[pers], this.m_map);
                 morts = verify_morts();
                 i++;
             }
         }
         if (morts){
-            affichage.Affichage.afficher("y'a eu un mort, so fin du jeu heheeee"); // ! A MODIF C UNE BLAGUE D'ACCORD, CA FAIT 4H QUE J'SUIS DESSUS ALED
+            Affichage.afficher("y'a eu un mort, so fin du jeu heheeee"); // ! A MODIF C UNE BLAGUE D'ACCORD, CA FAIT 4H QUE J'SUIS DESSUS ALED
         }
     }
 
