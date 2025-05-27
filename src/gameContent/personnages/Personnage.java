@@ -7,7 +7,7 @@ import gameContent.items.armures.Armure;
 import gameContent.personnages.classe.Classe;
 import gameContent.personnages.race.Race;
 
-public class Personnage {
+public class Personnage extends Entite {
     protected String m_nom;
     protected Race m_race;
     protected Classe m_classe;
@@ -49,25 +49,30 @@ public class Personnage {
         this.m_caracteristiques = caracteristiques;
 
     }
-    public CaracteristiquePersonnage getM_caracteristiques(){
+    public CaracteristiquePersonnage getCaracteristiquesPerso(){
         return this.m_caracteristiques;
     }
+
     public int getPvs(){
         return this.m_caracteristiques.getPvs(); //TODO faire le reste
     }
 
+    @Override
     public int getForce() {
         return m_caracteristiques.getForce();
     }
 
+    @Override
     public int getDexterite() {
         return m_caracteristiques.getDexterite();
     }
 
+    @Override
     public int getInitiative() {
         return m_caracteristiques.getInitiative();
     }
 
+    @Override
     public CaracteristiquePersonnage getCaracteristiques(){
         return m_caracteristiques;
     }
@@ -83,4 +88,6 @@ public class Personnage {
     public Armure getArmure_equipee() {
         return this.m_equipements.getM_armure();
     }
+
+
 }
