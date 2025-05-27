@@ -16,7 +16,7 @@ public class Personnage extends Entite {
     protected CaracteristiquePersonnage m_caracteristiques;
     protected Armurerie m_inventaire = new Armurerie();
     protected Equipement m_equipements = new Equipement();
-    private Attaque m_attaque;
+    private AttaquePersonnage m_attaque;
 
     public Personnage(String nom, Race race, Classe classe){
         this.m_nom = nom;
