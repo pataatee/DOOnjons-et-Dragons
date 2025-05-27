@@ -1,41 +1,56 @@
 package gameContent.personnages.monstre;
-import gameContent.personnages.Caracteristique;
-import gameContent.personnages.CaracteristiqueMonstre;
-import gameContent.personnages.Personnage;
+import gameContent.personnages.*;
 
-public class Monstre {
-    private String m_espece;
-    private int m_numero;
-    private Caracteristique m_caracteristique;
+public class Monstre extends Entite {
+    private Espece m_espece;
+    private CaracteristiqueMonstre m_caracteristique;
     private Attaque m_attaque;
 
-    public Monstre(String espece, int numero, CaracteristiqueMonstre caracteristique, Attaque attaque) {
+    public Monstre(Espece espece, CaracteristiqueMonstre caracteristique, Attaque attaque) {
         m_espece = espece;
-        m_numero = numero;
         m_caracteristique = caracteristique;
         m_attaque = attaque;
     }
 
-    public Monstre(int numero, CaracteristiqueMonstre caracteristique, Attaque attaque) {
-        this("dragon", numero, caracteristique, attaque);
+    public Monstre(CaracteristiqueMonstre caracteristique, Attaque attaque) {
+        this(new Espece("dragon", 1), caracteristique, attaque);
     }
 
-    public Monstre(int numero, CaracteristiqueMonstre caracteristique) {
-        this(numero, caracteristique, new Attaque("rafale de feu", 5, 50));
+    public Monstre(CaracteristiqueMonstre caracteristique) {
+        this(caracteristique, new Attaque("rafale de feu", 5, 50));
     }
 
-    public boolean attaquerPersonnage(Personnage perso) {
-        //on utilise m_attaque
-        //perso touché -> pv-degats
-        //return true si on a touché, false sinon
-        //dit qqch de diff si oui ou nn a touché sa cible
-        int pvPerso = perso.getPvs();
-        pvPerso -= m_attaque.getDegats();
-        perso.getCaracteristiques().modifyPvs(pvPerso);
-        return true;
+
+    @Override
+    public CaracteristiqueMonstre getCaracteristiques() {
+        return m_caracteristique;
     }
 
-    public void seDeplacer() {
-        //
+    @Override
+    public int getPvs() {
+        return 0;
+    }
+
+    @Override
+    public int getForce() {
+        return m_caracteristique.getForce();
+    }
+
+    @Override
+    public int getDexterite() {
+        return m_caracteristique.getDexterite();
+    }
+
+    @Override
+    public int getInitiative() {
+        return m_caracteristique.getInitiative();
+    }
+
+    public Espece getEspece() {
+        return m_espece;
+    }
+
+    public Attaque getAttaque() {
+        return m_attaque;
     }
 }
