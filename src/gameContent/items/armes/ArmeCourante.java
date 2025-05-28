@@ -7,7 +7,7 @@ public class ArmeCourante implements Arme{
 
     public ArmeCourante(String nom, int attaque, int portee){
         this.m_nom = nom;
-        this.m_degats = attaque;
+        this.m_degats = attaque; // TODO modifier tout ça pour que les dégats de arme cac varient en fonction de force
         this.m_portee = portee;
     }
     @Override
