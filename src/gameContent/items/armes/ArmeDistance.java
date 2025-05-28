@@ -7,7 +7,7 @@ public class ArmeDistance implements Arme{
 
     public ArmeDistance(String nom, int attaque, int portee){
         this.m_nom = nom;
-        this.m_degats = attaque;
+        this.m_degats = attaque; // TODO modifier tout ça pour que les degats d'arme distance varient en fonction de la dextérité
         this.m_portee = portee;
     }
     @Override

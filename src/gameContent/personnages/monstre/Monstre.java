@@ -79,7 +79,7 @@ public class Monstre extends Entite {
             return false;
         }
         int pvCible = this.getPvs();
-        pvCible -= agresseur.getDegats();
+        pvCible -= agresseur.getDegats(); //TODO prendre en compte les pvs de l'armure (idem pour personnage)
         this.getCaracteristiques().modifyPvs(pvCible);
         if (pvCible <= 0) {
             afficherPersonnageVaincu();
