@@ -6,7 +6,7 @@ public class De {
     private int m_faces;
     private int m_nbdedes;
 
-    public De (int faces, int nbdedes){
+    public De (int nbdedes, int faces){
         this.m_faces = faces;
         this.m_nbdedes = nbdedes;
     }
@@ -18,6 +18,9 @@ public class De {
             total += rand.nextInt(m_faces+1);
         }
         return total;
+    }
+    public String toString(){
+        return m_nbdedes+"d"+m_faces;
     }
 }
 
