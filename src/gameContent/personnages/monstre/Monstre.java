@@ -1,5 +1,11 @@
 package gameContent.personnages.monstre;
 import gameContent.personnages.*;
+import gameContent.personnages.perso.Personnage;
+
+import static affichage.AfficherDsMonstre.afficherMonstreVaincu;
+import static affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
+import static affichage.AfficherDsPersonnage.afficherPersonnageVaincu;
+import static affichage.AfficherDsPersonnage.afficherPvRestants;
 
 public class Monstre extends Entite {
     private Espece m_espece;
@@ -19,7 +25,6 @@ public class Monstre extends Entite {
     public Monstre(CaracteristiqueMonstre caracteristique) {
         this(caracteristique, new AttaqueMonstre("rafale de feu", 5, 50));
     }
-
 
     @Override
     public CaracteristiqueMonstre getCaracteristiques() {
@@ -46,6 +51,8 @@ public class Monstre extends Entite {
         return m_caracteristique.getInitiative();
     }
 
+
+
     public Espece getEspece() {
         return m_espece;
     }
@@ -56,5 +63,34 @@ public class Monstre extends Entite {
 
     public int getDegats() {
         return m_attaque.getDegats();
+    }
+
+    @Override
+    public boolean attaquer(Entite cible) { // TODO : vérifier si l'attaque est possible (portée)
+        if (cible == null) {
+            return false;
+        }
+        return cible.estAttaquePar(this);
+    }
+
+    @Override
+    public boolean estAttaquePar(Monstre agresseur) {
+        if (agresseur == null) {
+            return false;
+        }
+        int pvCible = this.getPvs();
+        pvCible -= agresseur.getDegats(); //TODO prendre en compte les pvs de l'armure (idem pour personnage)
+        this.getCaracteristiques().modifyPvs(pvCible);
+        if (pvCible <= 0) {
+            afficherPersonnageVaincu();
+        } else {
+            afficherPvRestants(pvCible);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean estAttaquePar(Personnage personnage) {
+        return false; // ça voudrait dire que euh personnage attaqué par personnage et euh non
     }
 }

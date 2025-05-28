@@ -1,8 +1,9 @@
 package gameContent.personnages;
 
-import gameContent.Truc;
+import gameContent.personnages.monstre.Monstre;
+import gameContent.personnages.perso.Personnage;
 
-public abstract class Entite extends Truc {
+public abstract class Entite {
     //les attributs communs
     //enft y'en a pas
 
@@ -37,6 +38,6 @@ public abstract class Entite extends Truc {
     public abstract int getForce();
     public abstract int getDexterite();
     public abstract int getInitiative();
-
-
+    public abstract boolean estAttaquePar(Monstre monstre);
+    public abstract boolean estAttaquePar(Personnage personnage);
 }
