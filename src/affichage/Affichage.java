@@ -2,7 +2,7 @@ package affichage;
 
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
-import gameContent.personnages.Personnage;
+import gameContent.personnages.perso.Personnage;
 import mdj.Map;
 
 import java.util.Scanner;

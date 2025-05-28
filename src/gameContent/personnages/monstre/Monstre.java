@@ -4,20 +4,20 @@ import gameContent.personnages.*;
 public class Monstre extends Entite {
     private Espece m_espece;
     private CaracteristiqueMonstre m_caracteristique;
-    private Attaque m_attaque;
+    private AttaqueMonstre m_attaque;
 
-    public Monstre(Espece espece, CaracteristiqueMonstre caracteristique, Attaque attaque) {
+    public Monstre(Espece espece, CaracteristiqueMonstre caracteristique, AttaqueMonstre attaque) {
         m_espece = espece;
         m_caracteristique = caracteristique;
         m_attaque = attaque;
     }
 
-    public Monstre(CaracteristiqueMonstre caracteristique, Attaque attaque) {
+    public Monstre(CaracteristiqueMonstre caracteristique, AttaqueMonstre attaque) {
         this(new Espece("dragon", 1), caracteristique, attaque);
     }
 
     public Monstre(CaracteristiqueMonstre caracteristique) {
-        this(caracteristique, new Attaque("rafale de feu", 5, 50));
+        this(caracteristique, new AttaqueMonstre("rafale de feu", 5, 50));
     }
 
 
@@ -50,7 +50,11 @@ public class Monstre extends Entite {
         return m_espece;
     }
 
-    public Attaque getAttaque() {
+    public AttaqueMonstre getAttaque() {
         return m_attaque;
+    }
+
+    public int getDegats() {
+        return m_attaque.getDegats();
     }
 }

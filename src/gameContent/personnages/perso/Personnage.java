@@ -1,11 +1,13 @@
-package gameContent.personnages;
+package gameContent.personnages.perso;
 
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
-import gameContent.personnages.classe.Classe;
-import gameContent.personnages.race.Race;
+import gameContent.personnages.Attaque;
+import gameContent.personnages.Entite;
+import gameContent.personnages.perso.classe.Classe;
+import gameContent.personnages.perso.race.Race;
 
 public class Personnage extends Entite {
     protected String m_nom;
@@ -14,6 +16,7 @@ public class Personnage extends Entite {
     protected CaracteristiquePersonnage m_caracteristiques;
     protected Armurerie m_inventaire = new Armurerie();
     protected Equipement m_equipements = new Equipement();
+    private AttaquePersonnage m_attaque;
 
     public Personnage(String nom, Race race, Classe classe){
         this.m_nom = nom;
@@ -37,7 +40,7 @@ public class Personnage extends Entite {
         this.m_caracteristiques.bonusVitesse(vitessebonus);
     }
 
-    public void setM_inventaire(Armurerie inventaire) {
+    public void setInventaire(Armurerie inventaire) {
         this.m_inventaire = inventaire;
     }
 

@@ -1,6 +1,6 @@
-package gameContent.personnages.race;
+package gameContent.personnages.perso.race;
 
-import gameContent.personnages.CaracteristiquePersonnage;
+import gameContent.personnages.perso.CaracteristiquePersonnage;
 
 public abstract class Race {
     private String m_nom; //TODO mettre du private et initialiser via super()

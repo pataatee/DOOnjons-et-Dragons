@@ -1,4 +1,4 @@
-package gameContent.personnages.race;
+package gameContent.personnages.perso.race;
 
 public class Nain extends Race{
     public Nain() {

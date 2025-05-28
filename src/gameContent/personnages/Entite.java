@@ -11,16 +11,21 @@ public abstract class Entite {
     public void seDeplacer(){
 
     }
-    public boolean attaquer(Entite entite) {
-        //on utilise m_attaque
-        //perso touché -> pv-degats
-        //return true si on a touché, false sinon
-        //dit qqch de diff si oui ou nn a touché sa cible
+    public abstract boolean attaquer(Entite entite);
+//        //on utilise m_attaque
+//        //perso touché -> pv-degats
+//        //return true si on a touché, false sinon
+//        //dit qqch de diff si oui ou nn a touché sa cible
 //        int pvPerso = entite.getPvs();
 //        pvPerso -= m_attaque.getDegats();
 //        entite.getCaracteristiques().modifyPvs(pvPerso);
-        return false;
-    }
+//
+//        int pvCible = entite.getPvs();
+//        //int degats = this.getDegats();
+//        //il faut qu'un perso ait une attaque qui a des degats tt ça en fonction de l'arme utilisee + caracteristiques
+//
+//        return false;
+//    }
 
 
     //getters abstract
