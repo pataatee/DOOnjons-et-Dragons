@@ -1,9 +1,6 @@
 package gameContent.personnages.perso;
 
-import de.De;
-import gameContent.items.armes.Arme;
-import gameContent.items.armes.ArmeCourante;
-import gameContent.items.armes.ArmeDistance;
+import fonctionnement.de.De;
 import gameContent.personnages.Attaque;
 
 public class AttaquePersonnage implements Attaque {

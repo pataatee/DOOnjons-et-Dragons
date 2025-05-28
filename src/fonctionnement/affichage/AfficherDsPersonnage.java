@@ -1,4 +1,4 @@
-package affichage;
+package fonctionnement.affichage;
 
 public class AfficherDsPersonnage {
     public static void afficherPvRestants (int pvRestants) {

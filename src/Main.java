@@ -1,4 +1,4 @@
-import mdj.Mdj;
+import fonctionnement.mdj.Mdj;
 
 public class Main {
     public static void main(String args[]) {

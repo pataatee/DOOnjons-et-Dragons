@@ -1,4 +1,4 @@
-package de;
+package fonctionnement.de;
 
 import java.util.Random; //-->Random rand = new Random(); int entier = rand.nextInt(10); donne un entier entre 0 et 9
 
