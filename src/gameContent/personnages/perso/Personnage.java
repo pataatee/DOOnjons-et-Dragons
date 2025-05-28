@@ -4,14 +4,13 @@ import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
-import gameContent.personnages.Attaque;
 import gameContent.personnages.Entite;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.classe.Classe;
 import gameContent.personnages.perso.race.Race;
 
-import static affichage.AfficherDsMonstre.afficherMonstreVaincu;
-import static affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
+import static fonctionnement.affichage.AfficherDsMonstre.afficherMonstreVaincu;
+import static fonctionnement.affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
 
 public class Personnage extends Entite {
     protected String m_nom;

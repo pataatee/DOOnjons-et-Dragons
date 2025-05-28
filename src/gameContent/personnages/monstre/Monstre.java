@@ -2,10 +2,8 @@ package gameContent.personnages.monstre;
 import gameContent.personnages.*;
 import gameContent.personnages.perso.Personnage;
 
-import static affichage.AfficherDsMonstre.afficherMonstreVaincu;
-import static affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
-import static affichage.AfficherDsPersonnage.afficherPersonnageVaincu;
-import static affichage.AfficherDsPersonnage.afficherPvRestants;
+import static fonctionnement.affichage.AfficherDsPersonnage.afficherPersonnageVaincu;
+import static fonctionnement.affichage.AfficherDsPersonnage.afficherPvRestants;
 
 public class Monstre extends Entite {
     private Espece m_espece;

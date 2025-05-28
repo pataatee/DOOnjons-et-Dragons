@@ -1,8 +1,12 @@
-package mdj;
+package fonctionnement.mdj;
 
+<<<<<<< HEAD:src/fonctionnement/mdj/Mdj.java
+import fonctionnement.affichage.Affichage;
+=======
 import affichage.Affichage;
 import gameContent.items.Armurerie;
 import gameContent.personnages.monstre.Monstre;
+>>>>>>> fd98c5ffaede09f722149d020060d234531625c9:src/mdj/Mdj.java
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
@@ -98,9 +102,9 @@ public class Mdj {
         }
         else if (Objects.equals(ouinon, "N")){
             Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
-            int longueur = affichage.Affichage.ScanInt();
+            int longueur = Affichage.ScanInt();
             Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
-            int largeur = affichage.Affichage.ScanInt();
+            int largeur = Affichage.ScanInt();
             map = new Map(longueur, largeur);
             if (map.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
                 Affichage.afficherErreur("Erreur lors de la creation de la carte");
