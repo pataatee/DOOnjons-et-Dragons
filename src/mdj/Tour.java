@@ -1,6 +1,9 @@
 package mdj;
 
+import affichage.Affichage;
 import gameContent.personnages.perso.Personnage;
+
+import static affichage.Affichage.*;
 
 public class Tour {
     private int m_tour;
@@ -21,6 +24,23 @@ public class Tour {
             "Finir le tour"
         };
         this.m_finTour = false;
+        while (!m_finTour && m_nbActions > 0) {
+            jouerTour();
+
+        }
+    }
+    public void jouerTour(){
+        int numaction = Affichage.ScanInt();
+        if (numaction == 5) {
+            m_finTour = true;
+            Affichage.afficher("Fin du tour pour " + m_pers.getNom());
+            return;
+        }
+        if (numaction < 1 || numaction > m_actions.length) {
+            Affichage.afficherErreur("Action invalide. Veuillez choisir une action valide.");
+            return;
+        }
+        executerAction(action);
     }
 
 
