@@ -30,11 +30,20 @@ public class Affichage {
             }
             System.out.print("| ");
             for (int j = 0; j< map.getM_largeur();j++){
-                if (map.getM_carte()[i][j]==0){
+                if (map.getM_carte()[i][j]==0){ // Case vide
                     System.out.print(" . ");
                 }
+                else if (map.getM_carte()[i][j]==-1){ // Case mur
+                    System.out.print("[ ]");
+                }
+                else if (map.getM_carte()[i][j] == 1){ // case Monstre
+                    System.out.print(" X(");
+                }
+                else if (map.getM_carte()[i][j] == 2){ //case Trésor
+                    System.out.print(" * ");
+                }
                 else{
-                    System.out.print(map.getM_carte()[i][j]);
+                    System.out.print(" "+ map.getM_carte()[i][j]+ " ");
                 }
 
             }
