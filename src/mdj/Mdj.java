@@ -1,6 +1,8 @@
 package mdj;
 
 import affichage.Affichage;
+import gameContent.items.Armurerie;
+import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
@@ -8,11 +10,13 @@ import gameContent.personnages.perso.race.*;
 import java.util.Objects;
 
 public class Mdj {
-    private Map m_map;
-    private int m_nbJoueurs; //nombre de joueurs
+    private final Map m_map;
+    private final int m_nbJoueurs; //nombre de joueurs
     private int m_nbMonstres;
     private int m_nbTresors;
     private Personnage[] m_joueurs; // Tableau contenant tous les joueurs
+    private Monstre[] m_monstres; // Tableau contenant tous les monstres (à implémenter plus tard)
+    private Armurerie[] m_tresors; // Tableau contenant tous les trésors (à implémenter plus tard)
 
     public Mdj() {
         Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
@@ -108,8 +112,6 @@ public class Mdj {
             return mdj_map_dimensions();
         }
         return map;
-
-
     }
 
     public void tours(){

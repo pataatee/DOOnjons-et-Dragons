@@ -1,6 +1,8 @@
 package gameContent.personnages;
 
-public abstract class Entite {
+import gameContent.Truc;
+
+public abstract class Entite extends Truc {
     //les attributs communs
     //enft y'en a pas
 
