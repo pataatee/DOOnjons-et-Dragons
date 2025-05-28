@@ -92,5 +92,9 @@ public class Personnage extends Entite {
         return this.m_equipements.getM_armure();
     }
 
+    public int getDegats() {
+        return this.m_attaque.getDegats();
+    }
+
 
 }
