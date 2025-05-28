@@ -1,11 +1,13 @@
 package gameContent.personnages.monstre;
 
-public class Attaque {
+import gameContent.personnages.Attaque;
+
+public class AttaqueMonstre implements Attaque {
     private String m_nom;
     private int m_portee;
     private int m_degats;
 
-    public Attaque (String attaque, int portee, int degats) {
+    public AttaqueMonstre(String attaque, int portee, int degats) {
         m_nom = attaque;
         m_portee = portee;
         m_degats = degats;

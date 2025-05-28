@@ -1,4 +1,6 @@
-package gameContent.personnages;
+package gameContent.personnages.monstre;
+
+import gameContent.personnages.Caracteristique;
 
 public class CaracteristiqueMonstre extends Caracteristique {
     private int m_classeArmure;

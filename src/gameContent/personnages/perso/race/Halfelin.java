@@ -1,4 +1,4 @@
-package gameContent.personnages.race;
+package gameContent.personnages.perso.race;
 
 public class Halfelin extends Race{
     public Halfelin() {
