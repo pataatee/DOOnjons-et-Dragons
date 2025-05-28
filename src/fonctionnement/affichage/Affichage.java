@@ -99,8 +99,6 @@ public class Affichage {
             afficher("Armure : Non Equipé");
         }
 
-
-
         String inventaire = "";
         for (Arme arme : pers.getInventaire().getM_armes()){ //TODO a modif car pas droit a double getteur
             inventaire += arme.getNom() + " - ";
@@ -112,8 +110,12 @@ public class Affichage {
 
         afficher("");
         afficherMap(map);
+    }
 
-
-
+    public void afficherActions(String actions[]) {
+        afficher("Actions possibles : ");
+        for (int i = 0; i < actions.length; i++) {
+            afficher((i + 1) + " - " + actions[i]);
+        }
     }
 }
