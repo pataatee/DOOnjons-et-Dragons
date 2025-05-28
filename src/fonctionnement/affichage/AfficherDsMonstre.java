@@ -1,4 +1,4 @@
-package affichage;
+package fonctionnement.affichage;
 
 public class AfficherDsMonstre {
     public static void afficherMonstreVaincu() {
