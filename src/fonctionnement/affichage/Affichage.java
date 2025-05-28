@@ -1,9 +1,9 @@
-package affichage;
+package fonctionnement.affichage;
 
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.perso.Personnage;
-import mdj.Map;
+import fonctionnement.mdj.Map;
 
 import java.util.Scanner;
 

@@ -1,6 +1,6 @@
-package mdj;
+package fonctionnement.mdj;
 
-import affichage.Affichage;
+import fonctionnement.affichage.Affichage;
 
 import java.util.Random;
 
@@ -29,7 +29,7 @@ public class Map {
 
     public void demanderMap(){
         Affichage.afficher("Voulez vous une map random (O/N) ?");
-        String choix = affichage.Affichage.ScanString();
+        String choix = Affichage.ScanString();
         if (choix.equals("O")||(choix.equals("o"))){
             createRandomMap();
             redemanderMap();
