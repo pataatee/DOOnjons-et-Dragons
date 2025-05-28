@@ -16,18 +16,18 @@ public class Mdj {
 
     public Mdj() {
         Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
-        this.m_nbJoueurs = affichage.Affichage.ScanInt();
+        this.m_nbJoueurs = Affichage.ScanInt();
         this.m_joueurs = new Personnage[this.m_nbJoueurs];
         for (int i=0; i<this.m_nbJoueurs; i++){
             Affichage.afficher("joueur "+(i+1));
             Affichage.afficher("Selectionnez le nom du personnage : ");
-            String nom= affichage.Affichage.ScanString();
+            String nom= Affichage.ScanString();
             Race race = chooseRace();
             Classe classe = chooseClasse();
             Personnage personnage = new Personnage(nom,race, classe);
             this.m_joueurs[i] = personnage;
         }
-        this.m_map = mdj_create_Map();
+        this.m_map = mdj_map_dimensions();
         Affichage.afficherMap(this.m_map);
 
         this.m_nbMonstres = 0;
@@ -37,7 +37,7 @@ public class Mdj {
     public Race chooseRace(){
         Affichage.afficher("Selectionnez la race du personnage : ");
         Race race= null;
-        String resultat = affichage.Affichage.ScanString();
+        String resultat = Affichage.ScanString();
         if (Objects.equals(resultat, "Halfelin")){
             race = new Halfelin();
             return race;
@@ -62,7 +62,7 @@ public class Mdj {
     public Classe chooseClasse(){
         Affichage.afficher("Selectionnez la classe du personnage : ");
         Classe classe= null;
-        String resultat = affichage.Affichage.ScanString();
+        String resultat = Affichage.ScanString();
         if (Objects.equals(resultat, "Clerc")){
             classe = new Clerc();
             return classe;
@@ -85,19 +85,31 @@ public class Mdj {
         }
 
     }
-    public Map mdj_create_Map(){
-        Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
-        int longueur = affichage.Affichage.ScanInt();
-        Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
-        int largeur = affichage.Affichage.ScanInt();
-        Map test = new Map(longueur, largeur);
-        if (test.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
-            Affichage.afficherErreur("Erreur lors de la creation de la carte");
-            return mdj_create_Map();
+    public Map mdj_map_dimensions(){
+        Map map;
+        Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
+        String ouinon = Affichage.ScanString();
+        if (Objects.equals(ouinon, "O")){
+            map = new Map();
         }
-        else{
-            return test;
+        else if (Objects.equals(ouinon, "N")){
+            Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
+            int longueur = affichage.Affichage.ScanInt();
+            Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
+            int largeur = affichage.Affichage.ScanInt();
+            map = new Map(longueur, largeur);
+            if (map.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
+                Affichage.afficherErreur("Erreur lors de la creation de la carte");
+                return mdj_map_dimensions();
+            }
         }
+        else {
+            Affichage.afficherErreur("Choix non valide");
+            return mdj_map_dimensions();
+        }
+        return map;
+
+
     }
 
     public void tours(){
@@ -105,13 +117,13 @@ public class Mdj {
         int i = 0;
         while ((!morts) && (i < 10)){ //et que le donjon est pas fini, mais pas encore testé TODO a enlever le i, c temporaire pour éviter une boucle infinie
             for (int pers = 0; pers<m_nbJoueurs; pers++){
-                affichage.Affichage.afficherTour(i, this.m_joueurs[pers], this.m_map);
+                Affichage.afficherTour(i, this.m_joueurs[pers], this.m_map);
                 morts = verify_morts();
                 i++;
             }
         }
         if (morts){
-            affichage.Affichage.afficher("y'a eu un mort, so fin du jeu heheeee"); // ! A MODIF C UNE BLAGUE D'ACCORD, CA FAIT 4H QUE J'SUIS DESSUS ALED
+            Affichage.afficher("y'a eu un mort, so fin du jeu heheeee"); // ! A MODIF C UNE BLAGUE D'ACCORD, CA FAIT 4H QUE J'SUIS DESSUS ALED
         }
     }
 

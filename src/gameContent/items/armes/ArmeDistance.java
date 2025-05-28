@@ -23,4 +23,6 @@ public class ArmeDistance implements Arme{
         return m_portee;
     }
     public static final ArmeDistance Fronde = new ArmeDistance("Fronde", 3, 5);
+    public static final ArmeDistance Arbalete_legere = new ArmeDistance("Arbalète légère", 4, 10);
+    public static final ArmeDistance Arc_court = new ArmeDistance("Arc court", 3, 9);
 }
