@@ -1,7 +1,7 @@
 package gameContent.items.armes;
 
 
-import de.De;
+import fonctionnement.de.De;
 
 public class ArmeDistance implements Arme{
     private final String m_nom;
