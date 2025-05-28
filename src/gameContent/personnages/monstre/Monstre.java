@@ -66,7 +66,7 @@ public class Monstre extends Entite {
     }
 
     @Override
-    public boolean attaquer(Entite cible) {
+    public boolean attaquer(Entite cible) { // TODO : vérifier si l'attaque est possible (portée)
         if (cible == null) {
             return false;
         }
