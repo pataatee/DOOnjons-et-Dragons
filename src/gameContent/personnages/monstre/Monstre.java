@@ -4,6 +4,8 @@ import gameContent.personnages.perso.Personnage;
 
 import static affichage.AfficherDsMonstre.afficherMonstreVaincu;
 import static affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
+import static affichage.AfficherDsPersonnage.afficherPersonnageVaincu;
+import static affichage.AfficherDsPersonnage.afficherPvRestants;
 
 public class Monstre extends Entite {
     private Espece m_espece;
@@ -68,18 +70,7 @@ public class Monstre extends Entite {
         if (cible == null) {
             return false;
         }
-        cible.estAttaquePar(this);
-        return true;
-    }
-
-    public boolean equals(Object obj) {
-        if (obj instanceof Monstre) {
-            Monstre other = (Monstre) obj;
-            return this.m_espece.equals(other.m_espece) &&
-                   this.m_caracteristique.equals(other.m_caracteristique) &&
-                   this.m_attaque.equals(other.m_attaque);
-        }
-        return false;
+        return cible.estAttaquePar(this);
     }
 
     @Override
@@ -91,9 +82,9 @@ public class Monstre extends Entite {
         pvCible -= agresseur.getDegats();
         this.getCaracteristiques().modifyPvs(pvCible);
         if (pvCible <= 0) {
-            afficherMonstreVaincu();
+            afficherPersonnageVaincu();
         } else {
-            afficherPvRestantsMonstre(pvCible);
+            afficherPvRestants(pvCible);
         }
         return true;
     }

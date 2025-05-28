@@ -6,8 +6,12 @@ import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.Attaque;
 import gameContent.personnages.Entite;
+import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.classe.Classe;
 import gameContent.personnages.perso.race.Race;
+
+import static affichage.AfficherDsMonstre.afficherMonstreVaincu;
+import static affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
 
 public class Personnage extends Entite {
     protected String m_nom;
@@ -96,5 +100,33 @@ public class Personnage extends Entite {
         return this.m_attaque.getDegats();
     }
 
+    @Override
+    public boolean estAttaquePar(Monstre monstre) {
+        return false; // un monstre ne peut pas etre attaqué par un monstre (et on utilise cette methode sur la cible, donc un monstre)
+    }
+
+    @Override
+    public boolean estAttaquePar(Personnage agresseur) {
+        if (agresseur == null) {
+            return false;
+        }
+        int pvCible = this.getPvs();
+        pvCible -= agresseur.getDegats();
+        this.getCaracteristiques().modifyPvs(pvCible);
+        if (pvCible <= 0) {
+            afficherMonstreVaincu();
+        } else {
+            afficherPvRestantsMonstre(pvCible);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean attaquer(Entite cible) {
+        if (cible == null) {
+            return false;
+        }
+        return cible.estAttaquePar(this); // true si attaque reussie, false sinon
+    }
 
 }
