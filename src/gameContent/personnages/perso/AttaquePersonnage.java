@@ -1,5 +1,6 @@
 package gameContent.personnages.perso;
 
+import de.De;
 import gameContent.personnages.Attaque;
 
 public class AttaquePersonnage implements Attaque {
@@ -13,6 +14,7 @@ public class AttaquePersonnage implements Attaque {
     }
 
     public void setDegats() {
-
+        De de = new De(20, 1);
+        
     }
 }

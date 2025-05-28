@@ -6,7 +6,7 @@ public class De {
     private int m_faces;
     private int m_nbdedes;
 
-    public void De (int faces, int nbdedes){
+    public De (int faces, int nbdedes){
         this.m_faces = faces;
         this.m_nbdedes = nbdedes;
     }
