@@ -1,12 +1,9 @@
 package fonctionnement.mdj;
 
-<<<<<<< HEAD:src/fonctionnement/mdj/Mdj.java
 import fonctionnement.affichage.Affichage;
-=======
-import affichage.Affichage;
+import fonctionnement.affichage.Affichage;
 import gameContent.items.Armurerie;
 import gameContent.personnages.monstre.Monstre;
->>>>>>> fd98c5ffaede09f722149d020060d234531625c9:src/mdj/Mdj.java
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;

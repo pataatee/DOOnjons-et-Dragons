@@ -45,7 +45,7 @@ public class Map {
 
     public void redemanderMap(){
         Affichage.afficher("Voulez vous utiliser cette map (O/N) ?");
-        String choix = affichage.Affichage.ScanString();
+        String choix = fonctionnement.affichage.Affichage.ScanString();
         if (choix.equals("N")){
             demanderMap();
         }
