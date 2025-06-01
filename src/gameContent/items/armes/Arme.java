@@ -1,5 +1,5 @@
 package gameContent.items.armes;
-import de.De;
+import fonctionnement.de.De;
 
 public interface Arme {
     public String getNom();

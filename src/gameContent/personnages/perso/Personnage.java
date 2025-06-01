@@ -4,7 +4,9 @@ import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
+import gameContent.personnages.Caracteristique;
 import gameContent.personnages.Entite;
+import gameContent.personnages.monstre.CaracteristiqueMonstre;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.classe.Classe;
 import gameContent.personnages.perso.race.Race;
@@ -13,12 +15,12 @@ import static fonctionnement.affichage.AfficherDsMonstre.afficherMonstreVaincu;
 import static fonctionnement.affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
 
 public class Personnage extends Entite {
-    protected String m_nom;
-    protected Race m_race;
-    protected Classe m_classe;
-    protected CaracteristiquePersonnage m_caracteristiques;
-    protected Armurerie m_inventaire = new Armurerie();
-    protected Equipement m_equipements = new Equipement();
+    private String m_nom;
+    private Race m_race;
+    private Classe m_classe;
+    private CaracteristiquePersonnage m_caracteristiques;
+    private Armurerie m_inventaire = new Armurerie();
+    private Equipement m_equipements = new Equipement();
     private AttaquePersonnage m_attaque;
 
     public Personnage(String nom, Race race, Classe classe){
@@ -28,9 +30,6 @@ public class Personnage extends Entite {
         this.setCaracteristiques(this.m_race.getM_caracteristiques());
         this.setInventaire(this.m_classe.getM_armurerie());
         this.m_caracteristiques.bonusPvs(this.m_classe.getM_Pvs());
-    }
-    public String getM_nom(){
-        return m_nom;
     }
 
     public void setEquipement_Arme(Arme arme){
@@ -78,10 +77,6 @@ public class Personnage extends Entite {
         return m_caracteristiques.getInitiative();
     }
 
-    @Override
-    public CaracteristiquePersonnage getCaracteristiques(){
-        return m_caracteristiques;
-    }
 
 
     public String getNom() {
@@ -120,12 +115,19 @@ public class Personnage extends Entite {
         return true;
     }
 
+
     @Override
     public boolean attaquer(Entite cible) {
         if (cible == null) {
             return false;
         }
         return cible.estAttaquePar(this); // true si attaque reussie, false sinon
+    }
+
+    //TODO euh revoir les bails de caractéristiques partout help
+    @Override
+    public CaracteristiqueMonstre getCaracteristiques() {
+        return getCaracteristiques();
     }
 
 }
