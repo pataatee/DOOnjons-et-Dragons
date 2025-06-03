@@ -1,7 +1,8 @@
 package gameContent.items;
 
-import gameContent.Truc;
 
-public interface Item  {
+
+public interface Item //extends fonctionnement.coordonnees.Coordonnees {
+{
     public String getNom();
 }
