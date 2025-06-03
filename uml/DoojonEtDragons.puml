@@ -29,41 +29,98 @@ package gameContent
 {
     package personnages
     {
-        class Personnage {
-            +<<create>> Personnage()
-            -m_nom:String
-            +attaquer(Monstre)
-        }
-        Personnage "1" --> "1"race.Race : appartient à >
-        Personnage "1"--> "1"classe.Classe : est >
-        Personnage "1"*--> "1"caracteristiques.CaracteristiquePersonnage : possède des >
-        Personnage "1"--> "1"gameContent.items.Armurerie:possède >
-        Personnage "1"--> "1"gameContent.items.Equipement:possède >
-        Personnage .> monstre.Monstre : <<utilise>>
+        package perso {
+            class Personnage {
+                -m_nom:String
+                +<<create>> Personnage()
+                +getNom():String
+                +getInventaire():Inventaire
+                +getCaracteristiquesPerso:CaracteristiquePersonnage
+                +getPvs():Integer
+                +getForce():Integer
+                +getDexterite:Integer
+                +getInitiative:Integer
+                +get
+                +setCaracteristiques(CaracteristiquePersonnage caracteristiques):void
+                +setEquipementArme(Arme arme):void
+                +setEquipementArmure(Armure armure):void
+                +setInventaire(Armurerie inventaire):void
+                +attaquer(Monstre)
+            }
+            class AttaquePersonnage {
+                -m_degats:Integer
+                +<<create>> AttaquePersonnage()
+                +getDegats():Integer
+            }
 
-        package race{
-            abstract class Race <<abstract>>{
-                +<<create>> Race()
-                -m_type:String
+            class CaracteristiquePersonnage {
+                -m_vitesse:Integer
+                +<<create>> CaracteristiquePersonnage()
+                +getVitesse():Integer
+                +modifyVitesse(vitesse:Integer):void
+                +bonusVitesse(bonus:Integer):void
             }
-            class Elfe {
-            +<<create>> Elfe()
-            }
-            class Halfelin {
-            +<<create>> Halfelin()
-            }
-            class Humain {
-            +<<create>> Humain()
-            }
-            class Nain {
-            +<<create>> Nain()
-            }
-            Humain --|> Race
-            Nain --|> Race
-            Elfe --|> Race
-            Halfelin --|> Race
+
+                Personnage "1" --> "1"race.Race : appartient à >
+                Personnage "1"--> "1"classe.Classe : est >
+                Personnage "1"*--> "1"caracteristiques.CaracteristiquePersonnage : possède des >
+                Personnage "1"--> "1"gameContent.items.Armurerie:possède >
+                Personnage "1"--> "1"gameContent.items.Equipement:possède >
+                Personnage .> monstre.Monstre : <<utilise>>
+                Personnage "1"--> "1"gameContent.personnages.perso.AttaquePersonnage : a une >
+
+                package race{
+                    abstract class Race <<abstract>>{
+                        +<<create>> Race()
+                        -m_type:String
+                    }
+                    class Elfe {
+                    +<<create>> Elfe()
+                    }
+                    class Halfelin {
+                    +<<create>> Halfelin()
+                    }
+                    class Humain {
+                    +<<create>> Humain()
+                    }
+                    class Nain {
+                    +<<create>> Nain()
+                    }
+                    Humain --|> Race
+                    Nain --|> Race
+                    Elfe --|> Race
+                    Halfelin --|> Race
+                }
+                Race "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
+
+                package classe{
+                    abstract class Classe <<abstract>> {
+                        +<<create>> Classe()
+                        #m_nom:String
+                        #m_pvs:Integer
+                    }
+                    class Clerc {
+                    +<<create>> Clerc()
+                    }
+                    class Guerrier {
+                    +<<create>> Guerrier()
+                    }
+                    class Magicien {
+                    +<<create>> Magicien()
+                    }
+                    class Roublard {
+                    +<<create>> Roublard()
+                    }
+                    Classe "1" --> "1"gameContent.items.Armurerie
+                    Clerc --|> Classe
+                    Guerrier --|> Classe
+                    Magicien --|> Classe
+                    Roublard --|> Classe
+                    Classe --> gameContent.items.Armurerie
+
+                }
         }
-        Race "1" *--> "1-m_caracteristique" gameContent.personnages.CaracteristiquePersonnage : possède >
+
         package caracteristiques{
             abstract class Caracteristiques <<abstract>> {
                 +<<create>> Caracteristiques()
@@ -82,32 +139,7 @@ package gameContent
             CaracteristiquePersonnage --|> Caracteristiques
             CaracteristiqueMonstre --|> Caracteristiques
         }
-        package classe{
-            abstract class Classe <<abstract>> {
-                +<<create>> Classe()
-                #m_nom:String
-                #m_pvs:Integer
-            }
-            class Clerc {
-            +<<create>> Clerc()
-            }
-            class Guerrier {
-            +<<create>> Guerrier()
-            }
-            class Magicien {
-            +<<create>> Magicien()
-            }
-            class Roublard {
-            +<<create>> Roublard()
-            }
-            Classe "1" --> "1"gameContent.items.Armurerie
-            Clerc --|> Classe
-            Guerrier --|> Classe
-            Magicien --|> Classe
-            Roublard --|> Classe
-            Classe --> gameContent.items.Armurerie
 
-        }
 
         abstract class Caracteristique <<abstract>> {
             +<<create>> Caracteristique()

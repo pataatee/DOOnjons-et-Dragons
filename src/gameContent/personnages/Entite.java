@@ -1,5 +1,6 @@
 package gameContent.personnages;
 
+import gameContent.personnages.monstre.CaracteristiqueMonstre;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 
@@ -33,7 +34,9 @@ public abstract class Entite {
 
     //getters abstract
 
-    public abstract Caracteristique getCaracteristiques();
+    public abstract CaracteristiqueMonstre getCaracteristiques();
+
+    //public abstract Caracteristique getCaracteristiques();
     public abstract int getPvs();
     public abstract int getForce();
     public abstract int getDexterite();

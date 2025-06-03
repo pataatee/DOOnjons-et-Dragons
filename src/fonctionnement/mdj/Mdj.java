@@ -4,7 +4,6 @@ import fonctionnement.affichage.Affichage;
 import fonctionnement.affichage.Affichage;
 import gameContent.items.Armurerie;
 import gameContent.personnages.monstre.Monstre;
-
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
