@@ -14,16 +14,16 @@ public class Armurerie {
         this.m_armes = new ArrayList<Arme>();
     }
 
-    public List<Arme> getM_armes() {
+    public List<Arme> getArmes() {
         return m_armes;
     }
-    public void addM_armes(Arme m_armes) {
+    public void addArmes(Arme m_armes) {
         this.m_armes.add(m_armes);
     }
-    public List<Armure> getM_armures() {
+    public List<Armure> getArmures() {
         return m_armures;
     }
-    public void addM_armures(Armure m_armures) {
+    public void addArmures(Armure m_armures) {
         this.m_armures.add(m_armures);
     }
 }

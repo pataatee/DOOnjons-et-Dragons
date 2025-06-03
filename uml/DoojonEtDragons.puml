@@ -1,6 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
-scale 0.5
+scale 1
 
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
@@ -290,28 +290,28 @@ package fonctionnement {
     }
     package mdj {
         class Map{
-            -m_map:Integer[15][25]
+            -m_map:Integer[15:25]
             -m_longueur:Integer
             -m_largeur:Integer
             +<<create>> Map(Integer, Integer)
             +demanderMap()
             +createMap()
-            +createRandomMap():Integer[15][25]
-            +getM_map():Integer[15][25]
+            +createRandomMap():Integer[15:25]
+            +getM_map():Integer[15:25]
             +getLongueur():Integer
             +getLargeur():Integer
-            +createOwnMap():Integer[15][25]
+            +createOwnMap():Integer[15:25]
         }
         Map "1" *--> "1..*" Monstre : contient >
         Map "1" *--> "1..*" Personnage : contient >
 
         class Mdj{
         -m_nbJoueurs:Integer
-        -m_joueurs:Personnage[m_nbJoueurs]
+        -m_joueurs:Personnage[*]
         -m_tour:Integer
         +<<create>> Mdj()
         +getM_nbJoueurs():Integer
-        +getM_joueurs():Personnage[m_nbJoueurs]
+        +getM_joueurs():Personnage[*]
         +getM_map():Map
         +chooseRace():Race
         +chooseClasse():Classe

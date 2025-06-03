@@ -100,10 +100,10 @@ public class Affichage {
         }
 
         String inventaire = "";
-        for (Arme arme : pers.getInventaire().getM_armes()){ //TODO a modif car pas droit a double getteur
+        for (Arme arme : pers.getInventaire().getArmes()){ //TODO a modif car pas droit a double getteur
             inventaire += arme.getNom() + " - ";
         }
-        for (Armure armure : pers.getInventaire().getM_armures()){ //TODO a modif car pas droit a double getteur
+        for (Armure armure : pers.getInventaire().getArmures()){ //TODO a modif car pas droit a double getteur
             inventaire += armure.getNom() + " - ";
         }
         afficher("Inventaire : " + inventaire);

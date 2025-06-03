@@ -28,7 +28,7 @@ public class Personnage extends Entite {
         this.m_race = race;
         this.m_classe = classe;
         this.setCaracteristiques(this.m_race.getM_caracteristiques());
-        this.setInventaire(this.m_classe.getM_armurerie());
+        this.setInventaire(this.m_classe.getArmurerie());
         this.m_caracteristiques.bonusPvs(this.m_classe.getM_Pvs());
     }
 
