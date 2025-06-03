@@ -1,6 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
-scale 1
+scale 0.5
 
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
@@ -63,7 +63,7 @@ package gameContent
 
                 Personnage "1" --> "1"race.Race : appartient à >
                 Personnage "1"--> "1"classe.Classe : est >
-                Personnage "1"*--> "1"caracteristiques.CaracteristiquePersonnage : possède des >
+                Personnage "1"*--> "1"CaracteristiquePersonnage : possède des >
                 Personnage "1"--> "1"gameContent.items.Armurerie:possède >
                 Personnage "1"--> "1"gameContent.items.Equipement:possède >
                 Personnage .> monstre.Monstre : <<utilise>>
@@ -121,24 +121,14 @@ package gameContent
                 }
         }
 
-        package caracteristiques{
-            abstract class Caracteristiques <<abstract>> {
-                +<<create>> Caracteristiques()
-                #m_pv:Integer
-                #m_force:Integer
-                #m_dexterite:Integer
-                #m_vitesse:Integer
-                #m_initiative:Integer
-            }
-            class CaracteristiqueMonstre {
-                -m_classeArmure:Integer
-                +getClassArmure():Integer
-            }
-            class CaracteristiquePersonnage {
-            }
-            CaracteristiquePersonnage --|> Caracteristiques
-            CaracteristiqueMonstre --|> Caracteristiques
+
+
+
+        class CaracteristiquePersonnage {
         }
+        CaracteristiquePersonnage --|> Caracteristiques
+        CaracteristiqueMonstre --|> Caracteristiques
+
 
 
         abstract class Caracteristique <<abstract>> {
@@ -155,10 +145,9 @@ package gameContent
 
 
 
-        class CaracteristiqueMonstre {
-            -m_classeArmure:Integer
-            +getClassArmure():Integer
-        }
+
+
+
 
         class CaracteristiquePersonnage {
             -m_vitesse:Integer
@@ -181,7 +170,13 @@ package gameContent
             +getNumero():Integer
             +attaquer():Integer
         }
-        Monstre "1" o--> "1-m_caracteristique" gameContent.personnages.CaracteristiqueMonstre
+
+        class CaracteristiqueMonstre {
+            -m_classeArmure:Integer
+            +getClassArmure():Integer
+        }
+
+        Monstre "1" o--> "1-m_caracteristique" gameContent.personnages.monstre.CaracteristiqueMonstre
         Attaque "1" o--> "1-m_caracteristique" gameContent.personnages.monstre.Attaque
 
 
