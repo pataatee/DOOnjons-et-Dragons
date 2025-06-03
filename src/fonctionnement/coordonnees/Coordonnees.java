@@ -23,4 +23,7 @@ public abstract class Coordonnees {
     public void set_y(int m_y) {
         this.m_y = m_y;
     }
+    public String get_affichage(){
+        return new String(m_affichage);
+    }
 }

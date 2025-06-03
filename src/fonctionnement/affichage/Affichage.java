@@ -1,5 +1,9 @@
 package fonctionnement.affichage;
 
+import fonctionnement.coordonnees.CoordonneesCaseVide;
+import fonctionnement.coordonnees.CoordonneesItem;
+import fonctionnement.coordonnees.CoordonneesMonstre;
+import fonctionnement.coordonnees.CoordonneesObstacle;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.perso.Personnage;
@@ -31,22 +35,7 @@ public class Affichage {
             }
             System.out.print("| ");
             for (int j = 0; j< map.getM_largeur();j++){
-                if (map.getM_carte()[i][j]==0){ // Case vide
-                    System.out.print(" . ");
-                }
-                else if (map.getM_carte()[i][j]==-1){ // Case mur
-                    System.out.print("[ ]");
-                }
-                else if (map.getM_carte()[i][j] == 1){ // case Monstre
-                    System.out.print(" X(");
-                }
-                else if (map.getM_carte()[i][j] == 2){ //case Trésor
-                    System.out.print(" * ");
-                }
-                else{
-                    System.out.print(" "+ map.getM_carte()[i][j]+ " ");
-                }
-
+                System.out.print(map.getM_carte()[i][j].get_affichage());
             }
             System.out.print(" |");
             System.out.println();
