@@ -32,6 +32,7 @@ public class Map {
         String choix = Affichage.ScanString();
         if (choix.equals("O")||(choix.equals("o"))){
             createRandomMap();
+            Affichage.afficherMap(this);
             redemanderMap();
         }
         else if (choix.equals("N")||(choix.equals("n"))) {
@@ -45,7 +46,7 @@ public class Map {
 
     public void redemanderMap(){
         Affichage.afficher("Voulez vous utiliser cette map (O/N) ?");
-        String choix = affichage.Affichage.ScanString();
+        String choix = Affichage.ScanString();
         if (choix.equals("N")){
             demanderMap();
         }

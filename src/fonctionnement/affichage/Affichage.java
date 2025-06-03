@@ -4,6 +4,7 @@ import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.perso.Personnage;
 import fonctionnement.mdj.Map;
+import fonctionnement.mdj.Tour;
 
 import java.util.Scanner;
 
@@ -74,7 +75,13 @@ public class Affichage {
     }
     public static int ScanInt() {
         Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
+        String input = scan.nextLine();
+        try {
+            return Integer.parseInt(input.trim()); // Convertit seulement si c’est bien un entier
+        } catch (NumberFormatException e) {
+            afficherErreur("Entrée invalide. Veuillez saisir un nombre entier.");
+            return ScanInt(); // Redemande l'entrée si ce n'est pas un entier
+        }
     }
 
     public static void afficherTour(int tour, Personnage pers, Map map){
@@ -99,6 +106,18 @@ public class Affichage {
             afficher("Armure : Non Equipé");
         }
 
+
+        afficherInventaire(pers);
+
+
+        afficher("");
+        afficherMap(map);
+        afficher("");
+        Tour truc = new Tour();
+        afficherActions(truc.getActions());
+    }
+
+    public static void afficherInventaire(Personnage pers){
         String inventaire = "";
         for (Arme arme : pers.getInventaire().getM_armes()){ //TODO a modif car pas droit a double getteur
             inventaire += arme.getNom() + " - ";
@@ -107,12 +126,9 @@ public class Affichage {
             inventaire += armure.getNom() + " - ";
         }
         afficher("Inventaire : " + inventaire);
-
-        afficher("");
-        afficherMap(map);
     }
 
-    public void afficherActions(String actions[]) {
+    public static void afficherActions(String actions[]) {
         afficher("Actions possibles : ");
         for (int i = 0; i < actions.length; i++) {
             afficher((i + 1) + " - " + actions[i]);

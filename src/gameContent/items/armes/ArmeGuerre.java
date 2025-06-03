@@ -1,6 +1,6 @@
 package gameContent.items.armes;
 
-import de.De;
+import fonctionnement.de.De;
 
 public class ArmeGuerre implements Arme {
     private final String m_nom;

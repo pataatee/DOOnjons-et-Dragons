@@ -1,12 +1,10 @@
 package fonctionnement.mdj;
 
-<<<<<<< HEAD:src/fonctionnement/mdj/Mdj.java
 import fonctionnement.affichage.Affichage;
-=======
-import affichage.Affichage;
+import fonctionnement.affichage.Affichage;
 import gameContent.items.Armurerie;
 import gameContent.personnages.monstre.Monstre;
->>>>>>> fd98c5ffaede09f722149d020060d234531625c9:src/mdj/Mdj.java
+
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
@@ -123,7 +121,7 @@ public class Mdj {
         int i = 0;
         while ((!morts) && (i < 10)){ //et que le donjon est pas fini, mais pas encore testé TODO a enlever le i, c temporaire pour éviter une boucle infinie
             for (int pers = 0; pers<m_nbJoueurs; pers++){
-                Affichage.afficherTour(i, this.m_joueurs[pers], this.m_map);
+                new Tour(this.m_joueurs[pers], i, this.m_map); //on lance le tour pour chaque joueur
                 morts = verify_morts();
                 i++;
             }
