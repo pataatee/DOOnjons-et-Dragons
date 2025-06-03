@@ -1,6 +1,6 @@
-package gameContent;
+package fonctionnement;
 
-public abstract class Truc {
+public abstract class Coordonnees {
     private int m_x;
     private int m_y;
 

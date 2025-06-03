@@ -13,4 +13,7 @@ public abstract class Classe {
     public Armurerie getM_armurerie() {
         return m_armurerie;
     }
+    public String getNom() {
+        return m_nom;
+    }
 }
