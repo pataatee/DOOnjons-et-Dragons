@@ -100,12 +100,7 @@ public class Personnage extends Entite {
     }
 
     @Override
-    public boolean estAttaquePar(Monstre monstre) {
-        return false; // un monstre ne peut pas etre attaqué par un monstre (et on utilise cette methode sur la cible, donc un monstre)
-    }
-
-    @Override
-    public boolean estAttaquePar(Personnage agresseur) {
+    public boolean estAttaquePar(Monstre agresseur) {
         if (agresseur == null) {
             return false;
         }
@@ -120,6 +115,11 @@ public class Personnage extends Entite {
         return true;
     }
 
+    @Override
+    public boolean estAttaquePar(Personnage agresseur) {
+        return false; // un monstre ne peut pas etre attaqué par un monstre (et on utilise cette methode sur la cible, donc un monstre)
+    }
+
 
     @Override
     public boolean attaquer(Entite cible) {
@@ -130,7 +130,6 @@ public class Personnage extends Entite {
     }
 
     //TODO euh revoir les bails de caractéristiques partout help
-    @Override
     public CaracteristiqueMonstre getCaracteristiques() {
         return getCaracteristiques();
     }

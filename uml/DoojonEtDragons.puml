@@ -149,41 +149,60 @@ package gameContent
         package perso {
             class Personnage extends gameContent.personnages.Entite {
                 -m_nom:String
-                +<<create>> Personnage()
+
+                +<<create>> Personnage(nom:String, race:Race, classe:Classe):Personnage
+
                 +getNom():String
-                +getInventaire():Inventaire
-                +getCaracteristiquesPerso:CaracteristiquePersonnage
+                +getInventaire():Armurerie
+                +getCaracteristiques():CaracteristiquePersonnage
                 +getPvs():Integer
                 +getForce():Integer
                 +getDexterite:Integer
                 +getInitiative:Integer
-                +get
-                +setCaracteristiques(CaracteristiquePersonnage caracteristiques):void
-                +setEquipementArme(Arme arme):void
-                +setEquipementArmure(Armure armure):void
-                +setInventaire(Armurerie inventaire):void
-                +attaquer(Monstre)
+                +getVitesse():Integer
+                +getArmeEquipee:Arme
+                +getArmureEquipee:Armure
+                +getDegats():Integer
+
+                +setCaracteristiques(CaracteristiquePersonnage caracteristiques)
+                +setEquipementArme(Arme arme)
+                +setEquipementArmure(Armure armure)
+                +setInventaire(Armurerie inventaire)
+                +attaquer(entite:Entite):Boolean
+                +estAttaquePar(agresseur:Monstre):Boolean
+                +estAttaquePar(agresseur:Personnage):Boolean
+
             }
+
+            Personnage "1" *--> "1..*-m_race" gameContent.personnages.perso.race.Race
+            Personnage "1" *--> "1..*-m_classe" gameContent.personnages.perso.classe.Classe
+            Personnage "1" *--> "1-m_caracteristique" gameContent.personnages.perso.CaracteristiquePersonnage
+            Personnage "1" *--> "1-m_inventaire" gameContent.items.Armurerie
+            Personnage "1" *--> "1-m_equipement" gameContent.items.Equipement
+            Personnage "1..*" *--> "1-m_attaque" gameContent.personnages.perso.AttaquePersonnage
+
+
             class AttaquePersonnage implements gameContent.personnages.Attaque {
                 -m_degats:Integer
-                +<<create>> AttaquePersonnage()
+
+                +<<create>> AttaquePersonnage():AttaquePersonnage
+
                 +getDegats():Integer
             }
 
-            class CaracteristiquePersonnage {
+            AttaquePersonnage .> De : <<use>>
+
+            class CaracteristiquePersonnage extends gameContent.personnages.Caracteristique {
                 -m_vitesse:Integer
-                +<<create>> CaracteristiquePersonnage()
+
+                +<<create>> CaracteristiquePersonnage(pv:Integer, force:Integer, dexterite:Integer, initiav=tive:Integer, vitesse:Integer):CaracteristiquePersonnage
+
                 +getVitesse():Integer
-                +modifyVitesse(vitesse:Integer):void
-                +bonusVitesse(bonus:Integer):void
+                +modifyVitesse(vitesse:Integer)
+                +bonusVitesse(bonus:Integer)
             }
 
-                Personnage "1" --> "1"race.Race : appartient à >
-                Personnage "1"--> "1"classe.Classe : est >
-                Personnage "1"*--> "1"CaracteristiquePersonnage : possède des >
-                Personnage "1"--> "1"gameContent.items.Armurerie:possède >
-                Personnage "1"--> "1"gameContent.items.Equipement:possède >
-                Personnage "1"--> "1"gameContent.personnages.perso.AttaquePersonnage : a une >
+
 
                 package race{
                     abstract class Race <<abstract>>{
@@ -267,6 +286,9 @@ package gameContent
         interface Attaque <<interface>> {
             +getDegats():Integer
         }
+
+
+
 
 
 
