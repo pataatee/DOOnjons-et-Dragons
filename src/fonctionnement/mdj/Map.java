@@ -209,7 +209,7 @@ public class Map {
                 i--; // pr recommencer
             }
             else {
-                m_carte[xObstacle][yObstacle] = new CoordonneesObstacle(xObstacle, yObstacle); // On place un obstacle
+                m_carte[xObstacle][yObstacle] = new CoordonneesObstacle(xObstacle-1, yObstacle); // On place un obstacle
             }
         }
     }
@@ -249,7 +249,7 @@ public class Map {
                 i--; // cancel ce tour de boucle
             }
             else {
-                m_carte[xTresor][yTresor] = new CoordonneesItem(xTresor, yTresor); // on place un trésor
+                m_carte[xTresor][yTresor] = new CoordonneesItem(xTresor-1, yTresor); // on place un trésor
             }
         }
     }
@@ -278,10 +278,10 @@ public class Map {
             do {
                 AffichageCarte.demanderCoordonneeY();
                 yStringMonstre = Affichage.scanString();
-                if (yStringMonstre.length() != 1 || yStringMonstre.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur) {
+                if (yStringMonstre.length() != 1 || yStringMonstre.charAt(0) < 'A' || yStringMonstre.charAt(0) >= 'A' + m_largeur) {
                     AffichageCarte.yInvalide();
                 }
-            } while (yStringMonstre.length() != 1 || yStringMonstre.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur);
+            } while (yStringMonstre.length() != 1 || yStringMonstre.charAt(0) < 'A' || yStringMonstre.charAt(0) >= 'A' + m_largeur);
             yMonstre = yStringMonstre.charAt(0) - 'A';
 
             if (m_carte[xMonstre][yMonstre] != null) {
@@ -289,7 +289,7 @@ public class Map {
                 i--; // cancel ce tour de boucleeeee
             }
             else {
-                m_carte[xMonstre][yMonstre] = new CoordonneesMonstre(xMonstre, yMonstre);
+                m_carte[xMonstre][yMonstre] = new CoordonneesMonstre(xMonstre-1, yMonstre);
             }
         }
     }
@@ -310,10 +310,10 @@ public class Map {
             do {
                 AffichageCarte.demanderCoordonneeY();
                 yStringPerso = Affichage.scanString();
-                if (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringPerso.charAt(0) > 'A' + m_largeur) {
+                if (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringPerso.charAt(0) >= 'A' + m_largeur) {
                     AffichageCarte.yInvalide();
                 }
-            } while (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringPerso.charAt(0) > 'A' + m_largeur);
+            } while (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringPerso.charAt(0) >= 'A' + m_largeur);
             yPerso = yStringPerso.charAt(0) - 'A';
 
             if (m_carte[xPerso][yPerso] != null) {
@@ -321,7 +321,7 @@ public class Map {
                 i--; // cancel tour de boucle
             }
             else {
-                m_carte[xPerso][yPerso] = new CoordonneesPersonnage(xPerso, yPerso, m_joueurs[i]);
+                m_carte[xPerso][yPerso] = new CoordonneesPersonnage(xPerso-1, yPerso, m_joueurs[i]);
             }
         }
     }
