@@ -161,6 +161,15 @@ public class Map {
         placerMonstre();
         placerPerso();
 
+        for (int i = 0; i < this.m_longueur; i++) {
+            for (int j = 0; j < this.m_largeur; j++) {
+                if (m_carte[i][j] == null) {
+                    m_carte[i][j] = new CoordonneesCaseVide(i,j);
+                }
+            }
+        }
+
+
     }
     public void placerObstacle() {
         int nbObstacles;
