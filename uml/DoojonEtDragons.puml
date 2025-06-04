@@ -214,16 +214,16 @@ package gameContent
                         +getNom:String
 
                     }
-                    class Elfe {
+                    class Elfe extends gameContent.personnages.perso.race.Race {
                         +<<create>> Elfe()
                     }
-                    class Halfelin {
+                    class Halfelin extends gameContent.personnages.perso.race.Race {
                         +<<create>> Halfelin()
                     }
-                    class Humain {
+                    class Humain extends gameContent.personnages.perso.race.Race {
                         +<<create>> Humain()
                     }
-                    class Nain {
+                    class Nain extends gameContent.personnages.perso.race.Race {
                         +<<create>> Nain()
                     }
                     Humain --|> Race
@@ -231,35 +231,45 @@ package gameContent
                     Elfe --|> Race
                     Halfelin --|> Race
                 }
-                
+
                 Race "1" *--> "1-m_caracteristique" gameContent.personnages.perso.CaracteristiquePersonnage : possède >
 
                 package classe{
                     abstract class Classe <<abstract>> {
-                        +<<create>> Classe()
-                        #m_nom:String
-                        #m_pvs:Integer
+                        -m_nom:String
+                        -m_pvs:Integer
+
+                        +<<create>> Classe(nom:String, pv:Integer, armurerie:Armurerie):Classe
+
                         +getPvs():Integer
                         +getNom():String
                         +getArmurerie():Armurerie
+
+                        + {abstract} modifyArmurerie():Armurerie
                     }
+
+                    Classe "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
+
                     class Clerc {
-                        +<<create>> Clerc()
+                        +<<create>> Clerc():Clerc
+
+                        +modifyArmurerie():Armurerie
                     }
                     class Guerrier {
-                        +<<create>> Guerrier()
+                        +<<create>> Guerrier():Guerrier
+
+                        +modifyArmurerie():Armurerie
                     }
                     class Magicien {
-                        +<<create>> Magicien()
+                        +<<create>> Magicien():Magicien
+
+                        +modifyArmurerie():Armurerie
                     }
                     class Roublard {
-                        +<<create>> Roublard()
+                        +<<create>> Roublard():Roublard
+
+                        +modifyArmurerie():Armurerie
                     }
-                    Classe "1" --> "1"gameContent.items.Armurerie
-                    Clerc --|> Classe
-                    Guerrier --|> Classe
-                    Magicien --|> Classe
-                    Roublard --|> Classe
 
                 }
         }
