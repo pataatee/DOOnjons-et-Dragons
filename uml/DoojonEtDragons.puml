@@ -136,14 +136,20 @@ package gameContent
     package personnages
     {
         abstract class Entite <<abstract>> {
+            -m_x:Integer
+            -m_y:Integer
+
             + {abstract} attaquer(Entite entite):Boolean
-            +seDeplacer();
             + {abstract} getPvs():Integer
             + {abstract} getForce():Integer
             + {abstract} getDexterite():Integer
             + {abstract} getInitiative():Integer
             + {abstract} estAttaquePar(Monstre monstre):Boolean
             + {abstract} estAttaquePar(Personnage perso):Boolean
+
+            +getX():Integer
+            +getY():Integer
+            +setPosition(x:Integer, y:Integer)
         }
 
         package perso {
@@ -473,6 +479,9 @@ package fonctionnement {
             +createMap()
             +createRandomMap()
             +setCase(i:Integer, j:Integer, co:Coordonnees)
+            +seDeplacer()
+            +demandeCaractere():char
+            +Deplacement():Boolean
 
             +getCarte():Integer[15:25]
             +getLongueur():Integer
