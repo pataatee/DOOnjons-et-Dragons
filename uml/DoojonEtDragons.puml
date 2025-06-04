@@ -279,10 +279,10 @@ package fonctionnement {
 
     package de {
         class De {
-            -m_faces
-            -m_nbdedes
-            +<<create>> De(int, int):De
-            +lancerDe():int
+            -m_faces:Integer
+            -m_nbdedes:Integer
+            +<<create>> De(nbDes:Integer, faces:Integer):De
+            +lancerDe():Integer
             +toString():String
         }
     }
