@@ -4,7 +4,6 @@ import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 public class Armurerie {
     private List<Arme> m_armes;
@@ -18,14 +17,14 @@ public class Armurerie {
     public List<Arme> getArmes() {
         return m_armes;
     }
-    public void addArmes(Arme m_armes) {
-        this.m_armes.add(m_armes);
+    public void addArmes(Arme armes) {
+        this.m_armes.add(armes);
     }
     public List<Armure> getArmures() {
         return m_armures;
     }
-    public void addArmures(Armure m_armures) {
-        this.m_armures.add(m_armures);
+    public void addArmures(Armure armures) {
+        this.m_armures.add(armures);
     }
     public void deleteArme(Arme arme) {
         this.m_armes.remove(arme);

@@ -17,22 +17,41 @@ package gameContent
     package items
     {
         class Armurerie {
-            +<<create>> Armurerie()
-            +getM_armes():Arme[*]
-            +getM_armures():Armure[*]
-            +addM_armes(Arme)
-            +addM_armures(Armure)
-            +delM_armes(Arme)
-            +delM_armures(Armure)
+            +<<create>> Armurerie():Armure
+
+            +getArmes():Arme[*]
+            +getArmures():Armure[*]
+            +getObjets():Items[*]
+
+            +addArmes(armes:Arme)
+            +addArmures(armures:Armure)
+            +deleteArmes(arme:Arme)
+            +deleteArmures(armure:Armure)
         }
-        Armurerie "1" --> "0..*" armures.Armure:possède >
-        Armurerie "1" --> "0..*" armes.Arme:possède >
+
+        Armurerie "1" *--> "0..*-m_armes" gameContent.items.armes.Arme: contient des >
+        Armurerie "1" *--> "0..*-m_armures" gameContent.items.armures.Armure: contient des >
+
+
 
         class Equipement {
-            +<<Create>> Equipement()
+            +<<create>> Equipement():Equipement
+            +<<create>> Equipement(arme Arme, armure Armure):Equipement
+
+            +getArme():Arme
+            +getArmure():Armure
+
+            +setArme(newWeapon:Arme):Integer
+            +setArmure(newShield:Armure):Integer
+
         }
-        Equipement "1"--> "0..1"armures.Armure
-        Equipement "1"--> "0..1"armes.Arme
+        Equipement "1" o--> "0..1" gameContent.items.armures.Armure: est composé de >
+        Equipement "1" o--> "0..1" gameContent.items.armes.Arme: est composé de >
+
+        interface Item <<interface>> {
+            +getNom():String;
+        }
+
 
         package armures {
 
@@ -248,6 +267,10 @@ package gameContent
 }
 
 }
+
+
+
+
 
 package fonctionnement {
 
