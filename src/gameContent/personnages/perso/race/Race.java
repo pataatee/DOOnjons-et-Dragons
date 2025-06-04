@@ -8,7 +8,7 @@ public abstract class Race {
 
     public Race(String nom, int pvs, int force, int dexterite, int vitesse, int initiative){
         m_nom = nom;
-        m_caracteristiques = new CaracteristiquePersonnage(pvs, force, dexterite, vitesse, initiative);
+        m_caracteristiques = new CaracteristiquePersonnage(pvs+3, force+3, dexterite+3, vitesse+3, initiative+3);
     }
 
     public CaracteristiquePersonnage getM_caracteristiques() {

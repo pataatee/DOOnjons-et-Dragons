@@ -1,2 +1,16 @@
 distance = racine carre((x1 - x2)2 + (y1 - y2)2)
 --> Pythagore
+
+Un joueur ou un monstre peut de déplacer d'une distance égale à sa caractéristique de vitesse divisée par 3 sur une case sans monstre, joueur ou obstacle.
+L'évitement d'obstacles n'est pas pris en compte pour le calcul de la distance de déplacement.
+
+A coder dans Entité ? vu qu'on peut bouger des Montres et des Personnages. Sauf que y'a vitesse que dans personnage, c con
+
+public bool se déplacer Personnage (position actuelle, position voulue)
+if position voulue == Monstre ou obstacle --> ehh tu peux pas y aller chef renvoie false
+TRUC = this.getCaracteristiques.getVitesse/3
+si la distance entre position actuelle et position voulue est supérieure a TRUC --> bah tu peux pas y aller et renvoie false
+sinon le type de la position voulue devient égale a la position actuelle
+la position actuelle devient une caseVide
+renvoie true
+
