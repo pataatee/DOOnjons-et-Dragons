@@ -7,14 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Classe {
-    protected String m_nom;
-    protected Armurerie m_armurerie = new Armurerie();
-    protected int m_pvs = 0;
+    private String m_nom;
+    private Armurerie m_armurerie = new Armurerie();
+    private int m_pvs = 0;
 
     public int getM_Pvs() {
         return this.m_pvs;
     }
-    public Armurerie getM_armurerie() {
+    public Armurerie getArmurerie() {
         return m_armurerie;
     }
+    public String getNom() {
+        return m_nom;
+    }
+
+    public Classe(String nom, Armurerie armurerie, int pv) {
+        this.m_nom = nom;
+        this.m_armurerie = armurerie;
+        this.m_pvs = pv;
+    }
+
+    public abstract Armurerie modifyArmurerie();
 }

@@ -3,7 +3,7 @@ import gameContent.personnages.*;
 import gameContent.personnages.perso.Personnage;
 
 import static fonctionnement.affichage.AfficherDsPersonnage.afficherPersonnageVaincu;
-import static fonctionnement.affichage.AfficherDsPersonnage.afficherPvRestants;
+import static fonctionnement.affichage.AfficherDsPersonnage.afficherPvRestantsPerso;
 
 public class Monstre extends Entite {
     private Espece m_espece;
@@ -82,7 +82,7 @@ public class Monstre extends Entite {
         if (pvCible <= 0) {
             afficherPersonnageVaincu();
         } else {
-            afficherPvRestants(pvCible);
+            afficherPvRestantsPerso(pvCible);
         }
         return true;
     }

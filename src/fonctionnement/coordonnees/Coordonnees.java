@@ -1,3 +1,4 @@
+
 package fonctionnement.coordonnees;
 
 public abstract class Coordonnees {
@@ -11,19 +12,23 @@ public abstract class Coordonnees {
         this.m_affichage = affichage;
     }
 
-    public int get_x() {
+    public int getX() {
         return m_x;
     }
-    public void set_x(int m_x) {
+    public void seX(int m_x) {
         this.m_x = m_x;
     }
-    public int get_y() {
+    public int getY() {
         return m_y;
     }
-    public void set_y(int m_y) {
+    public void setY(int m_y) {
         this.m_y = m_y;
     }
-    public String get_affichage(){
+    public String getAffichage(){
         return new String(m_affichage);
+    }
+
+    public String toString() {
+        return "x : " + m_x + " ; y : " + m_y + " ; affichage : " + getAffichage();
     }
 }
