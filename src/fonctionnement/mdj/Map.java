@@ -1,6 +1,7 @@
 package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
+import fonctionnement.affichage.AffichageCarte;
 import fonctionnement.coordonnees.*;
 import gameContent.personnages.perso.Personnage;
 
@@ -45,7 +46,10 @@ public class Map {
             redemanderMap();
         }
         else if (choix.equals("N")||(choix.equals("n"))) {
-
+            //TODO demander dcp les maps keski va où etc
+            createMap();
+            Affichage.afficherMap(this);
+            redemanderMap();
         }
         else {
             Affichage.afficherErreur("Choix non valide");
@@ -143,6 +147,163 @@ public class Map {
             return;
         }
         m_carte[i][j] = coordonnees;
+    }
+
+    public void createMap() {
+        // demander cb d'obstacles
+        // dder cb de monstres
+        // dder cb de trésors
+        // dder où sont positionnés chaque perso & chaque monstre
+        initMap();
+
+        int nbObstacles;
+        do {
+            AffichageCarte.demanderObstacles();
+            nbObstacles = Affichage.scanInt();
+            if (nbObstacles < 0 || nbObstacles > (m_longueur * m_largeur)) { // il ne peut pas y avoir + d'obstacles que de cases...
+                Affichage.afficherErreur("Nombre d'obstacles invalide.");
+            }
+        } while (nbObstacles < 0 || nbObstacles > (m_longueur * m_largeur)); // on veut pas + d'obstaces que de cases
+
+        int xObstacle;
+        String yStringObstacle;
+        int yObstacle;
+
+        for (int i = 0; i < nbObstacles; i++) {
+
+            do {
+                AffichageCarte.demanderCoordonneeX();
+                xObstacle = Affichage.scanInt();
+                if (xObstacle < 0 || xObstacle >= m_longueur) {
+                    AffichageCarte.xInvalide();
+                }
+            } while (xObstacle < 0 || xObstacle >= m_longueur);
+
+            do {
+                AffichageCarte.demanderCoordonneeY();
+                yStringObstacle = Affichage.scanString();
+                if (yStringObstacle.length() != 1 || yStringObstacle.charAt(0) < 'A' || yStringObstacle.charAt(0) >= 'A' + m_largeur) { // y.charat0 verif si c > A, et la derniere condition verif si c < a+largeur de carte
+                    AffichageCarte.yInvalide();
+                }
+            } while (yStringObstacle.length() != 1 || yStringObstacle.charAt(0) < 'A' || yStringObstacle.charAt(0) >= 'A' + m_largeur);
+            yObstacle = yStringObstacle.charAt(0) - 'A'; // Convertit la lettre en un entier correspondant à la coordonnée Y
+
+            if (m_carte[xObstacle][yObstacle] != null) {
+                AffichageCarte.caseOccupee();
+                i--; // pr recommencer
+            }
+            else {
+                m_carte[xObstacle][yObstacle] = new CoordonneesObstacle(xObstacle, yObstacle); // On place un obstacle
+            }
+        }
+
+        int nbTresors;
+        do {
+            AffichageCarte.demanderTresors();
+            nbTresors = Affichage.scanInt();
+            if (nbTresors < 0 || nbTresors > (m_largeur * m_longueur)) {
+                Affichage.afficherErreur("Trop de trésors");
+            }
+        } while (nbTresors < 0 || nbTresors > (m_largeur * m_longueur));
+
+        int xTresor;
+        String yStringTresor;
+        int yTresor;
+        for (int i = 0; i < nbTresors; i++) {
+            do {
+                AffichageCarte.demanderCoordonneeX();
+                xTresor = Affichage.scanInt();
+                if (xTresor < 0 || xTresor >= m_longueur) {
+                    AffichageCarte.xInvalide();
+                }
+            } while (xTresor < 0 || xTresor >= m_longueur);
+
+            do {
+                AffichageCarte.demanderCoordonneeY();
+                yStringTresor = Affichage.scanString();
+                if (yStringTresor.length() != 1 || yStringTresor.charAt(0) < 'A' || yStringTresor.charAt(0) >= 'A' + m_largeur) {
+                    AffichageCarte.yInvalide();
+                }
+            } while (yStringTresor.length() != 1 || yStringTresor.charAt(0) < 'A' || yStringTresor.charAt(0) >= 'A' + m_largeur);
+            yTresor = yStringTresor.charAt(0) - 'A';
+
+            if (m_carte[xTresor][yTresor] != null) {
+                AffichageCarte.caseOccupee();
+                i--; // cancel ce tour de boucle
+            }
+            else {
+                m_carte[xTresor][yTresor] = new CoordonneesItem(xTresor, yTresor); // on place un trésor
+            }
+        }
+
+        int nbMonstres;
+        do {
+            AffichageCarte.demanderMonstres();
+            nbMonstres = Affichage.scanInt();
+            if (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur)) {
+                Affichage.afficherErreur("Erreur : Trop de monstres.\n");
+            }
+        } while (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur));
+
+        int xMonstre;
+        String yStringMonstre;
+        int yMonstre;
+        for (int i = 0; i < nbMonstres; i++) {
+            do {
+                AffichageCarte.demanderCoordonneeX();
+                xMonstre = Affichage.scanInt();
+                if (xMonstre < 0 || xMonstre >= m_longueur) {
+                    AffichageCarte.xInvalide();
+                }
+            } while (xMonstre < 0 || xMonstre >= m_longueur);
+
+            do {
+                AffichageCarte.demanderCoordonneeY();
+                yStringMonstre = Affichage.scanString();
+                if (yStringMonstre.length() != 1 || yStringMonstre.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur) {
+                    AffichageCarte.yInvalide();
+                }
+            } while (yStringMonstre.length() != 1 || yStringMonstre.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur);
+            yMonstre = yStringMonstre.charAt(0) - 'A';
+
+            if (m_carte[xMonstre][yMonstre] != null) {
+                AffichageCarte.caseOccupee();
+                i--; // cancel ce tour de boucleeeee
+            }
+            else {
+                m_carte[xMonstre][yMonstre] = new CoordonneesMonstre(xMonstre, yMonstre);
+            }
+        }
+
+        int xPerso;
+        String yStringPerso;
+        int yPerso;
+        for (int i = 0; i < m_nbJoueurs; i++) {
+            do {
+                AffichageCarte.demanderCoordonneeX();
+                xPerso = Affichage.scanInt();
+                if (xPerso < 0 || xPerso >= m_longueur) {
+                    AffichageCarte.xInvalide();
+                }
+            } while (xPerso < 0 || xPerso >= m_longueur);
+
+            do {
+                AffichageCarte.demanderCoordonneeY();
+                yStringPerso = Affichage.scanString();
+                if (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur) {
+                    AffichageCarte.yInvalide();
+                }
+            } while (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur);
+            yPerso = yStringPerso.charAt(0) - 'A';
+
+            if (m_carte[xPerso][yPerso] != null) {
+                AffichageCarte.caseOccupee();
+                i--; // cancel tour de boucle
+            }
+            else {
+                m_carte[xPerso][yPerso] = new CoordonneesPersonnage(xPerso, yPerso, m_joueurs[i]);
+            }
+        }
     }
 }
 
