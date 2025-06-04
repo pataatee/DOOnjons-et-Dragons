@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:src/fonctionnement/coordonnees/Coordonnees.java
+
 package fonctionnement.coordonnees;
-========
-package fonctionnement;
->>>>>>>> origin/Manon:src/fonctionnement/Coordonnees.java
 
 public abstract class Coordonnees {
     private int m_x;
