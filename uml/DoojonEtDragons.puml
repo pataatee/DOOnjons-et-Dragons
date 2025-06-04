@@ -55,21 +55,25 @@ package gameContent
 
         package armures {
 
-            abstract class Armure <<abstract>> {
-                +<<create>> Armure()
-                #m_nom:String
-                #m_classeArmure:Integer
+            interface Armure <<interface>> {
+                +getNom():String;
             }
 
-            class ArmureLourde {
-                +<<create>> ArmureLourde()
+            class ArmureLourde implements Armure {
+                -m_nom:String
+
+                +<<create>> ArmureLourde(nom:String):ArmureLourde
+                +getNom():String
             }
 
-            class ArmureLegere {
-                +<<create>> ArmureLegere()
+            class ArmureLegere implements Armure {
+                -m_nom:String
+
+                +<<create>> ArmureLegere(nom:String):ArmureLegere
+                +getNom():String
+
             }
-            ArmureLegere --|> Armure
-            ArmureLourde --|> Armure
+
 
         }
 
