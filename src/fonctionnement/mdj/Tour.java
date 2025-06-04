@@ -90,7 +90,7 @@ public class Tour {
                 if (item instanceof Arme){
                     if (this.m_pers.getArme_equipee() != null) {
                         Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
-                        String reponse = Affichage.ScanString();
+                        String reponse = Affichage.scanString();
                         if (!reponse.equals("0")) {
                             this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
                             this.m_pers.setEquipement_Arme((Arme)item);
@@ -105,7 +105,7 @@ public class Tour {
                 else {
                     if (this.m_pers.getArmure_equipee() != null) {
                         Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
-                        String reponse = Affichage.ScanString();
+                        String reponse = Affichage.scanString();
                         if (!reponse.equals("0")) {
                             this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
                             this.m_pers.setEquipement_Armure((Armure)item);
@@ -134,7 +134,7 @@ public class Tour {
 
     public void seDeplacer(){
         Affichage.afficher("Où voulez-vous vous déplacer ? (coordonée x)");
-        int x = Affichage.ScanInt() - 1;
+        int x = Affichage.scanInt() - 1;
         char caractere = demandeCaractere();
         int y = caractere - 'A';
 
@@ -171,7 +171,7 @@ public class Tour {
 
     public char demandeCaractere(){
         char lettreMax = (char)('A' + this.m_map.getM_largeur() - 1);
-        String lettre = Affichage.ScanString().toUpperCase();
+        String lettre = Affichage.scanString().toUpperCase();
         if (lettre.length() != 1 || !Character.isLetter(lettre.charAt(0))) {
             Affichage.afficher("Veuillez entrer une lettre pour la coordonnée y (a/A, b/B, c/C, ...): ");
             return demandeCaractere(); // Redemande si l'entrée n'est pas valide
