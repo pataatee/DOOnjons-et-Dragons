@@ -288,40 +288,70 @@ package fonctionnement {
     }
     package mdj {
         class Map{
-            -m_map:Integer[15:25]
+            -m_nbJoueurs:Integer
             -m_longueur:Integer
             -m_largeur:Integer
-            +<<create>> Map(Integer, Integer)
+            +<<create>> Map(longueur:Integer, largeur:Integer, nbJoueurs:Integer, joueurs:Personnage[*]):Map
+            +<<create>> Map(nbJoueurs:Integer, joueurs:Personnage[*]):Map
             +demanderMap()
+            +redemanderMap()
+            +initMap()
             +createMap()
-            +createRandomMap():Integer[15:25]
-            +getM_map():Integer[15:25]
+            +createRandomMap()
+            +getCarte():Integer[15:25]
             +getLongueur():Integer
             +getLargeur():Integer
-            +createOwnMap():Integer[15:25]
         }
-        Map "1" *--> "1..*" Monstre : contient >
-        Map "1" *--> "1..*" Personnage : contient >
+
+        'Des coordonnées n'existent pas sans carte ; 1 carte a 1x des coordonnées, et les coordonnées ne sont associées qu'à 1 carte
+        Map "1" *--> "1-m_carte" fonctionnement.coordonnees.Coordonnees: belongs to >
+
+        'Perso existe sans carte ; map peut avoir 0 perso mais perso peut qu'etre sur 1 map
+        Map "0..*" o--> "1-m_joueurs" gameContent.personnages.Personnage: is part of >
 
         class Mdj{
-        -m_nbJoueurs:Integer
-        -m_joueurs:Personnage[*]
-        -m_tour:Integer
-        +<<create>> Mdj()
-        +getM_nbJoueurs():Integer
-        +getM_joueurs():Personnage[*]
-        +getM_map():Map
-        +chooseRace():Race
-        +chooseClasse():Classe
-        +createJoueur():Personnage
-        +mdjCreateMap():Map
-        +tours()
-        +verifyMorts():Boolean
+            -m_nbJoueurs:Integer
+            -m_nbMonstres:Integer
+            -m_nbTresors:Integer
+
+            +<<create>> Mdj():Mdj
+
+            +getNbJoueurs():Integer
+            +getJoueurs():Personnage[*]
+            +getMap():Map
+
+            +chooseRace():Race
+            +chooseClasse():Classe
+            +mdjMapDimensions():Map
+            +tours()
+            +verifyMorts():Boolean
         }
-        Mdj "1"-->"1" Map
-        Mdj "1" --> "0..*" gameContent.personnages.Personnage
-        Mdj .> fonctionnement.affichage.Affichage:Utilise
-        Mdj .> fonctionnement.de.De :<<utilise>>
+
+        Mdj "0" *--> "1-m_map" fonctionnement.mdj.Map: possède une >
+        Mdj "0" o--> "1..*-m_joueurs" gameContent.personnages.Personnage: crée des >
+        Mdj "0" o--> "1..*-m_monstres" gameContent.personnages.monstre.Monstre: crée des >
+        Mdj "0" o--> "1..*-m_tresors" gameContent.items.Armurerie: crée des >
+
+
+        class Tour {
+            -m_tour:Integer
+            -m_nbActions:Integer
+            -m_actions:String[*]
+            -m_finTour:Boolean
+
+            +<<create>> Tour():Tour
+            +<<create>> Tour(pers:Personnage, tour:Integer, map:Map):Tour
+
+            +jouerTour()
+            +choisirEquipement()
+
+            +getActions():String[*]
+        }
+
+        Tour "0" o--> "1-m_perso" gameContent.personnages.Personnage: fait jouer un >
+        Tour "1" o--> "1-m_map" fonctionnement.mdj.Map: est réalisé sur une >
+
+
     }
 
     package coordonnees {

@@ -136,6 +136,10 @@ public class Map {
 
     }
 
+    public void createMap() {
+        //TODO à implémenter pour créer une map pas random
+    }
+
 
 }
 
