@@ -206,26 +206,32 @@ package gameContent
 
                 package race{
                     abstract class Race <<abstract>>{
-                        +<<create>> Race()
-                        -m_type:String
+                        -m_nom:String
+
+                        +<<create>> Race(nom:String, pv:Integer, force:Integer, dexterite:Integer, vitesse:Integer, initiative:Integer):Race
+
+                        +getCaracteristiques():CaracteristiquePersonnage
+                        +getNom:String
+
                     }
                     class Elfe {
-                    +<<create>> Elfe()
+                        +<<create>> Elfe()
                     }
                     class Halfelin {
-                    +<<create>> Halfelin()
+                        +<<create>> Halfelin()
                     }
                     class Humain {
-                    +<<create>> Humain()
+                        +<<create>> Humain()
                     }
                     class Nain {
-                    +<<create>> Nain()
+                        +<<create>> Nain()
                     }
                     Humain --|> Race
                     Nain --|> Race
                     Elfe --|> Race
                     Halfelin --|> Race
                 }
+                
                 Race "1" *--> "1-m_caracteristique" gameContent.personnages.perso.CaracteristiquePersonnage : possède >
 
                 package classe{
