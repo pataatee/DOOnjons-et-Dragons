@@ -463,13 +463,17 @@ package fonctionnement {
             -m_nbJoueurs:Integer
             -m_longueur:Integer
             -m_largeur:Integer
+
             +<<create>> Map(longueur:Integer, largeur:Integer, nbJoueurs:Integer, joueurs:Personnage[*]):Map
             +<<create>> Map(nbJoueurs:Integer, joueurs:Personnage[*]):Map
+
             +demanderMap()
             +redemanderMap()
             +initMap()
             +createMap()
             +createRandomMap()
+            +setCase(i:Integer, j:Integer, co:Coordonnees)
+
             +getCarte():Integer[15:25]
             +getLongueur():Integer
             +getLargeur():Integer
