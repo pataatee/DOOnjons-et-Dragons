@@ -253,19 +253,16 @@ package fonctionnement {
 
     package affichage{
         class Affichage {
-            +afficher(String)
-            +afficherErreur(String)
-            +afficherMap(Map)
-            +afficherlignemap(Integer)
-            +afficherlignelettremap(Integer)
-            +afficherTour(Integer, Personnage, Map)
-            +ScanString():String
-            +ScanInt():Integer
-            +afficherJoueur(Personnage)
-            +afficherMonstre(Monstre)
-            +afficherArme(Arme)
-            +afficherArmure(Armure)
-            +afficherAction(String)
+            + {static} afficher(message:String)
+            + {static} afficherErreur(message:String)
+            + {static} afficherMap(carte:Map)
+            + {static} afficherLigneMap(largeur:Integer)
+            + {static} afficherLigneLettreMap(largeur:Integer)
+            + {static} afficherTour(tour:Integer, perso:Personnage, carte:Map)
+            + {static} scanString():String
+            + {static} scanInt():Integer
+            + {static} afficherInventaire(perso:Personnage)
+            + {static} afficherAction(actions:String[*])
         }
 
         class AfficherDsMonstre {
