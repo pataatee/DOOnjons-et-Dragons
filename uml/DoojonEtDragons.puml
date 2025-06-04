@@ -453,6 +453,17 @@ package fonctionnement {
             + {static} afficherPvRestantsPerso(pvRestants:Integer)
         }
 
+        class AffichageCarte {
+            + {static} demanderObstacles();
+            + {static} demanderTresors();
+            + {static} demanderMonstres();
+            + {static} demanderCoordonneeX();
+            + {static} demanderCoordonneeY();
+            + {static} xInvalide();
+            + {static} yInvalide();
+            + {static} caseOccupee();
+        }
+
     }
 
     package de {
@@ -477,6 +488,10 @@ package fonctionnement {
             +redemanderMap()
             +initMap()
             +createMap()
+            +placerPerso();
+            +placerMonstre();
+            +placerObstacle();
+            +placerTresor();
             +createRandomMap()
             +setCase(i:Integer, j:Integer, co:Coordonnees)
             +seDeplacer()
