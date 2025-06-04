@@ -154,8 +154,15 @@ public class Map {
         // dder cb de monstres
         // dder cb de trésors
         // dder où sont positionnés chaque perso & chaque monstre
-        initMap();
 
+        initMap();
+        placerObstacle();
+        placerTresor();
+        placerMonstre();
+        placerPerso();
+
+    }
+    public void placerObstacle() {
         int nbObstacles;
         do {
             AffichageCarte.demanderObstacles();
@@ -196,7 +203,8 @@ public class Map {
                 m_carte[xObstacle][yObstacle] = new CoordonneesObstacle(xObstacle, yObstacle); // On place un obstacle
             }
         }
-
+    }
+    public void placerTresor() {
         int nbTresors;
         do {
             AffichageCarte.demanderTresors();
@@ -235,7 +243,8 @@ public class Map {
                 m_carte[xTresor][yTresor] = new CoordonneesItem(xTresor, yTresor); // on place un trésor
             }
         }
-
+    }
+    public void placerMonstre() {
         int nbMonstres;
         do {
             AffichageCarte.demanderMonstres();
@@ -274,7 +283,9 @@ public class Map {
                 m_carte[xMonstre][yMonstre] = new CoordonneesMonstre(xMonstre, yMonstre);
             }
         }
+    }
 
+    public void placerPerso() {
         int xPerso;
         String yStringPerso;
         int yPerso;
