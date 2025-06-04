@@ -95,14 +95,14 @@ public class Mdj {
         Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
         String ouinon = Affichage.ScanString();
         if (Objects.equals(ouinon, "O")){
-            map = new Map();
+            map = new Map(this.m_nbJoueurs, this.m_joueurs); //on crée la map avec des dimensions random
         }
         else if (Objects.equals(ouinon, "N")){
             Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
             int longueur = Affichage.ScanInt();
             Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
             int largeur = Affichage.ScanInt();
-            map = new Map(longueur, largeur);
+            map = new Map(longueur, largeur, this.m_nbJoueurs, this.m_joueurs); //on crée la map avec les dimensions choisies
             if (map.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
                 Affichage.afficherErreur("Erreur lors de la creation de la carte");
                 return mdj_map_dimensions();
