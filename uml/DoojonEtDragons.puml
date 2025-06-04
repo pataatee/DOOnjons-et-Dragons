@@ -235,41 +235,79 @@ package gameContent
                 Race "1" *--> "1-m_caracteristique" gameContent.personnages.perso.CaracteristiquePersonnage : possède >
 
                 package classe{
-                    abstract class Classe <<abstract>> {
-                        -m_nom:String
-                        -m_pvs:Integer
-
-                        +<<create>> Classe(nom:String, pv:Integer, armurerie:Armurerie):Classe
+                    interface Classe <<interface>> {
 
                         +getPvs():Integer
                         +getNom():String
                         +getArmurerie():Armurerie
 
-                        + {abstract} modifyArmurerie():Armurerie
+                        +modifyArmurerie():Armurerie
                     }
 
-                    Classe "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
 
-                    class Clerc {
+
+                    class Clerc implements gameContent.personnages.perso.classe.Classe {
+                        -m_nom:String
+                        -m_pvs:Integer
+
                         +<<create>> Clerc():Clerc
 
+                        +getPvs():Integer
+                        +getNom():String
+                        +getArmurerie():Armurerie
+
                         +modifyArmurerie():Armurerie
                     }
-                    class Guerrier {
+
+                    Clerc "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
+
+
+                    class Guerrier implements gameContent.personnages.perso.classe.Classe {
+                        -m_nom:String
+                        -m_pvs:Integer
+
                         +<<create>> Guerrier():Guerrier
 
+                        +getPvs():Integer
+                        +getNom():String
+                        +getArmurerie():Armurerie
+
                         +modifyArmurerie():Armurerie
                     }
-                    class Magicien {
+
+                    Guerrier "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
+
+
+                    class Magicien implements gameContent.personnages.perso.classe.Classe {
+                        -m_nom:String
+                        -m_pvs:Integer
+
                         +<<create>> Magicien():Magicien
 
-                        +modifyArmurerie():Armurerie
-                    }
-                    class Roublard {
-                        +<<create>> Roublard():Roublard
+                        +getPvs():Integer
+                        +getNom():String
+                        +getArmurerie():Armurerie
 
                         +modifyArmurerie():Armurerie
                     }
+
+                    Magicien "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
+
+
+                    class Roublard implements gameContent.personnages.perso.classe.Classe {
+                        -m_nom:String
+                        -m_pvs:Integer
+
+                        +<<create>> Roublard():Roublard
+
+                        +getPvs():Integer
+                        +getNom():String
+                        +getArmurerie():Armurerie
+
+                        +modifyArmurerie():Armurerie
+                    }
+
+                    Roublard "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
 
                 }
         }
