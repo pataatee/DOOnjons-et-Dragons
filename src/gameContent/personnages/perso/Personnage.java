@@ -54,6 +54,11 @@ public class Personnage extends Entite {
         this.m_caracteristiques = caracteristiques;
 
     }
+
+    public int getVitesse() {
+        return this.getCaracteristiquesPerso().getVitesse();
+    }
+
     public CaracteristiquePersonnage getCaracteristiquesPerso(){
         return this.m_caracteristiques;
     }

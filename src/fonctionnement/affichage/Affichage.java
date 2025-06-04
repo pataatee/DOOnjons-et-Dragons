@@ -1,9 +1,5 @@
 package fonctionnement.affichage;
 
-import fonctionnement.coordonnees.CoordonneesCaseVide;
-import fonctionnement.coordonnees.CoordonneesItem;
-import fonctionnement.coordonnees.CoordonneesMonstre;
-import fonctionnement.coordonnees.CoordonneesObstacle;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.perso.Personnage;
@@ -35,7 +31,7 @@ public class Affichage {
             }
             System.out.print("| ");
             for (int j = 0; j< map.getM_largeur();j++){
-                System.out.print(map.getM_carte()[i][j].get_affichage());
+                System.out.print(map.getM_carte()[i][j].getAffichage());
             }
             System.out.print(" |");
             System.out.println();
