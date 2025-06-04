@@ -79,27 +79,50 @@ package gameContent
 
         package armes {
 
-            abstract class Arme <<abstract>> {
-                +<<create>> Arme()
-                #m_nom:String
-                #m_degat:Integer
-                #m_portee:Integer
+            interface Arme <<interface>> {
+                +getNom():String;
+                +getDegats():Integer
+                +getPortee():Integer
             }
 
-            class ArmeCourante {
-                +<<create>> ArmeCourante()
+            class ArmeCourante implements Arme {
+                -m_nom:String
+                -m_portee:Integer
+
+                +<<create>> ArmeCourante(nom:String, portee:Integer, degats:De):ArmeCourante
+
+                +getNom():String
+                +getDegats():Integer
+                +getPortee():Integer
+
+            }
+            ArmeCourante "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
+
+            class ArmeGuerre implements Arme {
+                -m_nom:String
+                -m_portee:Integer
+
+                +<<create>> ArmeGuerre(nom:String, portee:Integer, degats:De):ArmeGuerre
+
+                +getNom():String
+                +getDegats():Integer
+                +getPortee():Integer
             }
 
-            class ArmeGuerre {
-                +<<create>> ArmeGuerre()
+            ArmeGuerre "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
+
+            class ArmeDistance implements Arme {
+                -m_nom:String
+                -m_portee:Integer
+
+                +<<create>> ArmeDistance(nom:String, degats:De, portee:Integer):ArmeDistance
+
+                +getNom():String
+                +getDegats():Integer
+                +getPortee():Integer
             }
 
-            class ArmeDistance {
-                +<<create>> ArmeDistance()
-            }
-            ArmeCourante --|> Arme
-            ArmeDistance --|> Arme
-            ArmeGuerre --|> Arme
+            ArmeDistance "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
 
         }
     }
