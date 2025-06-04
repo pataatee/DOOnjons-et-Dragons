@@ -24,4 +24,6 @@ public class ArmeGuerre implements Arme {
     public int getPortee() {
         return m_portee;
     }
+
+    public static final ArmeGuerre eppe2Mains = new ArmeGuerre("épée à deux mains",  new De (2,6), 1);
 }

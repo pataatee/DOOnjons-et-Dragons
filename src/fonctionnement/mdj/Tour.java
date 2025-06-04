@@ -1,6 +1,10 @@
 package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
+import fonctionnement.coordonnees.Coordonnees;
+import fonctionnement.coordonnees.CoordonneesCaseVide;
+import fonctionnement.coordonnees.CoordonneesMonstre;
+import fonctionnement.coordonnees.CoordonneesObstacle;
 import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
@@ -84,12 +88,35 @@ public class Tour {
         for (Item item : this.m_pers.getInventaire().getObjets()) {
             if (item.getNom().equals(objet)) {
                 if (item instanceof Arme){
-                    this.m_pers.setEquipement_Arme((Arme)item);;
-                    this.m_pers.getInventaire().deleteArme((Arme)item);
+                    if (this.m_pers.getArme_equipee() != null) {
+                        Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
+                        String reponse = Affichage.ScanString();
+                        if (!reponse.equals("0")) {
+                            this.m_pers.getInventaire().addM_armes(this.m_pers.getArme_equipee());
+                            this.m_pers.setEquipement_Arme((Arme)item);
+                            this.m_pers.getInventaire().deleteArme((Arme)item);
+                        }
+                    }
+                    else{
+                        this.m_pers.setEquipement_Arme((Arme)item);
+                        this.m_pers.getInventaire().deleteArme((Arme)item);
+                    }
                 }
                 else {
-                    this.m_pers.setEquipement_Armure((Armure)item);
-                    this.m_pers.getInventaire().deleteArmure((Armure)item);
+                    if (this.m_pers.getArmure_equipee() != null) {
+                        Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
+                        String reponse = Affichage.ScanString();
+                        if (!reponse.equals("0")) {
+                            this.m_pers.getInventaire().addM_armures(this.m_pers.getArmure_equipee());
+                            this.m_pers.setEquipement_Armure((Armure)item);
+                            this.m_pers.getInventaire().deleteArmure((Armure)item);
+                        }
+                    }
+                    else{
+                        this.m_pers.setEquipement_Armure((Armure)item);
+                        this.m_pers.getInventaire().deleteArmure((Armure)item);
+                    }
+
                 }
                 Affichage.afficher("Vous vous êtes équipé de : " + item.getNom());
                 objetTrouve = true;
@@ -104,6 +131,25 @@ public class Tour {
 
 
     }
+
+    public boolean seDeplacerPersonnage(Coordonnees posActuelle, Coordonnees posVoulue){
+        if (posVoulue instanceof CoordonneesMonstre || posVoulue instanceof CoordonneesObstacle){
+            Affichage.afficherErreur("vous ne pouvez pas vous déplacer sur une case occupée par un monstre ou un obstacle.");
+            return false;
+        }
+        int vitesse = m_pers.getVitesse/3;
+        //distance = racine carre((x1 - x2)2 + (y1 - y2)2)
+        int distance = (int) Math.sqrt(Math.pow(posActuelle.getX() - posVoulue.getX(), 2) + Math.pow(posActuelle.getY() - posVoulue.getY(), 2));
+        if (distance > vitesse){
+            Affichage.afficherErreur("Vous ne pouvez pas vous déplacer aussi loin, votre vitesse est de " + vitesse + ".");
+            return false;
+        }
+        Coordonnees temp = posActuelle;
+        posActuelle = new CoordonneesCaseVide(temp.getX(), temp.getY()); // on crée une nouvelle case vide à la position actuelle
+        posVoulue = temp ;
+        return true;
+    }
+
 
 
 
