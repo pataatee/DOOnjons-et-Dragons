@@ -19,8 +19,8 @@ public class Affichage {
     }
 
     public static void afficherMap(Map map) {
-        afficherlignelettremap(map.getM_largeur());
-        affichelignemap(map.getM_largeur());
+        afficherLigneLettreMap(map.getM_largeur());
+        afficheLigneMap(map.getM_largeur());
 
         for (int i = 0; i< map.getM_longueur();i++){
             if (i<9){
@@ -36,9 +36,9 @@ public class Affichage {
             System.out.print(" |");
             System.out.println();
         }
-        affichelignemap(map.getM_largeur());
+        afficheLigneMap(map.getM_largeur());
     }
-    public static void affichelignemap(int largeur){
+    public static void afficheLigneMap(int largeur){
         System.out.print("   *-");
         for (int i = 0; i< largeur;i++) {
             System.out.print("---");
@@ -46,7 +46,7 @@ public class Affichage {
         System.out.print("-*");
         System.out.println();
     }
-    public static void afficherlignelettremap(int largeur){
+    public static void afficherLigneLettreMap(int largeur){
         System.out.print("      ");
         for (int i = 65; i <= (64+largeur); i++) {
             System.out.print((char) i + "  ");
@@ -54,18 +54,18 @@ public class Affichage {
         System.out.println();
     }
 
-    public static String ScanString() {
+    public static String scanString() {
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
-    public static int ScanInt() {
+    public static int scanInt() {
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
         try {
             return Integer.parseInt(input.trim()); // Convertit seulement si c’est bien un entier
         } catch (NumberFormatException e) {
             afficherErreur("Entrée invalide. Veuillez saisir un nombre entier.");
-            return ScanInt(); // Redemande l'entrée si ce n'est pas un entier
+            return scanInt(); // Redemande l'entrée si ce n'est pas un entier
         }
     }
 

@@ -10,15 +10,12 @@ public abstract class Entite {
     private int m_x;
     private int m_y;
 
-    //methodes communes :
-    public void seDeplacer(){
-
-    }
+    //methodes communes
     public abstract boolean attaquer(Entite entite);
 
     //getters abstract
 
-    public abstract CaracteristiqueMonstre getCaracteristiques();
+    //public abstract CaracteristiqueMonstre getCaracteristiques();
 
     //public abstract Caracteristique getCaracteristiques();
     public abstract int getPvs();

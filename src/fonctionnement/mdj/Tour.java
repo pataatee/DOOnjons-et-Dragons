@@ -46,7 +46,7 @@ public class Tour {
     }
     public void jouerTour(){
         Affichage.afficherTour(this.m_tour, this.m_pers, this.m_map);
-        int numaction = Affichage.ScanInt();
+        int numaction = Affichage.scanInt();
         // Vérification que ce qu'a saisi l'utilisateur est un entier type int
         /*if (!(numaction type of int)) {
             Affichage.afficherErreur("Veuillez entrer un nombre valide pour l'action.");
@@ -83,7 +83,7 @@ public class Tour {
 
     public void choisirEquipement(){
         Affichage.afficher("de quel objet voulez-vous vous équiper ?");
-        String objet = Affichage.ScanString();
+        String objet = Affichage.scanString();
         boolean objetTrouve = false;
         for (Item item : this.m_pers.getInventaire().getObjets()) {
             if (item.getNom().equals(objet)) {
