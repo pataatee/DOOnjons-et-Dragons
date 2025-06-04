@@ -301,10 +301,10 @@ public class Map {
             do {
                 AffichageCarte.demanderCoordonneeY();
                 yStringPerso = Affichage.scanString();
-                if (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur) {
+                if (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringPerso.charAt(0) > 'A' + m_largeur) {
                     AffichageCarte.yInvalide();
                 }
-            } while (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringMonstre.charAt(0) > 'A' + m_largeur);
+            } while (yStringPerso.length() != 1 || yStringPerso.charAt(0) < 'A' || yStringPerso.charAt(0) > 'A' + m_largeur);
             yPerso = yStringPerso.charAt(0) - 'A';
 
             if (m_carte[xPerso][yPerso] != null) {
