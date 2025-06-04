@@ -4,7 +4,6 @@ import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
-import gameContent.personnages.Caracteristique;
 import gameContent.personnages.Entite;
 import gameContent.personnages.monstre.CaracteristiqueMonstre;
 import gameContent.personnages.monstre.Monstre;
@@ -29,7 +28,7 @@ public class Personnage extends Entite {
         this.m_classe = classe;
         this.setCaracteristiques(this.m_race.getM_caracteristiques());
         this.setInventaire(this.m_classe.getArmurerie());
-        this.m_caracteristiques.bonusPvs(this.m_classe.getM_Pvs());
+        this.m_caracteristiques.bonusPvs(this.m_classe.getPvs());
     }
 
     public void setEquipement_Arme(Arme arme){
