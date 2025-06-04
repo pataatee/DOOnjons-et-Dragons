@@ -120,6 +120,7 @@ public class Map {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {
+                this.m_joueurs[i].setPosition(x,y);
                 m_carte[x][y] = new CoordonneesPersonnage(x,y, this.m_joueurs[i]); // 2 pour les trésors
             } else {
                 i--; // Si la case est déjà occupée, on recommence
@@ -136,6 +137,12 @@ public class Map {
 
     }
 
-
+    public void setCase(int i, int j, Coordonnees coordonnees) {
+        if (i < 0 || i >= m_longueur || j < 0 || j >= m_largeur) {
+            Affichage.afficherErreur("Coordonnées hors limites de la carte.");
+            return;
+        }
+        m_carte[i][j] = coordonnees;
+    }
 }
 

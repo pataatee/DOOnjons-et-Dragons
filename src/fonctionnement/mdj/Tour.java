@@ -1,10 +1,7 @@
 package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
-import fonctionnement.coordonnees.Coordonnees;
-import fonctionnement.coordonnees.CoordonneesCaseVide;
-import fonctionnement.coordonnees.CoordonneesMonstre;
-import fonctionnement.coordonnees.CoordonneesObstacle;
+import fonctionnement.coordonnees.*;
 import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
@@ -72,6 +69,9 @@ public class Tour {
                 choisirEquipement();
 
             }
+            if (numaction == 3){
+                seDeplacer();
+            }
             Affichage.afficher("Action choisie : " + action);
             m_nbActions--;
         }
@@ -92,7 +92,7 @@ public class Tour {
                         Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
                         String reponse = Affichage.ScanString();
                         if (!reponse.equals("0")) {
-                            this.m_pers.getInventaire().addM_armes(this.m_pers.getArme_equipee());
+                            this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
                             this.m_pers.setEquipement_Arme((Arme)item);
                             this.m_pers.getInventaire().deleteArme((Arme)item);
                         }
@@ -107,7 +107,7 @@ public class Tour {
                         Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
                         String reponse = Affichage.ScanString();
                         if (!reponse.equals("0")) {
-                            this.m_pers.getInventaire().addM_armures(this.m_pers.getArmure_equipee());
+                            this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
                             this.m_pers.setEquipement_Armure((Armure)item);
                             this.m_pers.getInventaire().deleteArmure((Armure)item);
                         }
@@ -132,22 +132,57 @@ public class Tour {
 
     }
 
-    public boolean seDeplacerPersonnage(Coordonnees posActuelle, Coordonnees posVoulue){
+    public void seDeplacer(){
+        Affichage.afficher("Où voulez-vous vous déplacer ? (coordonée x)");
+        int x = Affichage.ScanInt() - 1;
+        char caractere = demandeCaractere();
+        int y = caractere - 'A';
+
+        int x_pers = this.m_pers.getX();
+        int y_pers = this.m_pers.getY();
+        CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers, this.m_pers);
+        Coordonnees posVoulue = new CoordonneesCaseVide(x, y);
+
+        if (!Deplacement(posActuelle, posVoulue)) {
+            seDeplacer();
+        }
+        else {
+            this.m_map.setCase(x, y, posActuelle); // On met à jour la position sur la carte
+            this.m_map.setCase(x_pers, y_pers, new CoordonneesCaseVide(x_pers, y_pers)); // On vide l'ancienne position
+            m_pers.setPosition(x, y); // on met à jour la position du personnage
+            Affichage.afficherMap(m_map);
+        }
+    }
+
+    public boolean Deplacement(Coordonnees posActuelle, Coordonnees posVoulue){
         if (posVoulue instanceof CoordonneesMonstre || posVoulue instanceof CoordonneesObstacle){
             Affichage.afficherErreur("vous ne pouvez pas vous déplacer sur une case occupée par un monstre ou un obstacle.");
             return false;
         }
-        int vitesse = m_pers.getVitesse/3;
+        int vitesse = m_pers.getVitesse()/3;
         //distance = racine carre((x1 - x2)2 + (y1 - y2)2)
         int distance = (int) Math.sqrt(Math.pow(posActuelle.getX() - posVoulue.getX(), 2) + Math.pow(posActuelle.getY() - posVoulue.getY(), 2));
         if (distance > vitesse){
             Affichage.afficherErreur("Vous ne pouvez pas vous déplacer aussi loin, votre vitesse est de " + vitesse + ".");
             return false;
         }
-        Coordonnees temp = posActuelle;
-        posActuelle = new CoordonneesCaseVide(temp.getX(), temp.getY()); // on crée une nouvelle case vide à la position actuelle
-        posVoulue = temp ;
         return true;
+    }
+
+    public char demandeCaractere(){
+        char lettreMax = (char)('A' + this.m_map.getM_largeur() - 1);
+        String lettre = Affichage.ScanString().toUpperCase();
+        if (lettre.length() != 1 || !Character.isLetter(lettre.charAt(0))) {
+            Affichage.afficher("Veuillez entrer une lettre pour la coordonnée y (a/A, b/B, c/C, ...): ");
+            return demandeCaractere(); // Redemande si l'entrée n'est pas valide
+        }
+        // Convertit la lettre en un entier correspondant à la coordonnée y
+        char caractere = lettre.charAt(0);
+        if (caractere < 'A' || caractere > lettreMax) {
+            Affichage.afficherErreur("Veuillez entre une lettre comprise entre A et " + lettreMax + ".");
+            return demandeCaractere(); // Redemande si la lettre n'est pas dans l'intervalle
+        }
+        return caractere; // Retourne le caractère valide
     }
 
 
