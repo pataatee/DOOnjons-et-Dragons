@@ -240,10 +240,6 @@ package gameContent
         }
 
 
-
-
-
-
         abstract class Caracteristique <<abstract>> {
             -m_pv:Integer
             -m_force:Integer
@@ -277,30 +273,65 @@ package gameContent
     package monstre {
 
         class Monstre extends gameContent.personnages.Entite {
-            +<<create>> Monstre():Monstre
-            -m_espece:String
-            -m_numero:Integer
+
+            +<<create>> Monstre(carac:CaracteristiqueMonstre, espece:Espece, attaque:Attaque):Monstre
+            +<<create>> Monstre(carac:CaracteristiqueMonstre, attaque:Attaque):Monstre
+            +<<create>> Monstre(carac:CaracteristiqueMonstre):Monstre
+
             +getEspece():String
-            +getNumero():Integer
-            +attaquer():Integer
+            +getAttaque():Attaque
+            +getCaracteristiques():CaracteristiqueMonstre
+            +getPvs():Integer
+            +getForce():Integer
+            +getInitiative():Integer
+            +getDexterite():Integer
+            +getDegats():Integer
+
+            +attaquer(cible:Entite):Boolean
+            +estAttaquePar(agresseur:Personnage):Boolean
+            +estAttaquePar(agresseur:Monstre):Boolean
         }
 
-        class CaracteristiqueMonstre {
+
+        Monstre "1" *--> "1..*-m_espece" gameContent.personnages.monstre.Espece: est un >
+        Monstre "1" *--> "1-m_caracteristique" gameContent.personnages.monstre.CaracteristiqueMonstre: possède des >
+        Monstre "1" *--> "1-m_attaque" gameContent.personnages.monstre.AttaqueMonstre: attaque avec une >
+
+
+
+
+        class CaracteristiqueMonstre extends gameContent.personnages.Caracteristique {
             -m_classeArmure:Integer
+
+            +<<create>> CaracteristiqueMonstre(pv:Integer, force:Integer, dexterite:Integer, initiative:Integer, classeArmure:Integer):CaracteristiqueMonstre
+
             +getClassArmure():Integer
         }
 
-        Monstre "1" o--> "1-m_caracteristique" gameContent.personnages.monstre.CaracteristiqueMonstre
-        'Attaque "1" o--> "1-m_caracteristique" gameContent.personnages.monstre.AttaqueMonstre
 
 
         class AttaqueMonstre implements gameContent.personnages.Attaque {
             -m_nom:String
             -m_portee:Integer
             -m_degats:Integer
+
+            +<<create>> AttaqueMonstre(nom:String, portee:Integer, degats:Integer):AttaqueMonstre
+
             +getNom():String
             +getPortee():Integer
             +getDegats():Integer
+
+
+        }
+
+        class Espece {
+            -m_nomEspece:String
+            -m_numero:Integer
+
+            +<<create>> Espece(espece:String, num:Integer):Espece
+
+            +getNomEspece():String
+            +getNum():Integer
         }
 
     }
