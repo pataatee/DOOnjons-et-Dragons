@@ -8,15 +8,12 @@ public abstract class Entite {
 
     // création d'une interface entité pour réunir les méthodes communes à Monstre et Personnage
 
-    //methodes communes :
-    public void seDeplacer(){
-
-    }
+    //methodes communes
     public abstract boolean attaquer(Entite entite);
 
     //getters abstract
 
-    public abstract CaracteristiqueMonstre getCaracteristiques();
+    //public abstract CaracteristiqueMonstre getCaracteristiques();
 
     //public abstract Caracteristique getCaracteristiques();
     public abstract int getPvs();

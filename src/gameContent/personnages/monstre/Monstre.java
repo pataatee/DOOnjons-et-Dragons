@@ -24,7 +24,6 @@ public class Monstre extends Entite {
         this(caracteristique, new AttaqueMonstre("rafale de feu", 5, 50));
     }
 
-    @Override
     public CaracteristiqueMonstre getCaracteristiques() {
         return m_caracteristique;
     }
@@ -73,6 +72,11 @@ public class Monstre extends Entite {
 
     @Override
     public boolean estAttaquePar(Monstre agresseur) {
+        return false;
+    }
+
+    @Override
+    public boolean estAttaquePar(Personnage agresseur) {
         if (agresseur == null) {
             return false;
         }
@@ -85,10 +89,5 @@ public class Monstre extends Entite {
             afficherPvRestantsPerso(pvCible);
         }
         return true;
-    }
-
-    @Override
-    public boolean estAttaquePar(Personnage personnage) {
-        return false; // ça voudrait dire que euh personnage attaqué par personnage et euh non
     }
 }

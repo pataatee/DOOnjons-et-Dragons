@@ -38,7 +38,7 @@ public class Map {
 
     public void demanderMap(){
         Affichage.afficher("Voulez vous une map random (O/N) ?");
-        String choix = Affichage.ScanString();
+        String choix = Affichage.scanString();
         if (choix.equals("O")||(choix.equals("o"))){
             createRandomMap();
             Affichage.afficherMap(this);
@@ -55,7 +55,7 @@ public class Map {
 
     public void redemanderMap(){
         Affichage.afficher("Voulez vous utiliser cette map (O/N) ?");
-        String choix = Affichage.ScanString();
+        String choix = Affichage.scanString();
         if (choix.equals("N")){
             demanderMap();
         }
@@ -134,6 +134,10 @@ public class Map {
         }
 
 
+    }
+
+    public void createMap() {
+        //TODO à implémenter pour créer une map pas random
     }
 
 
