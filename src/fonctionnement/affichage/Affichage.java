@@ -6,6 +6,7 @@ import gameContent.personnages.perso.Personnage;
 import fonctionnement.mdj.Map;
 import fonctionnement.mdj.Tour;
 
+import java.util.Dictionary;
 import java.util.List;
 import java.util.Scanner;
 
@@ -115,6 +116,13 @@ public class Affichage {
         for (Armure armure : pers.getInventaire().getArmures()){ //TODO a modif car pas droit a double getteur
             inventaire += armure.getNom() + " - ";
         }
+        // enlever le dernier tiret
+        if (inventaire.length() > 0) {
+            inventaire = inventaire.substring(0, inventaire.length() - 3);
+        }
+        else {
+            inventaire = "Vide";
+        }
         afficher("Inventaire : " + inventaire);
     }
 
@@ -122,6 +130,23 @@ public class Affichage {
         afficher("Actions possibles : ");
         for (int i = 0; i < nombreActions ; i++) {
             afficher((i + 1) + " - " + actions.get(i));
+        }
+    }
+    public static int[] scanCoord(){
+        afficher("Entrez les coordonnées (ligne, colonne) séparées par une virgule (ex: 12,C) :");
+        String input = scanString();
+        String[] bidule = input.split(",");
+        if (bidule.length != 2) {
+            afficherErreur("Format invalide. Veuillez entrer un entier et un caractère séparés par une virgule.");
+            return scanCoord(); // Redemande l'entrée si le format est incorrect
+        }
+        try {
+            int x = Integer.parseInt(bidule[0].trim()) - 1; // Convertit en entier et ajuste pour l'indexation
+            int y = Character.toUpperCase(bidule[1].trim().charAt(0)) - 'A'; // Convertit le caractère en entier (A=0, B=1, etc.)
+            return new int[]{x, y};
+        } catch (NumberFormatException e) {
+            afficherErreur("Entrée invalide. Veuillez saisir des nombres entiers.");
+            return scanCoord(); // Redemande l'entrée si ce n'est pas un entier
         }
     }
 }

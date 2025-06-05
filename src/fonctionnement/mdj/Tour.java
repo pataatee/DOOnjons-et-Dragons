@@ -22,7 +22,6 @@ public class Tour {
     private int m_nbActions;
     private Personnage m_pers;
     private List<String> m_actions = new ArrayList<>(); // Actions possibles pour le personnage
-    private int m_nbDansListeActions = 0; // Nombre d'actions dans la liste   //TODO a enlever et remplacer avec size()
     private boolean m_finTour; // Indique si le tour est terminé
     private Map m_map; // La carte du jeu, si nécessaire
 
@@ -52,7 +51,6 @@ public class Tour {
         this.m_actions.add("Finir le tour");
         if (!Arrays.equals(m_pers.getSorts(), new boolean[]{false, false, false})) {
             this.m_actions.add("Lancer un sort");
-            this.m_nbDansListeActions = 6;
         }
     }
 
@@ -64,7 +62,7 @@ public class Tour {
             Affichage.afficher("Fin du tour pour " + m_pers.getNom());
             return;
         }
-        if (numaction < 1 || numaction > m_nbDansListeActions) {
+        if (numaction < 1 || numaction > m_actions.size()) {
             Affichage.afficherErreur("Action invalide. Veuillez choisir une action valide.");
             jouerTour();
         }
@@ -81,7 +79,34 @@ public class Tour {
             Affichage.afficher("Action choisie : " + action);
             m_nbActions--;
             if (numaction == 6) {
-                initBoogieWoogie();
+                Affichage.afficher("Sorts disponibles :");
+                if (m_pers.getSorts()[0]) {
+                    Affichage.afficher("1. Guérison");
+                }
+                if (m_pers.getSorts()[1]) {
+                    Affichage.afficher("2. Boogie Woogie");
+                }
+                if (m_pers.getSorts()[2]) {
+                    Affichage.afficher("3. Autre sort");
+                }
+                Affichage.afficher("quel sort voulez vous lancer ?");
+                String sort = Affichage.scanString().toUpperCase();
+                if (sort.equals("GUERISON")) {
+                    Affichage.afficher("Vous avez choisi de lancer le sort Guérison.");
+                    Guerison(this.m_pers);
+                }
+                else if (sort.equals("BOOGIEWOOGIE")) {
+                    if (!m_pers.getSorts()[1]) {
+                        Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Boogie Woogie, il n'est pas disponible pour votre personnage.");
+                        jouerTour();
+                        return;
+                    }
+                    initBoogieWoogie();
+                }
+                else {
+                    Affichage.afficherErreur("Sort inconnu. Veuillez réessayer.");
+                    jouerTour();
+                }
             }
         }
 
@@ -90,7 +115,7 @@ public class Tour {
         return this.m_actions;
     }
     public int getListActions(){
-        return this.m_nbDansListeActions;
+        return this.m_actions.size();
     }
 
     public void choisirEquipement(){
@@ -236,60 +261,49 @@ public class Tour {
     }
 
     public void initBoogieWoogie() {
-        Affichage.afficher("quel sort voulez vous lancer ?");
-        String sort = Affichage.scanString().toUpperCase();
-        if (sort.equals("GUERISON")) {
-            Affichage.afficher("Vous avez choisi de lancer le sort Guérison.");
-            Guerison(this.m_pers);
-        }
-        else if (sort.equals("BOOGIEWOOGIE")) {
-            Affichage.afficher("Vous avez choisi de lancer le sort Boogie Woogie.");
+        Affichage.afficher("Le Sort Boogie Woogie est lancé !");
             Affichage.afficher("Quel personnage voulez vous échanger ?");
-            int xperso1 = Affichage.scanInt() - 1;
-            char caractere = demandeCaractere();
-            int yperso1 = caractere - 'A';
-            Coordonnees coord1 = m_map.getCase(xperso1, yperso1);
+            int[] CoordPerso1 = Affichage.scanCoord();
+            Coordonnees coord1 = m_map.getCase(CoordPerso1[0], CoordPerso1[1]);
             Entite perso1 = null;
+
             if (coord1 instanceof CoordonneesPersonnage) {
                 perso1 = ((CoordonneesPersonnage) coord1).getPersonnage();
-
-                Affichage.afficher("hehee j'ai trouvé un personnage");
             }
             else if (coord1 instanceof CoordonneesMonstre) {
                 perso1 = ((CoordonneesMonstre) coord1).getMonstre();
-
-                Affichage.afficher("hehee j'ai trouvé un monstre");
             }
+            else {
+                Affichage.afficherErreur("Vous ne pouvez pas échanger de plca autre chose qu'un personnage ou un monstre.");
+                initBoogieWoogie();
+                return;
+            }
+
             Affichage.afficher("Quel personnage voulez-vous échanger avec ?");
-            int xperso2 = Affichage.scanInt() - 1;
-            char caractere2 = demandeCaractere();
-            int yperso2 = caractere2 - 'A';
-            Coordonnees coord2 = m_map.getCase(xperso2, yperso2);
+            int [] CoordPerso2 = Affichage.scanCoord();
+            Coordonnees coord2 = m_map.getCase(CoordPerso2[0], CoordPerso2[1]);
             Entite perso2 = null;
+
             if (coord2 instanceof CoordonneesPersonnage) {
                 perso2 = ((CoordonneesPersonnage) coord2).getPersonnage();
-
-                Affichage.afficher("hehee j'ai trouvé un personnage");
             }
             else if (coord2 instanceof CoordonneesMonstre) {
                 perso2 = ((CoordonneesMonstre) coord2).getMonstre();
-
-                Affichage.afficher("hehee j'ai trouvé un monstre");
+            }
+            else {
+                Affichage.afficherErreur("Vous ne pouvez pas échanger de plca autre chose qu'un personnage ou un monstre.");
+                initBoogieWoogie();
+                return;
             }
             if (perso1 == null || perso2 == null) {
                 Affichage.afficherErreur("Un des personnages n'existe pas ou n'est pas valide. Veuillez réessayer.");
-                jouerTour();
-                return;
+                initBoogieWoogie();
             }
-            Sorts.BoogieWoogie(perso1, perso2, m_map);
-        }
-        else {
-            Affichage.afficherErreur("Sort inconnu. Veuillez réessayer.");
-            jouerTour();
-        }
+            else{
+                Sorts.BoogieWoogie(perso1, perso2, m_map);
+            }
 
-    }
-
+        }
 
 
 

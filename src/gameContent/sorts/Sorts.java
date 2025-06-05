@@ -10,6 +10,7 @@ import gameContent.personnages.Entite;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.Classe;
+import gameContent.personnages.perso.classe.Clerc;
 import gameContent.personnages.perso.classe.Magicien;
 
 import javax.swing.*;
@@ -21,6 +22,9 @@ public class Sorts {
     public Sorts(Classe classe) {
         if (classe instanceof Magicien){
             sorts = new boolean[]{true, true, true}; // Le magicien peut lancer tous les sorts
+        }
+        if (classe instanceof Clerc) {
+            sorts = new boolean[]{true, false, false}; // Le clerc peut lancer le sort Guérison
         }
     }
 
@@ -71,6 +75,18 @@ et échanger leur position dans le donjon.
         }
         else if (perso1 instanceof Monstre && perso2 instanceof Personnage) {
             map.setCase(x1, y1, new CoordonneesPersonnage(x1, y1, (Personnage) perso2));
+            map.setCase(x2, y2, new CoordonneesMonstre(x2, y2, (Monstre) perso1));
+            perso1.setPosition(x2, y2);
+            perso2.setPosition(x1, y1);
+        }
+        else if (perso1 instanceof Personnage && perso2 instanceof Personnage) {
+            map.setCase(x1, y1, new CoordonneesPersonnage(x1, y1, (Personnage) perso2));
+            map.setCase(x2, y2, new CoordonneesPersonnage(x2, y2, (Personnage) perso1));
+            perso1.setPosition(x2, y2);
+            perso2.setPosition(x1, y1);
+        }
+        else if (perso1 instanceof Monstre && perso2 instanceof Monstre) {
+            map.setCase(x1, y1, new CoordonneesMonstre(x1, y1, (Monstre) perso2));
             map.setCase(x2, y2, new CoordonneesMonstre(x2, y2, (Monstre) perso1));
             perso1.setPosition(x2, y2);
             perso2.setPosition(x1, y1);
