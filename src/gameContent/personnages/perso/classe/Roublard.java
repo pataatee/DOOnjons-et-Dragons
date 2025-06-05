@@ -19,7 +19,7 @@ public class Roublard implements Classe {
     @Override
     public Armurerie modifyArmurerie() {
         Armurerie arm = this.getArmurerie();
-        arm.addArmes(ArmeCourante.Rapiere);
+        arm.addArmes(ArmeGuerre.Rapiere);
         arm.addArmes(ArmeDistance.Arc_court);;
         return arm;
     }

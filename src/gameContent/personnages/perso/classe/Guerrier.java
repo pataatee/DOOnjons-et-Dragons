@@ -22,7 +22,7 @@ public class Guerrier implements Classe {
     @Override
     public Armurerie modifyArmurerie() {
         Armurerie arm = this.getArmurerie();
-        arm.addArmes(ArmeCourante.Epee_longue);
+        arm.addArmes(ArmeGuerre.Epee_longue);
         arm.addArmes(ArmeDistance.Arbalete_legere);
         arm.addArmures(ArmureLourde.Cotte_de_maille);
         return arm;

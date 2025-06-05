@@ -24,10 +24,8 @@ public class ArmeCourante implements Arme{
     public int getPortee() {
         return m_portee;
     }
-    public static final ArmeCourante Baton = new ArmeCourante("Baton", new De(1,4), 2);
-    public static final ArmeCourante Rapiere = new ArmeCourante("Rapière", new De(1,4), 1);
-    public static final ArmeCourante Epee_longue = new ArmeCourante("épée longue", new De(1,4), 2);
-    public static final ArmeCourante Masse_d_armes = new ArmeCourante("Masse d'armes", new De(1,4), 1);
+    public static final ArmeCourante Baton = new ArmeCourante("Baton", new De(1,6), 1);
+    public static final ArmeCourante Masse_d_armes = new ArmeCourante("Masse d'armes", new De(1,6), 1);
 }
 
 
