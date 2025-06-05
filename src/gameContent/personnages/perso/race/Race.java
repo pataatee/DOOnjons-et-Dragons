@@ -6,9 +6,9 @@ public abstract class Race {
     private String m_nom; //TODO mettre du private et initialiser via super()
     private CaracteristiquePersonnage m_caracteristiques;
 
-    public Race(String nom, int pvs, int force, int dexterite, int vitesse, int initiative){
+    public Race(String nom, int pvs, int force, int dexterite, int initiative, int vitesse){
         m_nom = nom;
-        m_caracteristiques = new CaracteristiquePersonnage(pvs+3, force+3, dexterite+3, vitesse+3, initiative+3);
+        m_caracteristiques = new CaracteristiquePersonnage(pvs+3, force+3, dexterite+3, initiative+3, vitesse+3);
     }
 
     public CaracteristiquePersonnage getM_caracteristiques() {
