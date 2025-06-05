@@ -5,8 +5,8 @@ import gameContent.personnages.Caracteristique;
 public class CaracteristiqueMonstre extends Caracteristique {
     private int m_classeArmure;
 
-    public CaracteristiqueMonstre(int pv, int force, int dexterite, int initiative, int classeArmure) {
-        super(pv, force, dexterite, initiative);
+    public CaracteristiqueMonstre(int pv, int force, int dexterite, int initiative, int vitesse, int classeArmure) {
+        super(pv, force, dexterite, initiative, vitesse);
         m_classeArmure = classeArmure;
     }
 

@@ -9,6 +9,10 @@ public class Espece {
         m_numero = num;
     }
 
+    public Espece(String espece) {
+        m_nomEspece = espece;
+    }
+
     public String getNomEspece() {
         return m_nomEspece;
     }

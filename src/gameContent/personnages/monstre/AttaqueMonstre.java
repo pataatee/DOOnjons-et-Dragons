@@ -13,6 +13,8 @@ public class AttaqueMonstre implements Attaque {
         m_degats = degats;
     }
 
+    // TODO un par défaut...?
+
     public String getAttaque() {
         return m_nom;
     }
