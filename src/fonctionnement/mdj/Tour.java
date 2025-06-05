@@ -91,10 +91,14 @@ public class Tour {
                     if (this.m_pers.getArme_equipee() != null) {
                         Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
                         String reponse = Affichage.scanString();
-                        if (!reponse.equals("0")) {
+                        if (reponse.equals("O")) {
                             this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
                             this.m_pers.setEquipement_Arme((Arme)item);
                             this.m_pers.getInventaire().deleteArme((Arme)item);
+                        }
+                        if (reponse.equals("N")) {
+                            Affichage.afficher("Vous avez choisi de ne pas remplacer votre arme équipée.");
+                            return; // On quitte la méthode si l'utilisateur ne veut pas remplacer l'arme
                         }
                     }
                     else{

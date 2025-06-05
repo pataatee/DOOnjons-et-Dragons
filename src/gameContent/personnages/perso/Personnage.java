@@ -21,6 +21,7 @@ public class Personnage extends Entite {
     private Armurerie m_inventaire = new Armurerie();
     private Equipement m_equipements = new Equipement();
     private AttaquePersonnage m_attaque;
+    private int m_pvsMax;
 
     public Personnage(String nom, Race race, Classe classe){
         this.m_nom = nom;
@@ -29,11 +30,13 @@ public class Personnage extends Entite {
         this.setCaracteristiques(this.m_race.getM_caracteristiques());
         this.setInventaire(this.m_classe.getArmurerie());
         this.m_caracteristiques.bonusPvs(this.m_classe.getPvs());
+        this.m_pvsMax = this.m_caracteristiques.getPvs();
     }
 
     public void setEquipement_Arme(Arme arme){
-        int vitessebonus = this.m_equipements.setArme(arme);
-        this.m_caracteristiques.bonusVitesse(vitessebonus);
+        int[] bonus = this.m_equipements.setArme(arme); //bonus[0] = force, bonus[1] = vitesse
+        this.m_caracteristiques.bonusForce(bonus[0]);
+        this.m_caracteristiques.bonusVitesse(bonus[1]);
     }
 
     public void setEquipement_Armure(Armure armure){
@@ -56,6 +59,10 @@ public class Personnage extends Entite {
 
     public int getVitesse() {
         return this.getCaracteristiquesPerso().getVitesse();
+    }
+
+    public int getPvsMax() {
+        return this.m_pvsMax;
     }
 
     public CaracteristiquePersonnage getCaracteristiquesPerso(){

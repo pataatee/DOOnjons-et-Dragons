@@ -1,5 +1,6 @@
 package gameContent.personnages.perso.race;
 
+import fonctionnement.de.De;
 import gameContent.personnages.perso.CaracteristiquePersonnage;
 
 public abstract class Race {
@@ -8,7 +9,8 @@ public abstract class Race {
 
     public Race(String nom, int pvs, int force, int dexterite, int initiative, int vitesse){
         m_nom = nom;
-        m_caracteristiques = new CaracteristiquePersonnage(pvs+3, force+3, dexterite+3, initiative+3, vitesse+3);
+        De de = new De(4,4);
+        m_caracteristiques = new CaracteristiquePersonnage(pvs+3, force+3+de.lancer_de(), dexterite+3+de.lancer_de(), initiative+3+de.lancer_de(), vitesse+3+de.lancer_de());
     }
 
     public CaracteristiquePersonnage getM_caracteristiques() {

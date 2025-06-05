@@ -75,7 +75,11 @@ public class Affichage {
         afficher("             Personnage : " + pers.getNom());
         afficher("---------------------------------------------------");
         afficher("");
-        afficher("Vie : " +pers.getPvs()); //TODO creer un maxPVS, on a zappé et on en a besoin
+        afficher("Vie : " +pers.getPvs() +" / " + pers.getPvsMax());
+        afficher("Force : " + pers.getForce());
+        afficher("Dexterité : " + pers.getDexterite());
+        afficher("Initiative : " + pers.getInitiative());
+        afficher("Vitesse : " + pers.getVitesse());
 
         if (pers.getArme_equipee()!= null){
             afficher("Arme : " + pers.getArme_equipee().getNom());
