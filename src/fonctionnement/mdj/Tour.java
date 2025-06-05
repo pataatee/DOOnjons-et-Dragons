@@ -147,6 +147,13 @@ public class Tour {
             seDeplacer();
         }
         else {
+            if (this.m_map.getCase(x,y) instanceof CoordonneesItem){
+                boolean item = CaseTresor(this.m_map.getCase(x,y));
+
+                if (!item) {
+                    Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
+                }
+            }
             this.m_map.setCase(x, y, posActuelle); // On met à jour la position sur la carte
             this.m_map.setCase(x_pers, y_pers, new CoordonneesCaseVide(x_pers, y_pers)); // On vide l'ancienne position
             m_pers.setPosition(x, y); // on met à jour la position du personnage
@@ -183,6 +190,32 @@ public class Tour {
             return demandeCaractere(); // Redemande si la lettre n'est pas dans l'intervalle
         }
         return caractere; // Retourne le caractère valide
+    }
+
+    public boolean CaseTresor(Coordonnees coord){
+
+        Item item = ((CoordonneesItem) coord).getItem();
+        Affichage.afficher("Vous avez trouvé un "+item.getNom()+" sur cette case ! Voulez-vous le ramasser ? (O/N)");
+        String reponse = Affichage.scanString().toUpperCase();
+        if (reponse.equals("O")) {
+            if (item instanceof Arme){
+                m_pers.getInventaire().addArmes((Arme)item);
+            }
+            else {
+                m_pers.getInventaire().addArmures((Armure)item);
+            }
+
+            Affichage.afficher("Vous avez ramassé : " + item.getNom());
+            return true;
+        }
+        else if (reponse.equals("N")) {
+            Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
+            return false;
+        }
+        else {
+            Affichage.afficherErreur("Réponse invalide. Veuillez répondre par O ou N.");
+            return CaseTresor(coord); // Redemande si la réponse n'est pas valide
+        }
     }
 
 
