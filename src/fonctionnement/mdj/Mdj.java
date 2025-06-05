@@ -1,6 +1,7 @@
 package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Armurerie;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
@@ -20,12 +21,12 @@ public class Mdj {
 
     public Mdj() {
         Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
-        this.m_nbJoueurs = Affichage.scanInt();
+        this.m_nbJoueurs = RecupInfos.scanInt();
         this.m_joueurs = new Personnage[this.m_nbJoueurs];
         for (int i=0; i<this.m_nbJoueurs; i++){
             Affichage.afficher("joueur "+(i+1));
             Affichage.afficher("Selectionnez le nom du personnage : ");
-            String nom= Affichage.scanString();
+            String nom= RecupInfos.scanString();
             Race race = chooseRace();
             Classe classe = chooseClasse();
             Personnage personnage = new Personnage(nom,race, classe);
@@ -41,7 +42,7 @@ public class Mdj {
     public Race chooseRace(){
         Affichage.afficher("Selectionnez la race du personnage : ");
         Race race= null;
-        String resultat = Affichage.scanString();
+        String resultat = RecupInfos.scanString();
         if (Objects.equals(resultat, "Halfelin")){
             race = new Halfelin();
             return race;
@@ -66,7 +67,7 @@ public class Mdj {
     public Classe chooseClasse(){
         Affichage.afficher("Selectionnez la classe du personnage : ");
         Classe classe= null;
-        String resultat = Affichage.scanString();
+        String resultat = RecupInfos.scanString();
         if (Objects.equals(resultat, "Clerc")){
             classe = new Clerc();
             return classe;
@@ -92,15 +93,15 @@ public class Mdj {
     public Map mdj_map_dimensions(){
         Map map;
         Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
-        String ouinon = Affichage.scanString();
+        String ouinon = RecupInfos.scanString();
         if (Objects.equals(ouinon, "O")){
             map = new Map(this.m_nbJoueurs, this.m_joueurs); //on crée la map avec des dimensions random
         }
         else if (Objects.equals(ouinon, "N")){
             Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
-            int longueur = Affichage.scanInt();
+            int longueur = RecupInfos.scanInt();
             Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
-            int largeur = Affichage.scanInt();
+            int largeur = RecupInfos.scanInt();
             map = new Map(longueur, largeur, this.m_nbJoueurs, this.m_joueurs); //on crée la map avec les dimensions choisies
             if (map.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
                 Affichage.afficherErreur("Erreur lors de la creation de la carte");

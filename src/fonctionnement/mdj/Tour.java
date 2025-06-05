@@ -2,6 +2,7 @@ package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
 import fonctionnement.coordonnees.*;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
@@ -46,7 +47,7 @@ public class Tour {
     }
     public void jouerTour(){
         Affichage.afficherTour(this.m_tour, this.m_pers, this.m_map);
-        int numaction = Affichage.scanInt();
+        int numaction = RecupInfos.scanInt();
         // Vérification que ce qu'a saisi l'utilisateur est un entier type int
         /*if (!(numaction type of int)) {
             Affichage.afficherErreur("Veuillez entrer un nombre valide pour l'action.");
@@ -83,14 +84,14 @@ public class Tour {
 
     public void choisirEquipement(){
         Affichage.afficher("de quel objet voulez-vous vous équiper ?");
-        String objet = Affichage.scanString();
+        String objet = RecupInfos.scanString();
         boolean objetTrouve = false;
         for (Item item : this.m_pers.getInventaire().getObjets()) {
             if (item.getNom().equals(objet)) {
                 if (item instanceof Arme){
                     if (this.m_pers.getArme_equipee() != null) {
                         Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
-                        String reponse = Affichage.scanString();
+                        String reponse = RecupInfos.scanString();
                         if (!reponse.equals("0")) {
                             this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
                             this.m_pers.setEquipement_Arme((Arme)item);
@@ -105,7 +106,7 @@ public class Tour {
                 else {
                     if (this.m_pers.getArmure_equipee() != null) {
                         Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
-                        String reponse = Affichage.scanString();
+                        String reponse = RecupInfos.scanString();
                         if (!reponse.equals("0")) {
                             this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
                             this.m_pers.setEquipement_Armure((Armure)item);
@@ -134,7 +135,7 @@ public class Tour {
 
     public void seDeplacer(){
         Affichage.afficher("Où voulez-vous vous déplacer ? (coordonée x)");
-        int x = Affichage.scanInt() - 1;
+        int x = RecupInfos.scanInt() - 1;
         char caractere = demandeCaractere();
         int y = caractere - 'A';
 
@@ -178,7 +179,7 @@ public class Tour {
 
     public char demandeCaractere(){
         char lettreMax = (char)('A' + this.m_map.getM_largeur() - 1);
-        String lettre = Affichage.scanString().toUpperCase();
+        String lettre = RecupInfos.scanString().toUpperCase();
         if (lettre.length() != 1 || !Character.isLetter(lettre.charAt(0))) {
             Affichage.afficher("Veuillez entrer une lettre pour la coordonnée y (a/A, b/B, c/C, ...): ");
             return demandeCaractere(); // Redemande si l'entrée n'est pas valide
@@ -196,7 +197,7 @@ public class Tour {
 
         Item item = ((CoordonneesItem) coord).getItem();
         Affichage.afficher("Vous avez trouvé un "+item.getNom()+" sur cette case ! Voulez-vous le ramasser ? (O/N)");
-        String reponse = Affichage.scanString().toUpperCase();
+        String reponse = RecupInfos.scanString().toUpperCase();
         if (reponse.equals("O")) {
             if (item instanceof Arme){
                 m_pers.getInventaire().addArmes((Arme)item);
