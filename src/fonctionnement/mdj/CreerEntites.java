@@ -12,7 +12,7 @@ public class CreerEntites {
     // monstre
 
 
-    
+
     public static CaracteristiqueMonstre createCaracMonstre() {
         De de = new De(4, 4);
 
@@ -68,7 +68,7 @@ public class CreerEntites {
         AffichageCreateMonstre.demanderEspece();
         especeMonstre = RecupInfos.scanString();
 
-        Espece espece = new Espece(especeMonstre, num); // i parce qu'on veut que le num du monstre soit jms le mm
+        return new Espece(especeMonstre, num); // i parce qu'on veut que le num du monstre soit jms le mm
         // TODO vérif si espece egales, si ya des especes egales oui on utilise constructeur w numero sinon no
     }
 
