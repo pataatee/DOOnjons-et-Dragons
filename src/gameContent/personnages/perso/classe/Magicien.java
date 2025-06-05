@@ -20,7 +20,7 @@ public class Magicien implements Classe {
     public Armurerie modifyArmurerie() {
         Armurerie arm = this.getArmurerie();
         arm.addArmes(ArmeCourante.Baton);
-        arm.addArmes(ArmeCourante.Baton);;
+        arm.addArmes(ArmeDistance.Fronde);;
         return arm;
     }
 
