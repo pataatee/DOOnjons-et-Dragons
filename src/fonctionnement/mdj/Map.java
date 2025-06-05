@@ -14,6 +14,7 @@ public class Map {
     private int m_largeur;
     private int m_nbJoueurs;
     private Personnage[] m_joueurs;
+    private int m_nbMonstre;
 
     public Map(int nbjoueurs, Personnage[] joueurs){
         Random random = new Random();
@@ -261,19 +262,19 @@ public class Map {
         }
     }
     public void placerMonstre() {
-        int nbMonstres;
+        //int nbMonstres;
         do {
             AffichageCarte.demanderMonstres();
-            nbMonstres = Affichage.scanInt();
-            if (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur)) {
+            this.m_nbMonstre = Affichage.scanInt();
+            if (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur)) {
                 Affichage.afficherErreur("Erreur : Trop de monstres.\n");
             }
-        } while (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur));
+        } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur));
 
         int xMonstre;
         String yStringMonstre;
         int yMonstre;
-        for (int i = 0; i < nbMonstres; i++) {
+        for (int i = 0; i < m_nbMonstre; i++) {
             do {
                 AffichageCarte.demanderCoordonneeX();
                 xMonstre = Affichage.scanInt() - 1;
@@ -332,6 +333,10 @@ public class Map {
                 this.m_joueurs[i].setPosition(xPerso, yPerso); // on place le perso
             }
         }
+    }
+
+    public int getNbMonstre() {
+        return this.m_nbMonstre;
     }
 }
 

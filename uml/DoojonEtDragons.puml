@@ -476,6 +476,7 @@ package fonctionnement {
             -m_nbJoueurs:Integer
             -m_longueur:Integer
             -m_largeur:Integer
+            -m_nbMonstre:Integer
 
             +<<create>> Map(longueur:Integer, largeur:Integer, nbJoueurs:Integer, joueurs:Personnage[*]):Map
             +<<create>> Map(nbJoueurs:Integer, joueurs:Personnage[*]):Map
@@ -498,6 +499,7 @@ package fonctionnement {
             +getLongueur():Integer
             +getLargeur():Integer
             +getCase():Coordonnees
+            +getNbMonstre():Integer
         }
 
         'Des coordonnées n'existent pas sans carte ; 1 carte a 1x des coordonnées, et les coordonnées ne sont associées qu'à 1 carte
