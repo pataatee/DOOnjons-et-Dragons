@@ -25,5 +25,7 @@ public class ArmeGuerre implements Arme {
         return m_portee;
     }
 
+    public static final ArmeGuerre Epee_longue = new ArmeGuerre("épée longue", new De(1,4), 2);
+    public static final ArmeGuerre Rapiere = new ArmeGuerre("Rapière", new De(1,4), 1);
     public static final ArmeGuerre eppe2Mains = new ArmeGuerre("épée à deux mains",  new De (2,6), 1);
 }

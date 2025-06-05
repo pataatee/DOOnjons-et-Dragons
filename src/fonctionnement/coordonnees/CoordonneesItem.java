@@ -2,11 +2,8 @@ package fonctionnement.coordonnees;
 
 import fonctionnement.de.De;
 import gameContent.items.Item;
-import gameContent.items.armes.ArmeCourante;
-import gameContent.items.armes.ArmeDistance;
-import gameContent.items.armes.ArmeGuerre;
-import gameContent.items.armures.ArmureLegere;
-import gameContent.items.armures.ArmureLourde;
+import gameContent.items.armes.*;
+import gameContent.items.armures.*;
 
 import java.util.List;
 import java.util.Random;

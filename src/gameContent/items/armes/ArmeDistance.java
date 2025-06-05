@@ -25,7 +25,7 @@ public class ArmeDistance implements Arme{
     public int getPortee() {
         return m_portee;
     }
-    public static final ArmeDistance Fronde = new ArmeDistance("Fronde", new De(1,4), 5);
-    public static final ArmeDistance Arbalete_legere = new ArmeDistance("Arbalète légère", new De(1,4), 10);
-    public static final ArmeDistance Arc_court = new ArmeDistance("Arc court", new De(1,4), 9);
+    public static final ArmeDistance Fronde = new ArmeDistance("Fronde", new De(1,4), 6);
+    public static final ArmeDistance Arbalete_legere = new ArmeDistance("Arbalète légère", new De(1,8), 16);
+    public static final ArmeDistance Arc_court = new ArmeDistance("Arc court", new De(1,6), 16);
 }
