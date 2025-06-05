@@ -28,4 +28,5 @@ public class AffichageCreateMonstre {
     public static void demanderDexterite() {
         System.out.println("Dextérité du monstre ?");
     }
+
 }

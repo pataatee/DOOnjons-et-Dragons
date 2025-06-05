@@ -1,5 +1,7 @@
 package gameContent.personnages.monstre;
 
+import fonctionnement.affichage.AffichageCreateMonstre;
+
 public class Espece {
     private String m_nomEspece;
     private int m_numero;
@@ -20,4 +22,6 @@ public class Espece {
     public int getNum() {
         return m_numero;
     }
+
+
 }

@@ -1,5 +1,8 @@
 package gameContent.personnages.monstre;
 
+import fonctionnement.affichage.AffichageCreateMonstre;
+import fonctionnement.de.De;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.personnages.Caracteristique;
 
 public class CaracteristiqueMonstre extends Caracteristique {
@@ -13,4 +16,6 @@ public class CaracteristiqueMonstre extends Caracteristique {
     public int getClasseArmure() {
         return m_classeArmure;
     }
+
+
 }

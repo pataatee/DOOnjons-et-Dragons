@@ -7,6 +7,7 @@ import fonctionnement.coordonnees.*;
 import fonctionnement.de.De;
 import fonctionnement.utilisateur.RecupInfos;
 import gameContent.personnages.monstre.AttaqueMonstre;
+import gameContent.personnages.monstre.CaracteristiqueMonstre;
 import gameContent.personnages.monstre.Espece;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
@@ -351,60 +352,18 @@ public class Map {
         for (int i = 0; i < m_nbMonstre; i++) {
 
             // pouf on crée l'espèce du monstre
-            String especeMonstre;
-
-            AffichageCreateMonstre.demanderEspece();
-            especeMonstre = RecupInfos.scanString();
-
-            Espece espece = new Espece(especeMonstre, i); // i parce qu'on veut que le num du monstre soit jms le mm
-            // TODO vérif si espece egales, si ya des especes egales oui on utilise constructeur w numero sinon no
+            Espece espece = CreerEntites.createEspece(i);
 
             // pouf on crée euh l'attaque du monstre
-            String nomAttaque;
-            AffichageCreateMonstre.demanderAttaque();
-            nomAttaque = RecupInfos.scanString();
-
-            int porteeAttaque;
-            AffichageCreateMonstre.demanderPorteeAttaque();
-            porteeAttaque = RecupInfos.scanInt();
-
-            // TODO do while si on veut limiter la portée max
-
-            int degatsAttaque;
-            AffichageCreateMonstre.demanderDegatsAttaque();
-            degatsAttaque = RecupInfos.scanInt();
-
-            // TODO idem si on veut limiter degats max de l'attaque bcs oui eviter que ce soit trop cheaté
-
-            AttaqueMonstre attaque = new AttaqueMonstre(nomAttaque, porteeAttaque, degatsAttaque);
+            AttaqueMonstre atk = CreerEntites.createAttaqueMonstre();
 
             // caracteristiques du monstre
-            int pvMonstre;
-            AffichageCreateMonstre.demanderPvMonstre();
-            pvMonstre = RecupInfos.scanInt();
+            CaracteristiqueMonstre carac = CreerEntites.createCaracMonstre();
 
-            // TODO midif si on veut des pv min ou max pr encore une x que ce soit pas trop cheaté
+            Monstre monstre = new Monstre(espece, carac, atk);
 
-            int forceMonstre; // 0 si attaque a distance
-            AffichageCreateMonstre.demanderForce();
-            forceMonstre = RecupInfos.scanInt();
-
-            int dexteriteMonstre; // 0 si attaque au cac
-            AffichageCreateMonstre.demanderDexterite();
-            dexteriteMonstre = RecupInfos.scanInt();
-
-            int initiativeMonstre;
-            De de = new De(4, 4);
-            initiativeMonstre = de.lancer_de();
-            // caracteristiques monstre determinees par un dé ?
-            // estce que ya le +3 aussi ?
-
-            int classeArmureMonstre;
-
-
-            Monstre monstre = new Monstre();
+            this.m_monstres[i] = monstre;
         }
-        return;
     }
 }
 

@@ -1,5 +1,7 @@
 package gameContent.personnages.monstre;
 
+import fonctionnement.affichage.AffichageCreateMonstre;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.personnages.Attaque;
 
 public class AttaqueMonstre implements Attaque {
@@ -26,5 +28,7 @@ public class AttaqueMonstre implements Attaque {
     public int getDegats() {
         return m_degats;
     }
+
+
 
 }
