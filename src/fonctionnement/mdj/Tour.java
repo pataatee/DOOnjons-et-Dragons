@@ -148,7 +148,7 @@ public class Tour {
         }
         else {
             if (this.m_map.getCase(x,y) instanceof CoordonneesItem){
-                boolean item = CaseTresor(this.m_map.getCase(x,y));
+                boolean item = caseTresor(this.m_map.getCase(x,y));
 
                 if (!item) {
                     Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
@@ -192,7 +192,7 @@ public class Tour {
         return caractere; // Retourne le caractère valide
     }
 
-    public boolean CaseTresor(Coordonnees coord){
+    public boolean caseTresor(Coordonnees coord){
 
         Item item = ((CoordonneesItem) coord).getItem();
         Affichage.afficher("Vous avez trouvé un "+item.getNom()+" sur cette case ! Voulez-vous le ramasser ? (O/N)");
@@ -214,7 +214,7 @@ public class Tour {
         }
         else {
             Affichage.afficherErreur("Réponse invalide. Veuillez répondre par O ou N.");
-            return CaseTresor(coord); // Redemande si la réponse n'est pas valide
+            return caseTresor(coord); // Redemande si la réponse n'est pas valide
         }
     }
 
