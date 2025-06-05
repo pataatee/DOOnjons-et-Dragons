@@ -86,6 +86,13 @@ public class Map {
     public int getM_largeur(){
         return m_largeur;
     }
+    public Coordonnees getCase(int i, int j) {
+        if (i < 0 || i >= m_longueur || j < 0 || j >= m_largeur) {
+            Affichage.afficherErreur("Coordonnées hors limites de la carte.");
+            return null;
+        }
+        return m_carte[i][j];
+    }
 
     public void createRandomMap(){
         Random random = new Random();
