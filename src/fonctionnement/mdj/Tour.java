@@ -5,65 +5,71 @@ import fonctionnement.coordonnees.*;
 import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
+import gameContent.personnages.Entite;
 import gameContent.personnages.perso.Personnage;
+import gameContent.sorts.Sorts;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static fonctionnement.affichage.Affichage.*;
+import static gameContent.sorts.Sorts.*;
 
 public class Tour {
     private int m_tour;
     private int m_nbActions;
     private Personnage m_pers;
-    private final String[] m_actions; // Actions possibles pour le personnage
+    private List<String> m_actions = new ArrayList<>(); // Actions possibles pour le personnage
+    private int m_nbDansListeActions = 0; // Nombre d'actions dans la liste   //TODO a enlever et remplacer avec size()
     private boolean m_finTour; // Indique si le tour est terminé
     private Map m_map; // La carte du jeu, si nécessaire
 
-    public Tour(){
-        this.m_actions = new String[]{
-                "Attaquer <Monstre>",
-                "S'équiper <Objet>",
-                "Se déplacer <Case>",
-                "Obtenir des informations <Case>",
-                "Finir le tour"
-        };
+    public Tour(Personnage pers) {
+        m_pers = pers;
+        initialiserActions();
     }
     public Tour(Personnage pers, int tour, Map map) {
         this.m_pers = pers;
+        initialiserActions();
         this.m_tour = tour+1;
         this.m_nbActions = 3; // Nombre d'actions par tour
         this.m_map = map; // Initialisation de la carte
-        this.m_actions = new String[]{
-            "Attaquer <Monstre>",
-            "S'équiper <Objet>",
-            "Se déplacer <Case>",
-            "Obtenir des informations <Case>",
-            "Finir le tour"
-        };
+
         this.m_finTour = false;
         while (!m_finTour && m_nbActions > 0) {
             jouerTour();
 
         }
     }
+
+    private void initialiserActions() {
+        this.m_actions.add("Attaquer <Monstre>");
+        this.m_actions.add("S'équiper <Objet>");
+        this.m_actions.add("Se déplacer <Case>");
+        this.m_actions.add("Obtenir des informations <Case>");
+        this.m_actions.add("Finir le tour");
+        if (!Arrays.equals(m_pers.getSorts(), new boolean[]{false, false, false})) {
+            this.m_actions.add("Lancer un sort");
+            this.m_nbDansListeActions = 6;
+        }
+    }
+
     public void jouerTour(){
         Affichage.afficherTour(this.m_tour, this.m_pers, this.m_map);
         int numaction = Affichage.scanInt();
-        // Vérification que ce qu'a saisi l'utilisateur est un entier type int
-        /*if (!(numaction type of int)) {
-            Affichage.afficherErreur("Veuillez entrer un nombre valide pour l'action.");
-            jouerTour();
-            return;
-        }*/
         if (numaction == 5) {
             m_finTour = true;
             Affichage.afficher("Fin du tour pour " + m_pers.getNom());
             return;
         }
-        if (numaction < 1 || numaction > m_actions.length) {
+        if (numaction < 1 || numaction > m_nbDansListeActions) {
             Affichage.afficherErreur("Action invalide. Veuillez choisir une action valide.");
             jouerTour();
         }
         else {
-            String action = m_actions[numaction - 1];
+            String action = m_actions.get(numaction - 1);
             if (numaction == 2){
                 afficherInventaire(this.m_pers);
                 choisirEquipement();
@@ -74,11 +80,17 @@ public class Tour {
             }
             Affichage.afficher("Action choisie : " + action);
             m_nbActions--;
+            if (numaction == 6) {
+                initBoogieWoogie();
+            }
         }
 
     }
-    public String [] getActions(){
+    public List<String> getActions(){
         return this.m_actions;
+    }
+    public int getListActions(){
+        return this.m_nbDansListeActions;
     }
 
     public void choisirEquipement(){
@@ -90,7 +102,7 @@ public class Tour {
                 if (item instanceof Arme){
                     if (this.m_pers.getArme_equipee() != null) {
                         Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
-                        String reponse = Affichage.scanString();
+                        String reponse = Affichage.scanString().toUpperCase();
                         if (reponse.equals("O")) {
                             this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
                             this.m_pers.setEquipement_Arme((Arme)item);
@@ -100,6 +112,7 @@ public class Tour {
                             Affichage.afficher("Vous avez choisi de ne pas remplacer votre arme équipée.");
                             return; // On quitte la méthode si l'utilisateur ne veut pas remplacer l'arme
                         }
+                        //TODO Vérif que l'utilisateur a bien répondu O ou N et est pas con !
                     }
                     else{
                         this.m_pers.setEquipement_Arme((Arme)item);
@@ -220,6 +233,61 @@ public class Tour {
             Affichage.afficherErreur("Réponse invalide. Veuillez répondre par O ou N.");
             return CaseTresor(coord); // Redemande si la réponse n'est pas valide
         }
+    }
+
+    public void initBoogieWoogie() {
+        Affichage.afficher("quel sort voulez vous lancer ?");
+        String sort = Affichage.scanString().toUpperCase();
+        if (sort.equals("GUERISON")) {
+            Affichage.afficher("Vous avez choisi de lancer le sort Guérison.");
+            Guerison(this.m_pers);
+        }
+        else if (sort.equals("BOOGIEWOOGIE")) {
+            Affichage.afficher("Vous avez choisi de lancer le sort Boogie Woogie.");
+            Affichage.afficher("Quel personnage voulez vous échanger ?");
+            int xperso1 = Affichage.scanInt() - 1;
+            char caractere = demandeCaractere();
+            int yperso1 = caractere - 'A';
+            Coordonnees coord1 = m_map.getCase(xperso1, yperso1);
+            Entite perso1 = null;
+            if (coord1 instanceof CoordonneesPersonnage) {
+                perso1 = ((CoordonneesPersonnage) coord1).getPersonnage();
+
+                Affichage.afficher("hehee j'ai trouvé un personnage");
+            }
+            else if (coord1 instanceof CoordonneesMonstre) {
+                perso1 = ((CoordonneesMonstre) coord1).getMonstre();
+
+                Affichage.afficher("hehee j'ai trouvé un monstre");
+            }
+            Affichage.afficher("Quel personnage voulez-vous échanger avec ?");
+            int xperso2 = Affichage.scanInt() - 1;
+            char caractere2 = demandeCaractere();
+            int yperso2 = caractere2 - 'A';
+            Coordonnees coord2 = m_map.getCase(xperso2, yperso2);
+            Entite perso2 = null;
+            if (coord2 instanceof CoordonneesPersonnage) {
+                perso2 = ((CoordonneesPersonnage) coord2).getPersonnage();
+
+                Affichage.afficher("hehee j'ai trouvé un personnage");
+            }
+            else if (coord2 instanceof CoordonneesMonstre) {
+                perso2 = ((CoordonneesMonstre) coord2).getMonstre();
+
+                Affichage.afficher("hehee j'ai trouvé un monstre");
+            }
+            if (perso1 == null || perso2 == null) {
+                Affichage.afficherErreur("Un des personnages n'existe pas ou n'est pas valide. Veuillez réessayer.");
+                jouerTour();
+                return;
+            }
+            Sorts.BoogieWoogie(perso1, perso2, m_map);
+        }
+        else {
+            Affichage.afficherErreur("Sort inconnu. Veuillez réessayer.");
+            jouerTour();
+        }
+
     }
 
 

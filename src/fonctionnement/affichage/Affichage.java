@@ -6,6 +6,7 @@ import gameContent.personnages.perso.Personnage;
 import fonctionnement.mdj.Map;
 import fonctionnement.mdj.Tour;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Affichage {
@@ -102,8 +103,8 @@ public class Affichage {
         afficher("");
         afficherMap(map);
         afficher("");
-        Tour truc = new Tour();
-        afficherActions(truc.getActions());
+        Tour truc = new Tour(pers);
+        afficherActions(truc.getActions(), truc.getListActions());
     }
 
     public static void afficherInventaire(Personnage pers){
@@ -117,10 +118,10 @@ public class Affichage {
         afficher("Inventaire : " + inventaire);
     }
 
-    public static void afficherActions(String actions[]) {
+    public static void afficherActions(List<String> actions, int nombreActions) {
         afficher("Actions possibles : ");
-        for (int i = 0; i < actions.length; i++) {
-            afficher((i + 1) + " - " + actions[i]);
+        for (int i = 0; i < nombreActions ; i++) {
+            afficher((i + 1) + " - " + actions.get(i));
         }
     }
 }

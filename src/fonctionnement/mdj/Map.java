@@ -3,6 +3,10 @@ package fonctionnement.mdj;
 import fonctionnement.affichage.Affichage;
 import fonctionnement.affichage.AffichageCarte;
 import fonctionnement.coordonnees.*;
+import gameContent.personnages.monstre.AttaqueMonstre;
+import gameContent.personnages.monstre.CaracteristiqueMonstre;
+import gameContent.personnages.monstre.Espece;
+import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 
 import java.util.Random;
@@ -113,7 +117,9 @@ public class Map {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {
-                m_carte[x][y] = new CoordonneesMonstre(x,y); // 1 pour les monstres
+                Monstre monstre = new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1)); // 1 pour les monstres
+                monstre.setPosition(x,y);
+                m_carte[x][y] = new CoordonneesMonstre(x,y, monstre); // 1 pour les monstres
             } else {
                 i--; // Si la case est déjà occupée, on recommence
             }
@@ -296,7 +302,7 @@ public class Map {
                 i--; // cancel ce tour de boucleeeee
             }
             else {
-                m_carte[xMonstre][yMonstre] = new CoordonneesMonstre(xMonstre-1, yMonstre);
+                m_carte[xMonstre][yMonstre] = new CoordonneesMonstre(xMonstre-1, yMonstre, new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1)));
             }
         }
     }
@@ -332,6 +338,10 @@ public class Map {
                 this.m_joueurs[i].setPosition(xPerso, yPerso); // on place le perso
             }
         }
+    }
+
+    public Personnage[] getJoueurs() {
+        return m_joueurs;
     }
 }
 

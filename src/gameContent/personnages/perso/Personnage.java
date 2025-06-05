@@ -9,6 +9,7 @@ import gameContent.personnages.monstre.CaracteristiqueMonstre;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.classe.Classe;
 import gameContent.personnages.perso.race.Race;
+import gameContent.sorts.Sorts;
 
 import static fonctionnement.affichage.AfficherDsMonstre.afficherMonstreVaincu;
 import static fonctionnement.affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
@@ -22,6 +23,7 @@ public class Personnage extends Entite {
     private Equipement m_equipements = new Equipement();
     private AttaquePersonnage m_attaque;
     private int m_pvsMax;
+    private boolean[] m_sorts;
 
     public Personnage(String nom, Race race, Classe classe){
         this.m_nom = nom;
@@ -31,6 +33,8 @@ public class Personnage extends Entite {
         this.setInventaire(this.m_classe.getArmurerie());
         this.m_caracteristiques.bonusPvs(this.m_classe.getPvs());
         this.m_pvsMax = this.m_caracteristiques.getPvs();
+        Sorts sort = new Sorts(this.m_classe);
+        this.m_sorts = sort.getSorts(); // On initialise les sorts du personnage en fonction de sa classe
     }
 
     public void setEquipement_Arme(Arme arme){
@@ -63,6 +67,15 @@ public class Personnage extends Entite {
 
     public int getPvsMax() {
         return this.m_pvsMax;
+    }
+    public void setPvs(int pvs){
+        this.m_caracteristiques.modifyPvs(pvs);
+    }
+    public Classe getClasse(){
+        return this.m_classe;
+    }
+    public boolean[] getSorts() {
+        return this.m_sorts;
     }
 
     public CaracteristiquePersonnage getCaracteristiquesPerso(){

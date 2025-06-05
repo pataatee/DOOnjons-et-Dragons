@@ -14,3 +14,17 @@ sinon le type de la position voulue devient égale a la position actuelle
 la position actuelle devient une caseVide
 renvoie true
 
+TODO big brouillon
+
+
+Sorts -> Lucie
+Attaquer -> Manon
+Creation Monstre -> Manon
+Narration par le Mdj -> Lucie
+Mdj puisse choisir l'item a mettre sur une caseItem -> Lucie
+
+déplacer un monstre ou un personnage
+par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il peut infliger des dégâts à un joueur ou un monstre,
+ajouter des obstacles dans le donjon
+
+CHANGER TOUS LES INSTANCEOF
