@@ -357,7 +357,21 @@ public class Map {
 
 
             // pouf on crée l'espèce du monstre
-            Espece espece = CreerEntites.createEspece(i);
+            String especeMonstre;
+            AffichageCreateMonstre.demanderEspece();
+            especeMonstre = RecupInfos.scanString();
+            Espece espece = null;
+            boolean existeEspece = false;
+            for (int j = 0; j < m_monstres.length; j++) {
+                if (especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
+                    espece = CreerEntites.createEspece(especeMonstre, j);
+                    existeEspece = true;
+                    break;
+                }
+            }
+            if (!existeEspece) {
+                espece = CreerEntites.createEspece(especeMonstre);
+            }
 
             // pouf on crée euh l'attaque du monstre
             AttaqueMonstre atk = CreerEntites.createAttaqueMonstre();

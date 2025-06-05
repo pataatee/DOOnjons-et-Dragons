@@ -1,5 +1,6 @@
 package fonctionnement.mdj;
 
+import fonctionnement.affichage.Affichage;
 import fonctionnement.affichage.AffichageCreateMonstre;
 import fonctionnement.de.De;
 import fonctionnement.utilisateur.RecupInfos;
@@ -31,13 +32,17 @@ public class CreerEntites {
         dexteriteMonstre = RecupInfos.scanInt();
 
         int initiativeMonstre;
-        initiativeMonstre = de.lancer_de();
-        // caracteristiques monstre determinees par un dé ?
-        // estce que ya le +3 aussi ?
+        AffichageCreateMonstre.demanderInitiative();
+        initiativeMonstre = RecupInfos.scanInt();
 
-        int classeArmureMonstre = de.lancer_de();
 
-        int vitesseMonstre = de.lancer_de();
+        int classeArmureMonstre;
+        AffichageCreateMonstre.demanderClasseArmure();
+        classeArmureMonstre = RecupInfos.scanInt();
+
+        int vitesseMonstre;
+        AffichageCreateMonstre.demanderVitesse();
+        vitesseMonstre = RecupInfos.scanInt();
 
         return new CaracteristiqueMonstre(pvMonstre, forceMonstre, dexteriteMonstre, initiativeMonstre, vitesseMonstre, classeArmureMonstre);
     }
@@ -62,14 +67,14 @@ public class CreerEntites {
 
     }
 
-    public static Espece createEspece(int num) {
-        String especeMonstre;
-
-        AffichageCreateMonstre.demanderEspece();
-        especeMonstre = RecupInfos.scanString();
-
+    public static Espece createEspece(String especeMonstre, int num) {
         return new Espece(especeMonstre, num); // i parce qu'on veut que le num du monstre soit jms le mm
         // TODO vérif si espece egales, si ya des especes egales oui on utilise constructeur w numero sinon no
+    }
+
+    public static Espece createEspece(String especeMonstre) {
+
+        return new Espece(especeMonstre);
     }
 
 }

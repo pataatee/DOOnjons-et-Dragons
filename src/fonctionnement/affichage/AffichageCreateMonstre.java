@@ -29,4 +29,15 @@ public class AffichageCreateMonstre {
         System.out.println("Dextérité du monstre ?");
     }
 
+    public static void demanderInitiative() {
+        System.out.println("Initiative du monstre ?");
+    }
+
+    public static void demanderClasseArmure() {
+        System.out.println("Classe 'armure du monstre ?");
+    }
+
+    public static void demanderVitesse() {
+        System.out.println("Vitesse du monstre ?");
+    }
 }
