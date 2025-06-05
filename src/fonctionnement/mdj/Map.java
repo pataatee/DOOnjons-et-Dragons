@@ -279,6 +279,8 @@ public class Map {
             }
         } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur));
 
+        createMonstre();
+
         int xMonstre;
         String yStringMonstre;
         int yMonstre;
@@ -349,7 +351,10 @@ public class Map {
 
     public void createMonstre() {
 
+        this.m_monstres = new Monstre[this.m_nbMonstre];
+
         for (int i = 0; i < m_nbMonstre; i++) {
+
 
             // pouf on crée l'espèce du monstre
             Espece espece = CreerEntites.createEspece(i);
@@ -363,6 +368,8 @@ public class Map {
             Monstre monstre = new Monstre(espece, carac, atk);
 
             this.m_monstres[i] = monstre;
+
+
         }
     }
 }

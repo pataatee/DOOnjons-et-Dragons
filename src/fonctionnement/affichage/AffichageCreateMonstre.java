@@ -2,7 +2,7 @@ package fonctionnement.affichage;
 
 public class AffichageCreateMonstre {
     public static void demanderEspece() {
-        System.out.println("Nom de votre monstre : ");
+        System.out.println("Espece de votre monstre : ");
     }
 
     public static void demanderAttaque() {
