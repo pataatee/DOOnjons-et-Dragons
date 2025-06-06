@@ -175,30 +175,27 @@ public class Tour {
     }
 
     public void seDeplacer(){
-        Affichage.afficher("Où voulez-vous vous déplacer ? (coordonée x)");
-        int x = Affichage.scanInt() - 1;
-        char caractere = demandeCaractere();
-        int y = caractere - 'A';
-
+        Affichage.afficher("Où voulez-vous vous déplacer ?");
+        int [] coordAct = Affichage.scanCoord();
         int x_pers = this.m_pers.getX();
         int y_pers = this.m_pers.getY();
         CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers, this.m_pers);
-        Coordonnees posVoulue = new CoordonneesCaseVide(x, y);
+        Coordonnees posVoulue = new CoordonneesCaseVide(coordAct[0], coordAct[1]);
 
         if (!Deplacement(posActuelle, posVoulue)) {
             seDeplacer();
         }
         else {
-            if (this.m_map.getCase(x,y) instanceof CoordonneesItem){
-                boolean item = CaseTresor(this.m_map.getCase(x,y));
+            if (this.m_map.getCase(coordAct[0], coordAct[1]) instanceof CoordonneesItem){
+                boolean item = CaseTresor(this.m_map.getCase(coordAct[0], coordAct[1]));
 
                 if (!item) {
                     Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
                 }
             }
-            this.m_map.setCase(x, y, posActuelle); // On met à jour la position sur la carte
+            this.m_map.setCase(coordAct[0], coordAct[1], posActuelle); // On met à jour la position sur la carte
             this.m_map.setCase(x_pers, y_pers, new CoordonneesCaseVide(x_pers, y_pers)); // On vide l'ancienne position
-            m_pers.setPosition(x, y); // on met à jour la position du personnage
+            m_pers.setPosition(coordAct[0], coordAct[1]); // on met à jour la position du personnage
             Affichage.afficherMap(m_map);
         }
     }

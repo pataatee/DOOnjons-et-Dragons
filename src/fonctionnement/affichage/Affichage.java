@@ -81,7 +81,7 @@ public class Affichage {
         afficher("Force : " + pers.getForce());
         afficher("Dexterité : " + pers.getDexterite());
         afficher("Initiative : " + pers.getInitiative());
-        afficher("Vitesse : " + pers.getVitesse());
+        afficher("Vitesse : " + pers.getVitesse()/3);
 
         if (pers.getArme_equipee()!= null){
             afficher("Arme : " + pers.getArme_equipee().getNom());
