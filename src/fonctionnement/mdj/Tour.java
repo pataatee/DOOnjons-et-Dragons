@@ -241,6 +241,10 @@ public class Tour {
         if (!Deplacement(posActuelle, posVoulue)) {
             seDeplacer();
         } else {
+            m_actionsprecedentes.add(String.valueOf(x_pers));
+            m_actionsprecedentes.add(String.valueOf(y_pers));
+            m_actionsprecedentes.add(String.valueOf(coordAct[0]));
+            m_actionsprecedentes.add(String.valueOf(coordAct[1]));
             if (this.m_map.getCase(coordAct[0], coordAct[1]) instanceof CoordonneesItem) {
                 boolean item = CaseTresor(this.m_map.getCase(coordAct[0], coordAct[1]));
 
@@ -395,7 +399,13 @@ public class Tour {
                     Affichage.afficher(m_actionsprecedentes.get(1));
                     break;
                 case "3":
-                     Affichage.afficher("Se déplacer");
+                    int Coordx = Integer.parseInt(m_actionsprecedentes.get(1))+1;
+                    char CoordlettreY = (char) ('A' + Integer.parseInt(m_actionsprecedentes.get(2)));
+                    String coords = Coordx + "," + CoordlettreY +" à la case ";
+                    Coordx = Integer.parseInt(m_actionsprecedentes.get(3))+1;
+                    CoordlettreY = (char) ('A' + Integer.parseInt(m_actionsprecedentes.get(4)));
+                    coords += Coordx + "," + CoordlettreY +".";
+                     Affichage.afficher("Vous vous êtes déplacé de la case "+ coords);
                     break;
                 case "6":
                     switch (m_actionsprecedentes.get(1)) {
