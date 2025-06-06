@@ -1,5 +1,6 @@
 package gameContent.personnages.perso;
 
+import fonctionnement.affichage.Affichage;
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
 import gameContent.items.armes.Arme;
@@ -10,6 +11,8 @@ import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.classe.Classe;
 import gameContent.personnages.perso.race.Race;
 import gameContent.sorts.Sorts;
+
+import java.util.List;
 
 import static fonctionnement.affichage.AfficherDsMonstre.afficherMonstreVaincu;
 import static fonctionnement.affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
@@ -151,6 +154,65 @@ public class Personnage extends Entite {
     //TODO euh revoir les bails de caractéristiques partout help
     public CaracteristiqueMonstre getCaracteristiques() {
         return getCaracteristiques();
+    }
+
+    public void equiperArme(){
+        Armurerie arm = this.getInventaire();
+        List<Arme> armes = arm.getArmes();
+
+        if (!armes.isEmpty()){
+            Affichage.afficher("Armes disponibles pour " + this.getNom() + " :");
+            for (Arme item : armes) {
+                Affichage.afficher(" - " + item.getNom());
+            }
+            Affichage.afficher("Selectionnez l'arme à équiper : ");
+            String armeChoisie = Affichage.scanString();
+            if (!armeChoisie.isEmpty()){
+                Arme armeAEquiper = null;
+                for (Arme item : armes) {
+                    if (item.getNom().equalsIgnoreCase(armeChoisie)) {
+                        this.setEquipement_Arme(item);
+                        armeAEquiper = item;
+                    }
+                }
+                if (armeAEquiper == null) {
+                    Affichage.afficherErreur("Arme non trouvée, veuillez réessayer.");
+                    this.equiperArme();
+                }
+                else{
+                    this.getInventaire().deleteArme(armeAEquiper);
+                }
+            }
+        }
+    }
+
+    public void equiperArmure() {
+        Armurerie arm = this.getInventaire();
+        List<Armure> armures = arm.getArmures();
+
+        if (!armures.isEmpty()) {
+            Affichage.afficher("Armures disponibles pour " + this.getNom() + " :");
+            for (Armure item : armures) {
+                Affichage.afficher(" - " + item.getNom());
+            }
+            Affichage.afficher("Selectionnez l'armure à équiper : ");
+            String armureChoisie = Affichage.scanString();
+            if (!armureChoisie.isEmpty()) {
+                Armure armureAEquiper = null;
+                for (Armure item : armures) {
+                    if (item.getNom().equalsIgnoreCase(armureChoisie)) {
+                        this.setEquipement_Armure(item);
+                        armureAEquiper = item;
+                    }
+                }
+                if (armureAEquiper == null) {
+                    Affichage.afficherErreur("Armure non trouvée, veuillez réessayer.");
+                    this.equiperArmure();
+                } else {
+                    this.getInventaire().deleteArmure(armureAEquiper);
+                }
+            }
+        }
     }
 
 }

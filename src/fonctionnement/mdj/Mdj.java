@@ -46,8 +46,8 @@ public class Mdj {
 
         for (Personnage pers : this.m_joueurs){
             // chaque joueur s'équipe
-            equiperArme(pers);
-            equiperArmure(pers);
+            pers.equiperArme();
+            pers.equiperArmure();
         }
         tours();
     }
@@ -147,61 +147,6 @@ public class Mdj {
         }
         return val_retour;
     }
-    public void equiperArme(Personnage pers){
-        Armurerie arm = pers.getInventaire();
-        List<Arme> armes = arm.getArmes();
 
-        if (!armes.isEmpty()){
-            Affichage.afficher("Armes disponibles pour " + pers.getNom() + " :");
-            for (Arme item : armes) {
-                Affichage.afficher(" - " + item.getNom());
-            }
-            Affichage.afficher("Selectionnez l'arme à équiper : ");
-            String armeChoisie = Affichage.scanString();
-            if (!armeChoisie.isEmpty()){
-                Arme armeAEquiper = null;
-                for (Arme item : armes) {
-                    if (item.getNom().equalsIgnoreCase(armeChoisie)) {
-                        pers.setEquipement_Arme(item);
-                        armeAEquiper = item;
-                    }
-                }
-                if (armeAEquiper == null) {
-                    Affichage.afficherErreur("Arme non trouvée, veuillez réessayer.");
-                    equiperArme(pers);
-                }
-                else{
-                    pers.getInventaire().deleteArme(armeAEquiper);
-                }
-            }
-        }
-    }
-    public void equiperArmure(Personnage pers) {
-        Armurerie arm = pers.getInventaire();
-        List<Armure> armures = arm.getArmures();
 
-        if (!armures.isEmpty()) {
-            Affichage.afficher("Armures disponibles pour " + pers.getNom() + " :");
-            for (Armure item : armures) {
-                Affichage.afficher(" - " + item.getNom());
-            }
-            Affichage.afficher("Selectionnez l'armure à équiper : ");
-            String armureChoisie = Affichage.scanString();
-            if (!armureChoisie.isEmpty()) {
-                Armure armureAEquiper = null;
-                for (Armure item : armures) {
-                    if (item.getNom().equalsIgnoreCase(armureChoisie)) {
-                        pers.setEquipement_Armure(item);
-                        armureAEquiper = item;
-                    }
-                }
-                if (armureAEquiper == null) {
-                    Affichage.afficherErreur("Armure non trouvée, veuillez réessayer.");
-                    equiperArmure(pers);
-                } else {
-                    pers.getInventaire().deleteArmure(armureAEquiper);
-                }
-            }
-        }
-    }
 }

@@ -138,58 +138,60 @@ public class Tour {
     }
 
     public void choisirEquipement() {
-        Affichage.afficher("de quel objet voulez-vous vous équiper ?");
+        Affichage.afficher("de quel type d'objet voulez-vous vous équiper ?");
         String objet = Affichage.scanString();
-        boolean objetTrouve = false;
-        for (Item item : this.m_pers.getInventaire().getObjets()) {
-            if (item.getNom().equals(objet)) {
-                if (item instanceof Arme) {
-                    if (this.m_pers.getArme_equipee() != null) {
-                        Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
-                        char reponse = Affichage.scanOuiNon();
-                        if (reponse == 'O') {
-                            this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
-                            this.m_pers.setEquipement_Arme((Arme) item);
-                            this.m_pers.getInventaire().deleteArme((Arme) item);
-                        }
-                        if (reponse == 'N') {
-                            Affichage.afficher("Vous avez choisi de ne pas remplacer votre arme équipée.");
-                            this.m_nbActions += 1; // On ajoute une action si l'utilisateur ne veut pas remplacer l'item
-                        }
-                    } else {
-                        this.m_pers.setEquipement_Arme((Arme) item);
-                        this.m_pers.getInventaire().deleteArme((Arme) item);
+        if (objet.equalsIgnoreCase("arme")) {
+            if (this.m_pers.getInventaire().getArmes().isEmpty()) {
+                Affichage.afficherErreur("Vous n'avez pas d'armes dans votre inventaire.");
+                m_nbActions++;
+                jouerTour();
+                return;
+            }
+            else {
+                if (this.m_pers.getArme_equipee() != null) {
+                    Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
+                    char reponse = Affichage.scanOuiNon();
+                    if (reponse == 'O') {
+                        this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
+                        m_pers.equiperArme();
                     }
-                } else {
-                    if (this.m_pers.getArmure_equipee() != null) {
-                        Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
-                        char reponse = Affichage.scanOuiNon();
-                        if (reponse == 'O') {
-                            this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
-                            this.m_pers.setEquipement_Armure((Armure) item);
-                            this.m_pers.getInventaire().deleteArmure((Armure) item);
-                        } else {
-                            Affichage.afficher("Vous avez choisi de ne pas remplacer votre armure équipée.");
-                            this.m_nbActions += 1; // On ajoute une action si l'utilisateur ne veut pas remplacer l'item
-                        }
-                    } else {
-                        this.m_pers.setEquipement_Armure((Armure) item);
-                        this.m_pers.getInventaire().deleteArmure((Armure) item);
+                    else{
+                        Affichage.afficher("Vous avez choisi de ne pas remplacer votre arme équipée.");
+                        this.m_nbActions += 1; // On ajoute une action si l'utilisateur ne veut pas remplacer l'item
                     }
-
                 }
-                Affichage.afficher("Vous vous êtes équipé de : " + item.getNom());
-                objetTrouve = true;
-                break;
+                else {
+                    m_pers.equiperArme();
+                }
             }
         }
-
-        if (!objetTrouve) {
-            Affichage.afficherErreur("Objet introuvable dans l'inventaire. Veuillez réessayer.");
+        else if (objet.equalsIgnoreCase("armure")) {
+            if (this.m_pers.getInventaire().getArmures().isEmpty()) {
+                Affichage.afficherErreur("Vous n'avez pas d'armures dans votre inventaire.");
+                m_nbActions++;
+                jouerTour();
+            }
+            else {
+                if (this.m_pers.getArmure_equipee() != null) {
+                    Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
+                    char reponse = Affichage.scanOuiNon();
+                    if (reponse == 'O') {
+                        this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
+                        m_pers.equiperArmure();
+                    }
+                    else {
+                        Affichage.afficher("Vous avez choisi de ne pas remplacer votre armure équipée.");
+                        this.m_nbActions += 1; // On ajoute une action si l'utilisateur ne veut pas remplacer l'item
+                    }
+                } else {
+                    m_pers.equiperArmure();
+                }
+            }
+        }
+        else{
+            Affichage.afficherErreur("Type d'objet inconnu. Veuillez choisir entre 'arme' ou 'armure'.");
             choisirEquipement();
         }
-
-
     }
 
     public void seDeplacer() {
