@@ -6,6 +6,7 @@ import fonctionnement.coordonnees.CoordonneesMonstre;
 import fonctionnement.coordonnees.CoordonneesPersonnage;
 import fonctionnement.de.De;
 import fonctionnement.mdj.Map;
+import gameContent.items.armes.Arme;
 import gameContent.personnages.Entite;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
@@ -96,11 +97,23 @@ et échanger leur position dans le donjon.
 
     }
 
-    public static void armeMagique(){
+    public static void armeMagique(Personnage pers, Arme arme){
         //Arme magique : le personnage détenteur du pouvoir peut choisir une arme détenue par un personnage (mais pas forcément équipée) à améliorer.
         // L'arme gagne alors un bonus de 1 lors des jets d'attaque et de 1 lors des jets de dégâts (les bonus peuvent se cumuler).
-
-
+        //TODO : a ajouter 1 lors du jet d'attaque
+        boolean armeTrouvee = false;
+        for (Arme a : pers.getInventaire().getArmes()) {
+            if (a.getNom().equals(arme.getNom())) {
+                a.addBonus();
+                armeTrouvee = true;
+                Affichage.afficher("L'arme " + arme.getNom() + " a été améliorée !");
+            }
+        }
+        if (!armeTrouvee){
+            Arme armeequipee = pers.getArme_equipee();
+            armeequipee.addBonus();
+            Affichage.afficher("L'arme " + armeequipee.getNom() + " a été améliorée !");
+        }
     }
 
 

@@ -96,28 +96,52 @@ public class Tour {
                     Affichage.afficher("2. Boogie Woogie");
                 }
                 if (m_pers.getSorts()[2]) {
-                    Affichage.afficher("3. Autre sort");
+                    Affichage.afficher("3. Arme Magique");
                 }
                 Affichage.afficher("quel sort voulez vous lancer ?");
                 int sort = Affichage.scanInt();
                 if (sort == 1) {
                     m_actionsprecedentes.add(String.valueOf(sort));
-                    Affichage.afficher("Vous avez choisi de lancer le sort Guérison.Sur qui voulez vous lancer le sort ?");
+                    Affichage.afficher("Vous avez choisi de lancer le sort Guérison. Sur qui voulez vous lancer le sort ?");
                     String nom = Affichage.scanString();
                     Personnage perso = null;
                     for (Personnage pers : m_map.getJoueurs()) {
-                        //if
+                        if (pers.getNom().equalsIgnoreCase(nom)) {
+                            perso = pers;
+                            break;
+                        }
                     }
-                    Guerison(this.m_pers);
+                    if (perso == null) {
+                        Affichage.afficherErreur("Personnage non trouvé. Veuillez réessayer.");
+                        jouerTour();
+                    }
+                    else{
+                        Guerison(perso);
+                    }
+
                 } else if (sort == 2) {
                     m_actionsprecedentes.add(String.valueOf(sort));
                     if (!m_pers.getSorts()[1]) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Boogie Woogie, il n'est pas disponible pour votre personnage.");
                         jouerTour();
-                        return;
                     }
-                    initBoogieWoogie();
-                } else {
+                    else{
+                        initBoogieWoogie();
+                    }
+                }
+                else if (sort == 3){
+                    m_actionsprecedentes.add(String.valueOf(sort));
+                    if (!m_pers.getSorts()[1]) {
+                        Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Arme Magique, il n'est pas disponible pour votre personnage.");
+                        jouerTour();
+                    }
+                    else {
+                        initArmeMagique();
+                    }
+
+                }
+
+                else {
                     Affichage.afficherErreur("Sort inconnu. Veuillez réessayer.");
                     jouerTour();
                 }
@@ -308,12 +332,54 @@ public class Tour {
             perso2 = ((CoordonneesMonstre) coord2).getMonstre();
             m_actionsprecedentes.add(((Monstre) perso2).getEspece().getNomEspece());
         } else {
-            Affichage.afficherErreur("Vous ne pouvez pas échanger de plca autre chose qu'un personnage ou un monstre.");
+            Affichage.afficherErreur("Vous ne pouvez pas échanger de place autre chose qu'un personnage ou un monstre.");
             initBoogieWoogie();
             return;
         }
         Sorts.BoogieWoogie(perso1, perso2, m_map);
 
+    }
+
+    public void initArmeMagique(){
+        Affichage.afficher("Sur qui voulez-vous lancer le sort Arme Magique ?");
+        String nom = Affichage.scanString();
+        Personnage pers = null;
+        for (Personnage p : m_map.getJoueurs()) {
+            if (p.getNom().equalsIgnoreCase(nom)) {
+                pers = p;
+                break;
+            }
+        }
+        if (pers == null) {
+            Affichage.afficherErreur("Personnage non trouvé. Veuillez réessayer.");
+            initArmeMagique();
+        }
+        else {
+            Affichage.afficher("Quel arme voulez-vous rendre plus puissante ?");
+            String armeNom = Affichage.scanString();
+            Arme arme = null;
+            boolean armeTrouvee = false;
+            for (Arme a : pers.getInventaire().getArmes()) {
+                if (a.getNom().equalsIgnoreCase(armeNom)) {
+                    arme = a;
+                    armeTrouvee = true;
+                    break;
+                }
+            }
+            if (!armeTrouvee){
+                if (pers.getArme_equipee() != null && pers.getArme_equipee().getNom().equalsIgnoreCase(armeNom)) {
+                    arme = pers.getArme_equipee();
+                    armeTrouvee = true;
+                }
+            }
+            if (!armeTrouvee) {
+                Affichage.afficherErreur("Arme non trouvée. Veuillez réessayer.");
+                initArmeMagique();
+            }
+            else{
+                Sorts.armeMagique(pers, arme);
+            }
+        }
     }
 
     public void anciennesActions(){

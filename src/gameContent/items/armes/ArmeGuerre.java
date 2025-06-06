@@ -6,6 +6,7 @@ public class ArmeGuerre implements Arme {
     private final String m_nom;
     private final De m_degats;
     private final int m_portee;
+    private int m_bonus = 0; // Par défaut, l'arme n'a pas de bonus
 
     public ArmeGuerre(String nom, De de, int portee){
         this.m_nom = nom;
@@ -18,11 +19,15 @@ public class ArmeGuerre implements Arme {
     }
     @Override
     public int getDegats() {
-        return m_degats.lancer_de();
+        return m_degats.lancer_de()+ m_bonus;
     }
     @Override
     public int getPortee() {
         return m_portee;
+    }
+    @Override
+    public void addBonus() {
+        this.m_bonus += 1; // Permet de définir si l'arme a un bonus ou non
     }
 
     public static final ArmeGuerre Epee_longue = new ArmeGuerre("épée longue", new De(1,4), 2);

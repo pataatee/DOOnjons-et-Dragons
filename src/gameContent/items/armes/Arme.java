@@ -6,4 +6,5 @@ public interface Arme extends Item {
     public String getNom();
     public int getDegats();
     public int getPortee();
+    public void addBonus(); // Permet de définir si l'arme a un bonus ou non
 }
