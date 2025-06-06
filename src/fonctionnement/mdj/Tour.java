@@ -140,20 +140,23 @@ public class Tour {
     public void choisirEquipement() {
         Affichage.afficher("de quel type d'objet voulez-vous vous équiper ?");
         String objet = Affichage.scanString();
+        String phrase = "Vous avec choisi de vous équiper";
         if (objet.equalsIgnoreCase("arme")) {
+
             if (this.m_pers.getInventaire().getArmes().isEmpty()) {
                 Affichage.afficherErreur("Vous n'avez pas d'armes dans votre inventaire.");
                 m_nbActions++;
-                jouerTour();
-                return;
             }
             else {
                 if (this.m_pers.getArme_equipee() != null) {
                     Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
+                    phrase += " et vous avez remplacé votre "+ this.m_pers.getArme_equipee().getNom() + " par un ";
                     char reponse = Affichage.scanOuiNon();
                     if (reponse == 'O') {
                         this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
                         m_pers.equiperArme();
+                        phrase += this.m_pers.getArme_equipee().getNom() + ".";
+                        m_actionsprecedentes.add(phrase);
                     }
                     else{
                         Affichage.afficher("Vous avez choisi de ne pas remplacer votre arme équipée.");
@@ -162,6 +165,8 @@ public class Tour {
                 }
                 else {
                     m_pers.equiperArme();
+                    phrase += " avec un "+ this.m_pers.getArme_equipee().getNom() + ".";
+                    m_actionsprecedentes.add(phrase);
                 }
             }
         }
@@ -176,8 +181,11 @@ public class Tour {
                     Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
                     char reponse = Affichage.scanOuiNon();
                     if (reponse == 'O') {
+                        phrase += " et vous avez remplacé votre "+ this.m_pers.getArme_equipee().getNom() + " par un ";
                         this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
                         m_pers.equiperArmure();
+                        phrase += this.m_pers.getArme_equipee().getNom() + ".";
+                        m_actionsprecedentes.add(phrase);
                     }
                     else {
                         Affichage.afficher("Vous avez choisi de ne pas remplacer votre armure équipée.");
@@ -185,6 +193,8 @@ public class Tour {
                     }
                 } else {
                     m_pers.equiperArmure();
+                    phrase += " avec un "+ this.m_pers.getArme_equipee().getNom() + ".";
+                    m_actionsprecedentes.add(phrase);
                 }
             }
         }
@@ -313,7 +323,7 @@ public class Tour {
         else {
             switch (m_actionsprecedentes.get(0)) {
                 case "2":
-                    Affichage.afficher("S'équiper");
+                    Affichage.afficher(m_actionsprecedentes.get(1));
                     break;
                 case "3":
                      Affichage.afficher("Se déplacer");
