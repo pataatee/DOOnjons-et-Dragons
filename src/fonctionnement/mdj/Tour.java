@@ -116,6 +116,7 @@ public class Tour {
                         jouerTour();
                     }
                     else{
+                        m_actionsprecedentes.add(perso.getNom());
                         Guerison(perso);
                     }
 
@@ -377,6 +378,8 @@ public class Tour {
                 initArmeMagique();
             }
             else{
+                m_actionsprecedentes.add(pers.getNom());
+                m_actionsprecedentes.add(arme.getNom());
                 Sorts.armeMagique(pers, arme);
             }
         }
@@ -422,6 +425,10 @@ public class Tour {
                             x = Integer.parseInt(m_actionsprecedentes.get(6))+1;
                             phrase += " a la coordonnée " + x + "," + lettreY +".";
                             Affichage.afficher(phrase);
+                            break;
+                        case "3":
+                            Affichage.afficher("Vous avez lancé le sort Arme Magique.");
+                            Affichage.afficher("Vous avez rendu le " + m_actionsprecedentes.get(3) + " de " + m_actionsprecedentes.get(2) + " plus puissant.");
                             break;
                         default:
                             Affichage.afficher("Vous avez lancé un autre sort.");
