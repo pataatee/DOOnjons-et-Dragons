@@ -17,10 +17,10 @@ renvoie true
 TODO big brouillon
 
 
-Sorts -> Lucie
+Sorts : Arme magique -> Lucie
 Attaquer -> Manon
 Creation Monstre -> Manon
-Narration par le Mdj -> Lucie
+Finir narration par le Mdj -> Lucie
 Mdj puisse choisir l'item a mettre sur une caseItem -> Lucie
 
 déplacer un monstre ou un personnage
@@ -28,3 +28,4 @@ par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il 
 ajouter des obstacles dans le donjon
 
 CHANGER TOUS LES INSTANCEOF
+

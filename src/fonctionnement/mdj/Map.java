@@ -43,33 +43,24 @@ public class Map {
 
     public void demanderMap(){
         Affichage.afficher("Voulez vous une map random (O/N) ?");
-        String choix = Affichage.scanString();
-        if (choix.equals("O")||(choix.equals("o"))){
+        char choix = Affichage.scanOuiNon();
+        if (choix == 'O'){
             createRandomMap();
             Affichage.afficherMap(this);
             redemanderMap();
         }
-        else if (choix.equals("N")||(choix.equals("n"))) {
-            //TODO demander dcp les maps keski va où etc
+        else  {
             createMap();
             Affichage.afficherMap(this);
             redemanderMap();
-        }
-        else {
-            Affichage.afficherErreur("Choix non valide");
-            demanderMap();
         }
     }
 
     public void redemanderMap(){
         Affichage.afficher("Voulez vous utiliser cette map (O/N) ?");
-        String choix = Affichage.scanString();
-        if (choix.equals("N")){
+        char choix = Affichage.scanOuiNon();
+        if (choix == 'N'){
             demanderMap();
-        }
-        else if (!choix.equals("O")){
-            Affichage.afficherErreur("Choix non valide");
-            redemanderMap();
         }
     }
 
@@ -199,7 +190,7 @@ public class Map {
         for (int i = 0; i < nbObstacles; i++) {
 
             do {
-                CoordObstacle = Affichage.scanCoord();
+                CoordObstacle = Affichage.scanCoord(this);
                 if (CoordObstacle[0] < 0 || CoordObstacle[0] > m_longueur || CoordObstacle[1] < 0 || CoordObstacle[1] > m_largeur) {
                     AffichageCarte.CoordInvalide();
                 }
@@ -227,7 +218,7 @@ public class Map {
         int CoordTresor[];
         for (int i = 0; i < nbTresors; i++) {
             do {
-                CoordTresor = Affichage.scanCoord();
+                CoordTresor = Affichage.scanCoord(this);
                 if (CoordTresor[0] < 0 || CoordTresor[0] > m_longueur || CoordTresor[1] < 0 || CoordTresor[1] > m_largeur) {
                     AffichageCarte.CoordInvalide();
                 }
@@ -248,14 +239,14 @@ public class Map {
             AffichageCarte.demanderMonstres();
             nbMonstres = Affichage.scanInt();
             if (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur)) {
-                Affichage.afficherErreur("Erreur : Trop de monstres.\n");
+                Affichage.afficherErreur("Erreur : Trop de monstres.");
             }
         } while (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur));
 
         int [] CoordMonstre;
         for (int i = 0; i < nbMonstres; i++) {
             do {
-                CoordMonstre = Affichage.scanCoord();
+                CoordMonstre = Affichage.scanCoord(this);
                 if (CoordMonstre[0] < 0 || CoordMonstre[0] > m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] > m_largeur) {
                     AffichageCarte.CoordInvalide();
                 }
@@ -275,7 +266,7 @@ public class Map {
         int [] CoordPerso;
         for (int i = 0; i < m_nbJoueurs; i++) {
             do {
-                CoordPerso = Affichage.scanCoord();
+                CoordPerso = Affichage.scanCoord(this);
                 if (CoordPerso[0] < 0 || CoordPerso[0] > m_longueur || CoordPerso[1] < 0 || CoordPerso[1] > m_largeur) {
                     AffichageCarte.CoordInvalide();
                 }

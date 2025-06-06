@@ -2,11 +2,16 @@ package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
 import gameContent.items.Armurerie;
+import gameContent.items.Equipement;
+import gameContent.items.Item;
+import gameContent.items.armes.Arme;
+import gameContent.items.armures.Armure;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Mdj {
@@ -36,6 +41,14 @@ public class Mdj {
 
         this.m_nbMonstres = 0;
         this.m_nbTresors = 0;
+
+        Affichage.afficher("La partie peut commencer !");
+
+        for (Personnage pers : this.m_joueurs){
+            // chaque joueur s'équipe
+            equiperArme(pers);
+            equiperArmure(pers);
+        }
         tours();
     }
     public Race chooseRace(){
@@ -92,24 +105,20 @@ public class Mdj {
     public Map mdj_map_dimensions(){
         Map map;
         Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
-        String ouinon = Affichage.scanString();
-        if (Objects.equals(ouinon, "O")){
+        char ouinon = Affichage.scanOuiNon();
+        if (ouinon == 'O'){
             map = new Map(this.m_nbJoueurs, this.m_joueurs); //on crée la map avec des dimensions random
         }
-        else if (Objects.equals(ouinon, "N")){
+        else {
             Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
             int longueur = Affichage.scanInt();
             Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
             int largeur = Affichage.scanInt();
             map = new Map(longueur, largeur, this.m_nbJoueurs, this.m_joueurs); //on crée la map avec les dimensions choisies
-            if (map.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
+            if (map.getM_carte() == null) {             //si la carte est vide, on re appelle la fonction
                 Affichage.afficherErreur("Erreur lors de la creation de la carte");
                 return mdj_map_dimensions();
             }
-        }
-        else {
-            Affichage.afficherErreur("Choix non valide");
-            return mdj_map_dimensions();
         }
         return map;
     }
@@ -137,5 +146,62 @@ public class Mdj {
             }
         }
         return val_retour;
+    }
+    public void equiperArme(Personnage pers){
+        Armurerie arm = pers.getInventaire();
+        List<Arme> armes = arm.getArmes();
+
+        if (!armes.isEmpty()){
+            Affichage.afficher("Armes disponibles pour " + pers.getNom() + " :");
+            for (Arme item : armes) {
+                Affichage.afficher(" - " + item.getNom());
+            }
+            Affichage.afficher("Selectionnez l'arme à équiper : ");
+            String armeChoisie = Affichage.scanString();
+            if (!armeChoisie.isEmpty()){
+                Arme armeAEquiper = null;
+                for (Arme item : armes) {
+                    if (item.getNom().equalsIgnoreCase(armeChoisie)) {
+                        pers.setEquipement_Arme(item);
+                        armeAEquiper = item;
+                    }
+                }
+                if (armeAEquiper == null) {
+                    Affichage.afficherErreur("Arme non trouvée, veuillez réessayer.");
+                    equiperArme(pers);
+                }
+                else{
+                    pers.getInventaire().deleteArme(armeAEquiper);
+                }
+            }
+        }
+    }
+    public void equiperArmure(Personnage pers) {
+        Armurerie arm = pers.getInventaire();
+        List<Armure> armures = arm.getArmures();
+
+        if (!armures.isEmpty()) {
+            Affichage.afficher("Armures disponibles pour " + pers.getNom() + " :");
+            for (Armure item : armures) {
+                Affichage.afficher(" - " + item.getNom());
+            }
+            Affichage.afficher("Selectionnez l'armure à équiper : ");
+            String armureChoisie = Affichage.scanString();
+            if (!armureChoisie.isEmpty()) {
+                Armure armureAEquiper = null;
+                for (Armure item : armures) {
+                    if (item.getNom().equalsIgnoreCase(armureChoisie)) {
+                        pers.setEquipement_Armure(item);
+                        armureAEquiper = item;
+                    }
+                }
+                if (armureAEquiper == null) {
+                    Affichage.afficherErreur("Armure non trouvée, veuillez réessayer.");
+                    equiperArmure(pers);
+                } else {
+                    pers.getInventaire().deleteArmure(armureAEquiper);
+                }
+            }
+        }
     }
 }

@@ -32,10 +32,8 @@ public class Sorts {
         return sorts;
     }
 
-
-    /*L'utilisation d'un sort se fait au tour de jeu du personnage doté de ce sort. L'utilisation d'un sort compte comme une action.
-    Arme magique : le personnage détenteur du pouvoir peut choisir une arme détenue par un personnage (mais pas forcément équipée) à améliorer. L'arme gagne alors un bonus de 1 lors des jets d'attaque et de 1 lors des jets de dégâts (les bonus peuvent se cumuler). Les personnages de classe Clerc peuvent lancer le sort Guérison. Les magiciens peuvent lancer n'importe quel sort.
-    */
+    //L'utilisation d'un sort se fait au tour de jeu du personnage doté de ce sort. L'utilisation d'un sort compte comme une action.
+    // Les personnages de classe Clerc peuvent lancer le sort Guérison. Les magiciens peuvent lancer n'importe quel sort.
 
     public static void Guerison(Personnage pers){
         /*
@@ -97,6 +95,15 @@ et échanger leur position dans le donjon.
         }
 
     }
+
+    public static void armeMagique(){
+        //Arme magique : le personnage détenteur du pouvoir peut choisir une arme détenue par un personnage (mais pas forcément équipée) à améliorer.
+        // L'arme gagne alors un bonus de 1 lors des jets d'attaque et de 1 lors des jets de dégâts (les bonus peuvent se cumuler).
+
+
+    }
+
+
 
 
 }
