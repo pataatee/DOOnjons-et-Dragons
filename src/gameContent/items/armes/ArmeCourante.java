@@ -32,6 +32,19 @@ public class ArmeCourante implements Arme{
     public void addBonus() {
         this.m_bonus += 1; // Permet de définir si l'arme a un bonus ou non
     }
+
+    @Override
+    public String avecArticleDefini(){
+        return m_genre.avecArticleDefini();
+    }
+    @Override
+    public String avecArticleIndefini(){
+        return m_genre.avecArticleIndefini();
+    }
+    @Override
+    public String avecArticlePartitif(){
+        return m_genre.avecArticleIndefini();
+    }
     public static final ArmeCourante Baton = new ArmeCourante("Baton", new De(1,6), 1, new Substantif("baton", new Masculin()));
     public static final ArmeCourante Masse_d_armes = new ArmeCourante("Masse d'armes", new De(1,6), 1, new Substantif("masse d'armes", new Feminin()));
 }

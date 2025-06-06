@@ -175,12 +175,12 @@ public class Tour {
             else {
                 if (this.m_pers.getArme_equipee() != null) {
                     Affichage.afficher("Vous avez déjà une arme équipée. Voulez-vous la remplacer ? (O/N)");
-                    phrase += " et vous avez remplacé votre "+ this.m_pers.getArme_equipee().getNom() + " par un ";
+                    phrase += " et vous avez remplacé votre "+ this.m_pers.getArme_equipee().getNom() + " par ";
                     char reponse = Affichage.scanOuiNon();
                     if (reponse == 'O') {
                         this.m_pers.getInventaire().addArmes(this.m_pers.getArme_equipee());
                         m_pers.equiperArme();
-                        phrase += this.m_pers.getArme_equipee().getNom() + ".";
+                        phrase += this.m_pers.getArme_equipee().avecArticleIndefini() + ".";
                         m_actionsprecedentes.add(phrase);
                     }
                     else{
@@ -190,7 +190,7 @@ public class Tour {
                 }
                 else {
                     m_pers.equiperArme();
-                    phrase += " avec un "+ this.m_pers.getArme_equipee().getNom() + ".";
+                    phrase += " avec "+ this.m_pers.getArme_equipee().avecArticleIndefini() + ".";
                     m_actionsprecedentes.add(phrase);
                 }
             }
@@ -206,10 +206,10 @@ public class Tour {
                     Affichage.afficher("Vous avez déjà une armure équipée. Voulez-vous la remplacer ? (O/N)");
                     char reponse = Affichage.scanOuiNon();
                     if (reponse == 'O') {
-                        phrase += " et vous avez remplacé votre "+ this.m_pers.getArme_equipee().getNom() + " par un ";
+                        phrase += " et vous avez remplacé votre "+ this.m_pers.getArme_equipee().getNom() + " par ";
                         this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
                         m_pers.equiperArmure();
-                        phrase += this.m_pers.getArme_equipee().getNom() + ".";
+                        phrase += this.m_pers.getArme_equipee().avecArticleIndefini() + ".";
                         m_actionsprecedentes.add(phrase);
                     }
                     else {
@@ -218,7 +218,7 @@ public class Tour {
                     }
                 } else {
                     m_pers.equiperArmure();
-                    phrase += " avec un "+ this.m_pers.getArme_equipee().getNom() + ".";
+                    phrase += " avec "+ this.m_pers.getArme_equipee().avecArticleIndefini() + ".";
                     m_actionsprecedentes.add(phrase);
                 }
             }
@@ -273,7 +273,7 @@ public class Tour {
     public boolean CaseTresor(Coordonnees coord) {
 
         Item item = ((CoordonneesItem) coord).getItem();
-        Affichage.afficher("Vous avez trouvé un " + item.getNom() + " sur cette case ! Voulez-vous le ramasser ? (O/N)");
+        Affichage.afficher("Vous avez trouvé " + item.avecArticleIndefini() + " sur cette case ! Voulez-vous le ramasser ? (O/N)");
         char reponse = Affichage.scanOuiNon();
         if (reponse == 'O') {
             if (item instanceof Arme) {
@@ -282,7 +282,7 @@ public class Tour {
                 m_pers.getInventaire().addArmures((Armure) item);
             }
 
-            Affichage.afficher("Vous avez ramassé : " + item.getNom());
+            Affichage.afficher("Vous avez ramassé : " + item.avecArticlePartitif());
             return true;
         } else {
             Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
@@ -379,7 +379,7 @@ public class Tour {
             }
             else{
                 m_actionsprecedentes.add(pers.getNom());
-                m_actionsprecedentes.add(arme.getNom());
+                m_actionsprecedentes.add(arme.avecArticleIndefini());
                 Sorts.armeMagique(pers, arme);
             }
         }
@@ -431,7 +431,7 @@ public class Tour {
                             Affichage.afficher("Vous avez rendu le " + m_actionsprecedentes.get(3) + " de " + m_actionsprecedentes.get(2) + " plus puissant.");
                             break;
                         default:
-                            Affichage.afficher("Vous avez lancé un autre sort.");
+                            Affichage.afficher("En théorie ce cas n'existe pas");
                             break;
                     }
                 default:

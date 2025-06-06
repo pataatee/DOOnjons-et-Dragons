@@ -22,6 +22,18 @@ public class ArmureLourde implements Armure {
     public int getClasseArmure() {
         return this.m_classeArmure;
     }
+    @Override
+    public String avecArticleDefini(){
+        return m_genre.avecArticleDefini();
+    }
+    @Override
+    public String avecArticleIndefini(){
+        return m_genre.avecArticleIndefini();
+    }
+    @Override
+    public String avecArticlePartitif(){
+        return m_genre.avecArticleIndefini();
+    }
     public static final ArmureLourde Cotte_de_maille = new ArmureLourde("Cotte de maille", 11, new Substantif("épée longue", new Feminin()));
     public static final ArmureLourde Harnois = new ArmureLourde("Harnois", 12, new Substantif("baton", new Masculin()));
 }

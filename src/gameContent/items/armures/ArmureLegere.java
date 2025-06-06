@@ -21,6 +21,18 @@ public class ArmureLegere implements Armure {
     public int getClasseArmure() {
         return this.m_classeArmure;
     }
+    @Override
+    public String avecArticleDefini(){
+        return m_genre.avecArticleDefini();
+    }
+    @Override
+    public String avecArticleIndefini(){
+        return m_genre.avecArticleIndefini();
+    }
+    @Override
+    public String avecArticlePartitif(){
+        return m_genre.avecArticleIndefini();
+    }
     public static final ArmureLegere Ecailles = new ArmureLegere("Armure d'écailles", 9, new Substantif("épée longue", new Feminin()));
     public static final ArmureLegere Demi_plates = new ArmureLegere("Demi-plates", 10, new Substantif("épée longue", new Feminin()));
 }

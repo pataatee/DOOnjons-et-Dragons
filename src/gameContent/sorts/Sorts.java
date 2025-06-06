@@ -106,13 +106,13 @@ et échanger leur position dans le donjon.
             if (a.getNom().equals(arme.getNom())) {
                 a.addBonus();
                 armeTrouvee = true;
-                Affichage.afficher("L'arme " + arme.getNom() + " a été améliorée !");
+                Affichage.afficher(arme.avecArticleDefini()+ " a été améliorée !");
             }
         }
         if (!armeTrouvee){
             Arme armeequipee = pers.getArme_equipee();
             armeequipee.addBonus();
-            Affichage.afficher("L'arme " + armeequipee.getNom() + " a été améliorée !");
+            Affichage.afficher(armeequipee.avecArticleDefini()+ " a été améliorée !");
         }
     }
 

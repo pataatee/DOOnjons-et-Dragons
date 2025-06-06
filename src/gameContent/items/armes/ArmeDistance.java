@@ -35,6 +35,18 @@ public class ArmeDistance implements Arme{
     public void addBonus() {
         this.m_bonus += 1; // Permet de définir si l'arme a un bonus ou non
     }
+    @Override
+    public String avecArticleDefini(){
+        return m_genre.avecArticleDefini();
+    }
+    @Override
+    public String avecArticleIndefini(){
+        return m_genre.avecArticleIndefini();
+    }
+    @Override
+    public String avecArticlePartitif(){
+        return m_genre.avecArticleIndefini();
+    }
     public static final ArmeDistance Fronde = new ArmeDistance("Fronde", new De(1,4), 6, new Substantif("épée longue", new Feminin()));
     public static final ArmeDistance Arbalete_legere = new ArmeDistance("Arbalète légère", new De(1,8), 16, new Substantif("épée longue", new Feminin()));
     public static final ArmeDistance Arc_court = new ArmeDistance("Arc court", new De(1,6), 16, new Substantif("baton", new Masculin()));
