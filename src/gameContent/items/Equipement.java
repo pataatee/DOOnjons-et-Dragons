@@ -29,19 +29,19 @@ public class Equipement {
         return m_armure;
     }
 
-    public int setArme(Arme arme) {
+    public int[] setArme(Arme arme) {
         //si le personnage portait une arme de guerre, on modifie la vitesse du perso
-        int valretour = 0;
+        int [] valretour = new int[]{0,0};
         if (this.m_arme != null){
             if (this.m_arme instanceof ArmeGuerre){
-                valretour += 2;
+                valretour = new int[]{-4, 2}; // bonus de force et de vitesse
             }
         }
 
         //si la nouvelle arme est une arme de guerre, on modifie la vitesse du perso
         this.m_arme = arme;
         if (this.m_arme instanceof ArmeGuerre){
-            valretour -= 2;
+            valretour = new int[]{4, -2}; // on ajoute le bonus de force et on retire le bonus de vitesse
         }
         return valretour;
     }

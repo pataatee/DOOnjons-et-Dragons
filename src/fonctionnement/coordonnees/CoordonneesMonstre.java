@@ -10,4 +10,8 @@ public class CoordonneesMonstre extends Coordonnees{
         this.m_monstre = monstre;
     }
 
+    public Monstre getMonstre() {
+        return m_monstre;
+    }
+
 }

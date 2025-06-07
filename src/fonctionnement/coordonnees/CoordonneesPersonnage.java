@@ -9,4 +9,7 @@ public class CoordonneesPersonnage extends Coordonnees{
         super(x,y,personnage.getNom().substring(0, 3).toCharArray());
         this.m_personnage = personnage;
     }
+    public Personnage getPersonnage() {
+        return m_personnage;
+    }
    }

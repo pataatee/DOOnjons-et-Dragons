@@ -3,11 +3,16 @@ package fonctionnement.mdj;
 import fonctionnement.affichage.Affichage;
 import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Armurerie;
+import gameContent.items.Equipement;
+import gameContent.items.Item;
+import gameContent.items.armes.Arme;
+import gameContent.items.armures.Armure;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Mdj {
@@ -37,6 +42,14 @@ public class Mdj {
 
         this.m_nbMonstres = 0;
         this.m_nbTresors = 0;
+
+        Affichage.afficher("La partie peut commencer !");
+
+        for (Personnage pers : this.m_joueurs){
+            // chaque joueur s'équipe
+            pers.equiperArme();
+            pers.equiperArmure();
+        }
         tours();
     }
     public Race chooseRace(){
@@ -93,24 +106,20 @@ public class Mdj {
     public Map mdj_map_dimensions(){
         Map map;
         Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
-        String ouinon = RecupInfos.scanString();
-        if (Objects.equals(ouinon, "O")){
+        char ouinon = Affichage.scanOuiNon();
+        if (ouinon == 'O'){
             map = new Map(this.m_nbJoueurs, this.m_joueurs); //on crée la map avec des dimensions random
         }
-        else if (Objects.equals(ouinon, "N")){
+        else {
             Affichage.afficher("Selectionnez la longueur de la carte (15-25) : ");
             int longueur = RecupInfos.scanInt();
             Affichage.afficher("Selectionnez la largeur de la carte (15-25) : ");
             int largeur = RecupInfos.scanInt();
             map = new Map(longueur, largeur, this.m_nbJoueurs, this.m_joueurs); //on crée la map avec les dimensions choisies
-            if (map.getM_carte() == null){             //si la carte est vide, on re appelle la fonction
+            if (map.getM_carte() == null) {             //si la carte est vide, on re appelle la fonction
                 Affichage.afficherErreur("Erreur lors de la creation de la carte");
                 return mdj_map_dimensions();
             }
-        }
-        else {
-            Affichage.afficherErreur("Choix non valide");
-            return mdj_map_dimensions();
         }
         return map;
     }
@@ -139,4 +148,6 @@ public class Mdj {
         }
         return val_retour;
     }
+
+
 }
