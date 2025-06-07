@@ -1,6 +1,7 @@
 package gameContent.personnages.perso;
 
 import fonctionnement.affichage.Affichage;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
 import gameContent.items.armes.Arme;
@@ -166,7 +167,7 @@ public class Personnage extends Entite {
                 Affichage.afficher(" - " + item.getNom());
             }
             Affichage.afficher("Selectionnez l'arme à équiper : ");
-            String armeChoisie = Affichage.scanString();
+            String armeChoisie = RecupInfos.scanString();
             if (!armeChoisie.isEmpty()){
                 Arme armeAEquiper = null;
                 for (Arme item : armes) {
@@ -196,7 +197,7 @@ public class Personnage extends Entite {
                 Affichage.afficher(" - " + item.getNom());
             }
             Affichage.afficher("Selectionnez l'armure à équiper : ");
-            String armureChoisie = Affichage.scanString();
+            String armureChoisie = RecupInfos.scanString();
             if (!armureChoisie.isEmpty()) {
                 Armure armureAEquiper = null;
                 for (Armure item : armures) {
