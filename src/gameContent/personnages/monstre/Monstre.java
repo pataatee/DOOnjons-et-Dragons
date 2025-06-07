@@ -90,4 +90,8 @@ public class Monstre extends Entite {
         }
         return true;
     }
+
+    public int getClasseArmure() {
+        return this.m_caracteristique.getClasseArmure();
+    }
 }

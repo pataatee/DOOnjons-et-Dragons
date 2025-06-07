@@ -7,4 +7,8 @@ public class AfficherDsMonstre {
     public static void afficherPvRestantsMonstre(int pvRestants) {
         System.out.println("Il reste " + pvRestants + " points de vie au monstre.");
     }
+
+    public static void afficherAttaqueEchouee() {
+        System.out.println("L'attaque a échoué !!");
+    }
 }
