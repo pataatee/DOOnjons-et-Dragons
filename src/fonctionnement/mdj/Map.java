@@ -2,7 +2,10 @@ package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
 import fonctionnement.affichage.AffichageCarte;
+import fonctionnement.affichage.AffichageCreateMonstre;
 import fonctionnement.coordonnees.*;
+import fonctionnement.de.De;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.personnages.monstre.AttaqueMonstre;
 import gameContent.personnages.monstre.CaracteristiqueMonstre;
 import gameContent.personnages.monstre.Espece;
@@ -18,6 +21,8 @@ public class Map {
     private int m_largeur;
     private int m_nbJoueurs;
     private Personnage[] m_joueurs;
+    private int m_nbMonstre;
+    private Monstre[] m_monstres;
 
     public Map(int nbjoueurs, Personnage[] joueurs){
         Random random = new Random();
@@ -179,7 +184,7 @@ public class Map {
         int nbObstacles;
         do {
             AffichageCarte.demanderObstacles();
-            nbObstacles = Affichage.scanInt();
+            nbObstacles = RecupInfos.scanInt();
             if (nbObstacles < 0 || nbObstacles > (m_longueur * m_largeur)) { // il ne peut pas y avoir + d'obstacles que de cases...
                 Affichage.afficherErreur("Nombre d'obstacles invalide.");
             }
@@ -209,7 +214,7 @@ public class Map {
         int nbTresors;
         do {
             AffichageCarte.demanderTresors();
-            nbTresors = Affichage.scanInt();
+            nbTresors = RecupInfos.scanInt();
             if (nbTresors < 0 || nbTresors > (m_largeur * m_longueur)) {
                 Affichage.afficherErreur("Trop de trésors");
             }
@@ -234,14 +239,16 @@ public class Map {
         }
     }
     public void placerMonstre() {
-        int nbMonstres;
+        //int nbMonstres;
         do {
             AffichageCarte.demanderMonstres();
             nbMonstres = Affichage.scanInt();
             if (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur)) {
                 Affichage.afficherErreur("Erreur : Trop de monstres.");
             }
-        } while (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur));
+        } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur));
+
+        createMonstre();
 
         int [] CoordMonstre;
         for (int i = 0; i < nbMonstres; i++) {
@@ -283,8 +290,48 @@ public class Map {
         }
     }
 
-    public Personnage[] getJoueurs() {
-        return m_joueurs;
+    public int getNbMonstre() {
+        return this.m_nbMonstre;
+    }
+
+    public void createMonstre() {
+
+        this.m_monstres = new Monstre[this.m_nbMonstre];
+
+        for (int i = 0; i < m_nbMonstre; i++) {
+
+
+            // pouf on crée l'espèce du monstre
+            String especeMonstre;
+            AffichageCreateMonstre.demanderEspece();
+            especeMonstre = RecupInfos.scanString();
+            Espece espece = null;
+            boolean existeEspece = false;
+            for (int j = 0; j < m_monstres.length; j++) {
+                if (especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
+                    espece = CreerEntites.createEspece(especeMonstre, j);
+                    existeEspece = true;
+                    break;
+                }
+            }
+            if (!existeEspece) {
+                espece = CreerEntites.createEspece(especeMonstre);
+            }
+
+            // pouf on crée euh l'attaque du monstre
+            AttaqueMonstre atk = CreerEntites.createAttaqueMonstre();
+
+            // caracteristiques du monstre
+            CaracteristiqueMonstre carac = CreerEntites.createCaracMonstre();
+
+            Monstre monstre = new Monstre(espece, carac, atk);
+
+            this.m_monstres[i] = monstre;
+
+
+        }
     }
 }
+
+// TODO des monstres par defaut
 

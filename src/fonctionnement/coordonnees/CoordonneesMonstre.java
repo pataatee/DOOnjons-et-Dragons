@@ -13,4 +13,5 @@ public class CoordonneesMonstre extends Coordonnees{
     public Monstre getMonstre() {
         return m_monstre;
     }
+
 }
