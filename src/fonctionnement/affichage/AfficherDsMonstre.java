@@ -11,4 +11,8 @@ public class AfficherDsMonstre {
     public static void afficherAttaqueEchouee() {
         System.out.println("L'attaque a échoué !!");
     }
+
+    public static void afficherErreurPortee() {
+        System.err.println("Cible hors de portée.");
+    }
 }

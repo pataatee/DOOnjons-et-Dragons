@@ -1,4 +1,8 @@
 package gameContent.personnages.monstre;
+import fonctionnement.affichage.AfficherDsMonstre;
+import fonctionnement.de.De;
+import gameContent.items.armes.Arme;
+import gameContent.items.armures.Armure;
 import gameContent.personnages.*;
 import gameContent.personnages.perso.Personnage;
 
@@ -77,17 +81,46 @@ public class Monstre extends Entite {
 
     @Override
     public boolean estAttaquePar(Personnage agresseur) {
-        if (agresseur == null) {
+        if (agresseur == null || agresseur.getArme_equipee() == null) {
             return false;
         }
-        int pvCible = this.getPvs();
-        pvCible -= agresseur.getDegats(); //TODO prendre en compte les pvs de l'armure (idem pour personnage)
-        this.getCaracteristiques().modifyPvs(pvCible);
-        if (pvCible <= 0) {
-            afficherPersonnageVaincu();
-        } else {
-            afficherPvRestantsPerso(pvCible);
+
+        Arme armePerso = agresseur.getArme_equipee();
+
+        // verif la range
+        int range = Math.abs(this.getX() - agresseur.getX()) + Math.abs(this.getY() - agresseur.getY());
+        if (range > armePerso.getPortee()) {
+            AfficherDsMonstre.afficherErreurPortee();
         }
+
+        // jet d'attaque
+        De de = new De(1, 20);
+        int jetAtk = de.lancer_de();
+
+        // bonus d'attak
+        if (armePerso.getPortee() == 1) {
+            jetAtk += agresseur.getForce();
+        }
+        else if (armePerso.getPortee() > 1) {
+            jetAtk += agresseur.getDexterite();
+        }
+
+        int classeArmure = this.getClasseArmure();
+
+        if (jetAtk > classeArmure) {
+            int degats = armePerso.getDegats();
+            int pvCible = this.getPvs() - degats;
+            this.m_caracteristique.modifyPvs(Math.max(0, pvCible));
+            afficherPvRestantsPerso(pvCible);
+
+            if (pvCible <= 0) {
+                afficherPersonnageVaincu();
+            }
+        }
+        else {
+            AfficherDsMonstre.afficherAttaqueEchouee();
+        }
+
         return true;
     }
 
