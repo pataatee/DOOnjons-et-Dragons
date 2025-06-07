@@ -307,8 +307,8 @@ public class Map {
             especeMonstre = RecupInfos.scanString();
             Espece espece = null;
             boolean existeEspece = false;
-            for (int j = 0; j < m_monstres.length; j++) {
-                if (especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
+            for (int j = 0; j < i; j++) {
+                if (m_monstres[i] != null && especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
                     espece = CreerEntites.createEspece(especeMonstre, j);
                     existeEspece = true;
                     break;
@@ -334,6 +334,19 @@ public class Map {
 
     public Personnage[] getJoueurs() {
         return m_joueurs;
+    }
+
+
+    public Monstre getMontreByNom(String nomMonstre) {
+        for (int i = 0; i < m_longueur; i++) {
+            for (int j = 0; j < m_largeur; j++) {
+                Monstre m = m_carte[i][j].getMonstre();
+                if (m != null && m.getEspece().getNomEspece().equalsIgnoreCase(nomMonstre)) {
+                    return m;
+                }
+            }
+        }
+        return null;
     }
 }
 

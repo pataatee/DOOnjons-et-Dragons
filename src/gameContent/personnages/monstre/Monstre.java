@@ -81,9 +81,12 @@ public class Monstre extends Entite {
 
     @Override
     public boolean estAttaquePar(Personnage agresseur) {
+
         if (agresseur == null || agresseur.getArme_equipee() == null) {
             return false;
         }
+
+        System.out.println("[DEBUG] Monstre est attaqué par perso " + agresseur.getNom());
 
         Arme armePerso = agresseur.getArme_equipee();
 

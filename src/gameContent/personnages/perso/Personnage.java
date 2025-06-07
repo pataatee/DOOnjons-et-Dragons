@@ -126,9 +126,12 @@ public class Personnage extends Entite {
 
     @Override
     public boolean estAttaquePar(Monstre agresseur) {
+
         if (agresseur == null || agresseur.getAttaque() == null) {
             return false;
         }
+
+        System.out.println("[DEBUG] Personnage est attaqué par monstre " + agresseur.getEspece().getNomEspece());
 
         // pr gérer selon l'attaque du monste
         AttaqueMonstre atkAgresseur = agresseur.getAttaque();
