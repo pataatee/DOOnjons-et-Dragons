@@ -34,7 +34,7 @@ public class Monstre extends Entite {
 
     @Override
     public int getPvs() {
-        return 0;
+        return m_caracteristique.getPvs();
     }
 
     @Override
