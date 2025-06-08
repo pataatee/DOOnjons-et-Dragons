@@ -188,16 +188,18 @@ package gameContent
             -m_x:Integer
             -m_y:Integer
 
-            + {abstract} attaquer(Entite entite):Boolean
             + {abstract} getPvs():Integer
             + {abstract} getForce():Integer
             + {abstract} getDexterite():Integer
             + {abstract} getInitiative():Integer
+
             + {abstract} estAttaquePar(Monstre monstre):Boolean
             + {abstract} estAttaquePar(Personnage perso):Boolean
+            + {abstract} attaquer(Entite entite):Boolean
 
             +getX():Integer
             +getY():Integer
+            
             +setPosition(x:Integer, y:Integer)
         }
 
@@ -377,6 +379,7 @@ package gameContent
             -m_force:Integer
             -m_dexterite:Integer
             -m_initiative:Integer
+            -m_vitesse:Integer
 
             +<<create>> Caracteristique(pv:Integer, force:Integer, dexterite:Integer, initiative:Integer):Caracteristique
 
@@ -384,16 +387,19 @@ package gameContent
             +getForce():Integer
             +getDexterite():Integer
             +getInitiative():Integer
+            +getVitesse():Integer
 
             +modifyPvs(pv:Integer)
             +modifyForce(force:Integer)
             +modifyDexterite(dexterite:Integer)
             +modifyInitiative(init:Integer)
+            +modifyVitesse(vitesse:Integer)
 
             +bonusPvs(bonus:Integer)
             +bonusForce(bonus:Integer)
             +bonusDexterite(bonus:Integer)
             +bonusInitiative(bonus:Integer)
+            +bonusVitesse(bonus:Integer)
         }
 
         interface Attaque <<interface>> {
