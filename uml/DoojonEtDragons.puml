@@ -36,12 +36,12 @@ package gameContent
 
         class Equipement {
             +<<create>> Equipement():Equipement
-            +<<create>> Equipement(arme Arme, armure Armure):Equipement
+            +<<create>> Equipement(arme:Arme, armure:Armure):Equipement
 
             +getArme():Arme
             +getArmure():Armure
 
-            +setArme(newWeapon:Arme):Integer
+            +setArme(newWeapon:Arme):Integer[*]
             +setArmure(newShield:Armure):Integer
 
         }
@@ -49,7 +49,10 @@ package gameContent
         Equipement "1" o--> "0..1" gameContent.items.armes.Arme: est composé de >
 
         interface Item <<interface>> {
-            +getNom():String;
+            +getNom():String
+            +avecArticleDefini():String
+            +avecArticleIndefini():String
+            +avecArticlePartitif():String
         }
 
 
@@ -86,34 +89,55 @@ package gameContent
 
         package armes {
 
-            interface Arme <<interface>> {
+            interface Arme <<interface>> extends gameContent.items.armes.Item {
                 +getNom():String;
                 +getDegats():Integer
                 +getPortee():Integer
+
+                +addBonus()
+
+                +avecArticleDefini():String
+                +avecArticleIndefini():String
+                +avecArticlePartitif():String
             }
 
             class ArmeCourante implements Arme {
                 -m_nom:String
                 -m_portee:Integer
+                -m_bonus:Integer
 
-                +<<create>> ArmeCourante(nom:String, portee:Integer, degats:De):ArmeCourante
+                +<<create>> ArmeCourante(nom:String, portee:Integer, degats:De, genre:Substantif):ArmeCourante
 
                 +getNom():String
                 +getDegats():Integer
                 +getPortee():Integer
 
+                +addBonus()
+
+                +avecArticleDefini():String
+                +avecArticleIndefini():String
+                +avecArticlePartitif():String
+
             }
             ArmeCourante "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
+            ArmeCourante "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
 
             class ArmeGuerre implements Arme {
                 -m_nom:String
                 -m_portee:Integer
+                -m_bonus:Integer
 
-                +<<create>> ArmeGuerre(nom:String, portee:Integer, degats:De):ArmeGuerre
+                +<<create>> ArmeGuerre(nom:String, portee:Integer, degats:De, genre:Substantif):ArmeGuerre
 
                 +getNom():String
                 +getDegats():Integer
                 +getPortee():Integer
+
+                +addBonus()
+
+                +avecArticleDefini():String
+                +avecArticleIndefini():String
+                +avecArticlePartitif():String
             }
 
             ArmeGuerre "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
@@ -121,15 +145,23 @@ package gameContent
             class ArmeDistance implements Arme {
                 -m_nom:String
                 -m_portee:Integer
+                -m_bonus:Integer
 
-                +<<create>> ArmeDistance(nom:String, degats:De, portee:Integer):ArmeDistance
+                +<<create>> ArmeDistance(nom:String, degats:De, portee:Integer, genre:Substantif):ArmeDistance
 
                 +getNom():String
                 +getDegats():Integer
                 +getPortee():Integer
+
+                +addBonus()
+
+                +avecArticleDefini():String
+                +avecArticleIndefini():String
+                +avecArticlePartitif():String
             }
 
             ArmeDistance "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
+            ArmeDistance "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
 
         }
     }
