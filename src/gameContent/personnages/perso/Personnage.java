@@ -1,8 +1,10 @@
 package gameContent.personnages.perso;
 
 import fonctionnement.affichage.Affichage;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
+import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.Entite;
@@ -156,17 +158,28 @@ public class Personnage extends Entite {
         return getCaracteristiques();
     }
 
+    public List<Arme> getInventaireArmes(){
+        return this.m_inventaire.getArmes();
+    }
+
+    public List<Armure> getInventaireArmures(){
+        return this.m_inventaire.getArmures();
+    }
+
+    public List<Item> getInventaireItem(){
+        return this.m_inventaire.getObjets();
+    }
+
     public void equiperArme(){
         Armurerie arm = this.getInventaire();
         List<Arme> armes = arm.getArmes();
-
         if (!armes.isEmpty()){
             Affichage.afficher("Armes disponibles pour " + this.getNom() + " :");
             for (Arme item : armes) {
                 Affichage.afficher(" - " + item.getNom());
             }
             Affichage.afficher("Selectionnez l'arme à équiper : ");
-            String armeChoisie = Affichage.scanString();
+            String armeChoisie = RecupInfos.scanString();
             if (!armeChoisie.isEmpty()){
                 Arme armeAEquiper = null;
                 for (Arme item : armes) {
@@ -184,6 +197,7 @@ public class Personnage extends Entite {
                 }
             }
         }
+        Affichage.afficherInventaire(this);
     }
 
     public void equiperArmure() {
@@ -196,7 +210,7 @@ public class Personnage extends Entite {
                 Affichage.afficher(" - " + item.getNom());
             }
             Affichage.afficher("Selectionnez l'armure à équiper : ");
-            String armureChoisie = Affichage.scanString();
+            String armureChoisie = RecupInfos.scanString();
             if (!armureChoisie.isEmpty()) {
                 Armure armureAEquiper = null;
                 for (Armure item : armures) {

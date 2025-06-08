@@ -102,7 +102,7 @@ et échanger leur position dans le donjon.
         // L'arme gagne alors un bonus de 1 lors des jets d'attaque et de 1 lors des jets de dégâts (les bonus peuvent se cumuler).
         //TODO : a ajouter 1 lors du jet d'attaque
         boolean armeTrouvee = false;
-        for (Arme a : pers.getInventaire().getArmes()) {
+        for (Arme a : pers.getInventaireArmes()) {
             if (a.getNom().equals(arme.getNom())) {
                 a.addBonus();
                 armeTrouvee = true;

@@ -34,15 +34,15 @@ public class ArmeGuerre implements Arme {
     }
     @Override
     public String avecArticleDefini(){
-        return m_genre.avecArticleDefini();
+        return m_genre.avecArticleDefini()+ m_nom;
     }
     @Override
     public String avecArticleIndefini(){
-        return m_genre.avecArticleIndefini();
+        return m_genre.avecArticleIndefini()+ m_nom;
     }
     @Override
     public String avecArticlePartitif(){
-        return m_genre.avecArticleIndefini();
+        return m_genre.avecArticlePartitif()+ m_nom;
     }
     public static final ArmeGuerre Epee_longue = new ArmeGuerre("épée longue", new De(1,4), 2, new Substantif("épée longue", new Feminin()));
     public static final ArmeGuerre Rapiere = new ArmeGuerre("Rapière", new De(1,4), 1, new Substantif("épée longue", new Feminin()));
