@@ -44,6 +44,10 @@ public class ArmeGuerre implements Arme {
     public String avecArticlePartitif(){
         return m_genre.avecArticlePartitif()+ m_nom;
     }
+    @Override
+    public ArmeGuerre getArmeGuerre(){
+        return this;
+    }
     public static final ArmeGuerre Epee_longue = new ArmeGuerre("épée longue", new De(1,4), 2, new Substantif("épée longue", new Feminin()));
     public static final ArmeGuerre Rapiere = new ArmeGuerre("Rapière", new De(1,4), 1, new Substantif("épée longue", new Feminin()));
     public static final ArmeGuerre eppe2Mains = new ArmeGuerre("épée à deux mains",  new De (2,6), 1, new Substantif("épée longue", new Feminin()));

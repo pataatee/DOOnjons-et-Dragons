@@ -34,6 +34,10 @@ public class ArmureLourde implements Armure {
     public String avecArticlePartitif(){
         return m_genre.avecArticlePartitif()+ " "+ m_nom;
     }
+    @Override
+    public ArmureLourde getArmureLourde(){
+        return this;
+    }
     public static final ArmureLourde Cotte_de_maille = new ArmureLourde("Cotte de maille", 11, new Substantif("épée longue", new Feminin()));
     public static final ArmureLourde Harnois = new ArmureLourde("Harnois", 12, new Substantif("baton", new Masculin()));
 }
