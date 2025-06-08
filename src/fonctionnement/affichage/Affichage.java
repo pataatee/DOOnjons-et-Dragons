@@ -100,11 +100,8 @@ public class Affichage {
 
     public static void afficherInventaire(Personnage pers){
         String inventaire = "";
-        for (Arme arme : pers.getInventaire().getArmes()){ //TODO a modif car pas droit a double getteur
-            inventaire += arme.avecArticleIndefini() + " - ";
-        }
-        for (Armure armure : pers.getInventaire().getArmures()){ //TODO a modif car pas droit a double getteur
-            inventaire += armure.getNom() + " - ";
+        for (Item item : pers.getInventaireItem()){
+            inventaire += item.avecArticleIndefini() + " - ";
         }
         // enlever le dernier tiret
         if (inventaire.length() > 0) {

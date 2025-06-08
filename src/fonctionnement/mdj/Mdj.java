@@ -103,7 +103,7 @@ public class Mdj {
         }
 
     }
-    public Map mdj_map_dimensions(){
+        public Map mdj_map_dimensions(){
         Map map;
         Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
         char ouinon = RecupInfos.scanOuiNon();

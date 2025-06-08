@@ -35,15 +35,15 @@ public class ArmeCourante implements Arme{
 
     @Override
     public String avecArticleDefini(){
-        return m_genre.avecArticleDefini();
+        return m_genre.avecArticleDefini() + m_nom;
     }
     @Override
     public String avecArticleIndefini(){
-        return m_genre.avecArticleIndefini();
+        return m_genre.avecArticleIndefini()+ m_nom;
     }
     @Override
     public String avecArticlePartitif(){
-        return m_genre.avecArticleIndefini();
+        return m_genre.avecArticlePartitif()+ m_nom;
     }
     public static final ArmeCourante Baton = new ArmeCourante("Baton", new De(1,6), 1, new Substantif("baton", new Masculin()));
     public static final ArmeCourante Masse_d_armes = new ArmeCourante("Masse d'armes", new De(1,6), 1, new Substantif("masse d'armes", new Feminin()));

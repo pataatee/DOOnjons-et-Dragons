@@ -199,7 +199,7 @@ public class Tour {
         String phrase = "Vous avec choisi de vous équiper";
         if (objet.equalsIgnoreCase("arme")) {
 
-            if (this.m_pers.getInventaire().getArmes().isEmpty()) {
+            if (this.m_pers.getInventaireArmes().isEmpty()) {
                 Affichage.afficherErreur("Vous n'avez pas d'armes dans votre inventaire.");
                 m_nbActions++;
             }
@@ -227,7 +227,7 @@ public class Tour {
             }
         }
         else if (objet.equalsIgnoreCase("armure")) {
-            if (this.m_pers.getInventaire().getArmures().isEmpty()) {
+            if (this.m_pers.getInventaireArmures().isEmpty()) {
                 Affichage.afficherErreur("Vous n'avez pas d'armures dans votre inventaire.");
                 m_nbActions++;
                 jouerTour();
@@ -240,7 +240,7 @@ public class Tour {
                         phrase += " et vous avez remplacé votre "+ this.m_pers.getArme_equipee().getNom() + " par ";
                         this.m_pers.getInventaire().addArmures(this.m_pers.getArmure_equipee());
                         m_pers.equiperArmure();
-                        phrase += this.m_pers.getArme_equipee().avecArticleIndefini() + ".";
+                        phrase += this.m_pers.getArmure_equipee().avecArticleIndefini() + ".";
                         m_actionsprecedentes.add(phrase);
                     }
                     else {
@@ -249,7 +249,7 @@ public class Tour {
                     }
                 } else {
                     m_pers.equiperArmure();
-                    phrase += " avec "+ this.m_pers.getArme_equipee().avecArticleIndefini() + ".";
+                    phrase += " avec "+ this.m_pers.getArmure_equipee().avecArticleIndefini() + ".";
                     m_actionsprecedentes.add(phrase);
                 }
             }
@@ -395,7 +395,7 @@ public class Tour {
             String armeNom = RecupInfos.scanString();
             Arme arme = null;
             boolean armeTrouvee = false;
-            for (Arme a : pers.getInventaire().getArmes()) {
+            for (Arme a : pers.getInventaireArmes()) {
                 if (a.getNom().equalsIgnoreCase(armeNom)) {
                     arme = a;
                     armeTrouvee = true;
@@ -414,7 +414,7 @@ public class Tour {
             }
             else{
                 m_actionsprecedentes.add(pers.getNom());
-                m_actionsprecedentes.add(arme.avecArticleIndefini());
+                m_actionsprecedentes.add(arme.avecArticleDefini());
                 Sorts.armeMagique(pers, arme);
             }
         }
@@ -469,7 +469,7 @@ public class Tour {
                             break;
                         case "3":
                             Affichage.afficher("Vous avez lancé le sort Arme Magique.");
-                            Affichage.afficher("Vous avez rendu le " + m_actionsprecedentes.get(3) + " de " + m_actionsprecedentes.get(2) + " plus puissant.");
+                            Affichage.afficher("Vous avez rendu " + m_actionsprecedentes.get(3) + " de " + m_actionsprecedentes.get(2) + " plus puissant.");
                             break;
                         default:
                             Affichage.afficher("En théorie ce cas n'existe pas");
