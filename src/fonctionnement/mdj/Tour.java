@@ -9,10 +9,7 @@ import gameContent.items.armures.Armure;
 import gameContent.personnages.Entite;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
-import gameContent.sorts.ArmeMagique;
-import gameContent.sorts.BoogieWoogie;
-import gameContent.sorts.Guerison;
-import gameContent.sorts.Sorts;
+import gameContent.sorts.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +46,12 @@ public class Tour {
             jouerTour();
 
         }
+    }
+    public int getStatut(){
+        if (m_map.getNbMonstre() == 0){
+            return 1;
+        }
+        return 0;
     }
 
     private void initialiserActions() {

@@ -269,4 +269,11 @@ public class Personnage extends Entite {
         }
     }
 
+    public boolean estPasMort(){
+        if (getPvs() <= 0){
+            return false;
+        }
+        return true;
+    }
+
 }
