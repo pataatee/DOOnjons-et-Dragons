@@ -217,7 +217,7 @@ package gameContent
                         +<<create>> Race(nom:String, pv:Integer, force:Integer, dexterite:Integer, vitesse:Integer, initiative:Integer):Race
 
                         +getCaracteristiques():CaracteristiquePersonnage
-                        +getNom:String
+                        +getNom():String
 
                     }
                     class Elfe extends gameContent.personnages.perso.race.Race {
@@ -232,10 +232,6 @@ package gameContent
                     class Nain extends gameContent.personnages.perso.race.Race {
                         +<<create>> Nain()
                     }
-                    Humain --|> Race
-                    Nain --|> Race
-                    Elfe --|> Race
-                    Halfelin --|> Race
                 }
 
                 Race "1" *--> "1-m_caracteristique" gameContent.personnages.perso.CaracteristiquePersonnage : possède >
@@ -480,6 +476,7 @@ package fonctionnement {
             -m_nbJoueurs:Integer
             -m_longueur:Integer
             -m_largeur:Integer
+            -m_nbMonstre:Integer
 
             +<<create>> Map(longueur:Integer, largeur:Integer, nbJoueurs:Integer, joueurs:Personnage[*]):Map
             +<<create>> Map(nbJoueurs:Integer, joueurs:Personnage[*]):Map
@@ -501,13 +498,15 @@ package fonctionnement {
             +getCarte():Integer[15:25]
             +getLongueur():Integer
             +getLargeur():Integer
+            +getCase():Coordonnees
+            +getNbMonstre():Integer
         }
 
         'Des coordonnées n'existent pas sans carte ; 1 carte a 1x des coordonnées, et les coordonnées ne sont associées qu'à 1 carte
         Map "1" *--> "1-m_carte" fonctionnement.coordonnees.Coordonnees: belongs to >
 
         'Perso existe sans carte ; map peut avoir 0 perso mais perso peut qu'etre sur 1 map
-        Map "0..*" o--> "1-m_joueurs" gameContent.personnages.Personnage: is part of >
+        Map "0..*" o--> "1-m_joueurs" gameContent.personnages.perso.Personnage: is part of >
 
         class Mdj{
             -m_nbJoueurs:Integer
@@ -528,7 +527,7 @@ package fonctionnement {
         }
 
         Mdj "0" *--> "1-m_map" fonctionnement.mdj.Map: possède une >
-        Mdj "0" o--> "1..*-m_joueurs" gameContent.personnages.Personnage: crée des >
+        Mdj "0" o--> "1..*-m_joueurs" gameContent.personnages.perso.Personnage: crée des >
         Mdj "0" o--> "1..*-m_monstres" gameContent.personnages.monstre.Monstre: crée des >
         Mdj "0" o--> "1..*-m_tresors" gameContent.items.Armurerie: crée des >
 
@@ -544,11 +543,12 @@ package fonctionnement {
 
             +jouerTour()
             +choisirEquipement()
+            +caseTresor(coord:Coordonnees):Boolean
 
             +getActions():String[*]
         }
 
-        Tour "0" o--> "1-m_perso" gameContent.personnages.Personnage: fait jouer un >
+        Tour "0" o--> "1-m_perso" gameContent.personnages.perso.Personnage: fait jouer un >
         Tour "1" o--> "1-m_map" fonctionnement.mdj.Map: est réalisé sur une >
 
 
@@ -574,8 +574,10 @@ package fonctionnement {
 
         class CoordonneesItem extends Coordonnees {
             +<<create>> CoordonneesItem(x:Integer, y:Integer):CoordonneesItem
+            +getItem():Item
         }
         CoordonneesItem "1" o--> "1-m_item" gameContent.items.Item: is part of >
+        CoordonneesItem "1" o--> "1..*m_items" gameContent.items.Item: peut contenir ces >
 
         class CoordonneesMonstre extends Coordonnees {
             +<<create>> CoordonneesMonstre(x:Integer, y:Integer):CoordonneesMonstre
@@ -589,7 +591,7 @@ package fonctionnement {
         class CoordonneesPersonnage extends Coordonnees {
             +<<create>> CoordonneesPersonnage(x:Integer, y:Integer, personnage:Personnage):CoordonneesPersonnage
         }
-        CoordonneesPersonnage "1" *--> "1-m_personnage" gameContent.personnages.Personnage: belongs to >
+        CoordonneesPersonnage "1" *--> "1-m_personnage" gameContent.personnages.perso.Personnage: belongs to >
     }
 }
 @enduml

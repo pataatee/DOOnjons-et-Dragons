@@ -2,6 +2,7 @@ package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
 import fonctionnement.coordonnees.*;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;

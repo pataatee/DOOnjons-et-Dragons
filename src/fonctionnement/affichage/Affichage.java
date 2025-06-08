@@ -56,20 +56,7 @@ public class Affichage {
         System.out.println();
     }
 
-    public static String scanString() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextLine();
-    }
-    public static int scanInt() {
-        Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        try {
-            return Integer.parseInt(input.trim()); // Convertit seulement si c’est bien un entier
-        } catch (NumberFormatException e) {
-            afficherErreur("Entrée invalide. Veuillez saisir un nombre entier.");
-            return scanInt(); // Redemande l'entrée si ce n'est pas un entier
-        }
-    }
+
 
     public static void afficherTour(int tour, Personnage pers, Map map){
         afficher("---------------------------------------------------");

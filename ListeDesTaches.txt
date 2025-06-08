@@ -18,3 +18,7 @@ randint between 1 and 4
 1er caractR = nb de x on relance
 2e ignoré (ou ptet d comme ça on sait c un dé idk idk)
 3e nb de faces donc randint entre 1 et ce nb inclus
+
+
+DEXTERITE : on utilise quand la range de l'attaque > 1
+FORCE : on utilise quand la range de l'attaque = 1

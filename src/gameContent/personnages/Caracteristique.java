@@ -5,12 +5,14 @@ public abstract class Caracteristique {
     private int m_force;
     private int m_dexterite;
     private int m_initiative;
+    private int m_vitesse;
 
-    public Caracteristique(int pv, int force, int dexterite, int initiative) {
+    public Caracteristique(int pv, int force, int dexterite, int initiative, int vitesse) {
         m_pv = pv;
         m_force = force;
         m_dexterite = dexterite;
         m_initiative = initiative;
+        m_vitesse = vitesse;
     }
 
     // methodes get
@@ -31,6 +33,10 @@ public abstract class Caracteristique {
         return m_initiative;
     }
 
+    public int getVitesse() {
+        return m_vitesse;
+    }
+
 
     // methodes modify
 
@@ -48,6 +54,14 @@ public abstract class Caracteristique {
 
     public void modifyInitiative(int ini) {
         this.m_initiative = ini;
+    }
+
+    public void modifyVitesse(int vitesse) {
+        this.m_vitesse = vitesse;
+    }
+
+    public void bonusVitesse(int bonus) {
+        this.m_vitesse += bonus;
     }
 
 
