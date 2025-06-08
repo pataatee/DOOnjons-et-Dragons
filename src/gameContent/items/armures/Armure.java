@@ -9,4 +9,7 @@ public interface Armure extends Item {
     public String avecArticleDefini();
     public String avecArticleIndefini();
     public String avecArticlePartitif();
+    public default Armure getArmure(){return this;}
+    public default ArmureLourde getArmureLourde(){return null;
+    };
 }

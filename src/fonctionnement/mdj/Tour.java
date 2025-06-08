@@ -189,7 +189,7 @@ public class Tour {
         // get le monstre qu'il faut attaquer
         // demander quel mosntre souhaitez-vs attaquer + liste des monstres de la map et leurs co
         Affichage.demanderQuiAttaquer();
-        Affichage.afficherMonstres(m_map.getM_carte());
+        Affichage.afficherAllMonstres(m_map.getMonstres());
         String nomMonstre = RecupInfos.scanString();
         // ok donc là, on récup le nom du monstre qu'on veut attaquer.
         // ensuite dcp faut qu'on prenne le monstre associé aux co du nom, et qu'on utilise attaquer sur lui !
@@ -351,7 +351,7 @@ public class Tour {
         Affichage.afficher("Vous avez trouvé " + item.avecArticleIndefini() + " sur cette case ! Voulez-vous le ramasser ? (O/N)");
         char reponse = RecupInfos.scanOuiNon();
         if (reponse == 'O') {
-            if (item instanceof Arme) {
+            if (item.getArme() != null) {
                 m_pers.getInventaire().addArmes((Arme) item);
             } else {
                 m_pers.getInventaire().addArmures((Armure) item);
@@ -372,13 +372,13 @@ public class Tour {
         Coordonnees coord1 = m_map.getCase(CoordPerso1[0], CoordPerso1[1]);
         Entite perso1 = null;
 
-        if (coord1 instanceof CoordonneesPersonnage) {
+        if (coord1.getPersonnage() != null) {
             m_actionsprecedentes.add(String.valueOf(CoordPerso1[0]));
             m_actionsprecedentes.add(String.valueOf(CoordPerso1[1]));
             m_actionsprecedentes.add("P");
             perso1 = ((CoordonneesPersonnage) coord1).getPersonnage();
             m_actionsprecedentes.add(((Personnage) perso1).getNom());
-        } else if (coord1 instanceof CoordonneesMonstre) {
+        } else if (coord1.getMonstre() != null) {
             m_actionsprecedentes.add(String.valueOf(CoordPerso1[0]));
             m_actionsprecedentes.add(String.valueOf(CoordPerso1[1]));
             m_actionsprecedentes.add("M");
@@ -395,13 +395,13 @@ public class Tour {
         Coordonnees coord2 = m_map.getCase(CoordPerso2[0], CoordPerso2[1]);
         Entite perso2 = null;
 
-        if (coord2 instanceof CoordonneesPersonnage) {
+        if (coord2.getPersonnage()!=null) {
             m_actionsprecedentes.add(String.valueOf(CoordPerso2[0]));
             m_actionsprecedentes.add(String.valueOf(CoordPerso2[1]));
             m_actionsprecedentes.add("P");
             perso2 = ((CoordonneesPersonnage) coord2).getPersonnage();
             m_actionsprecedentes.add(((Personnage) perso2).getNom());
-        } else if (coord2 instanceof CoordonneesMonstre) {
+        } else if (coord2.getMonstre()!=null) {
             m_actionsprecedentes.add(String.valueOf(CoordPerso2[0]));
             m_actionsprecedentes.add(String.valueOf(CoordPerso2[1]));
             m_actionsprecedentes.add("M");

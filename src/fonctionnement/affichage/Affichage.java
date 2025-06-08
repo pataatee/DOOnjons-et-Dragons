@@ -103,7 +103,7 @@ public class Affichage {
         afficherActions(truc.getActions(), truc.getListActions());
     }
 
-    private static void afficherAllMonstres(Monstre[] monstres) {
+    public static void afficherAllMonstres(Monstre[] monstres) {
         afficher("Monstres :");
         for (Monstre monstre:monstres){
             char lettre = (char) (monstre.getY()+'A');

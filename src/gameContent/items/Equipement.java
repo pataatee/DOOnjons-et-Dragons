@@ -33,14 +33,14 @@ public class Equipement {
         //si le personnage portait une arme de guerre, on modifie la vitesse du perso
         int [] valretour = new int[]{0,0};
         if (this.m_arme != null){
-            if (this.m_arme instanceof ArmeGuerre){
+            if (this.m_arme.getArmeGuerre()!=null){
                 valretour = new int[]{-4, 2}; // bonus de force et de vitesse
             }
         }
 
         //si la nouvelle arme est une arme de guerre, on modifie la vitesse du perso
         this.m_arme = arme;
-        if (this.m_arme instanceof ArmeGuerre){
+        if (this.m_arme.getArmeGuerre()!=null){
             valretour = new int[]{4, -2}; // on ajoute le bonus de force et on retire le bonus de vitesse
         }
         return valretour;
@@ -50,14 +50,14 @@ public class Equipement {
 
         int valretour = 0;
         if (this.m_armure != null){
-            if (this.m_armure instanceof ArmureLourde){
+            if (this.m_armure.getArmureLourde()!= null){
                 valretour += 4;
             }
         }
 
         //si la nouvelle arme est une arme de guerre, on modifie la vitesse du perso
         this.m_armure = armure;
-        if (this.m_armure instanceof ArmureLourde){
+        if (this.m_armure.getArmureLourde()!=null){
             valretour -= 4;
         }
         return valretour;
