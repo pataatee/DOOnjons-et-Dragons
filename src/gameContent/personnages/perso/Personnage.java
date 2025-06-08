@@ -1,6 +1,9 @@
 package gameContent.personnages.perso;
 
 import fonctionnement.affichage.Affichage;
+import fonctionnement.affichage.AfficherDsMonstre;
+import fonctionnement.affichage.AfficherDsPersonnage;
+import fonctionnement.de.De;
 import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
@@ -8,6 +11,7 @@ import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.Entite;
+import gameContent.personnages.monstre.AttaqueMonstre;
 import gameContent.personnages.monstre.CaracteristiqueMonstre;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.classe.Classe;
@@ -16,8 +20,6 @@ import gameContent.sorts.Sorts;
 
 import java.util.List;
 
-import static fonctionnement.affichage.AfficherDsMonstre.afficherMonstreVaincu;
-import static fonctionnement.affichage.AfficherDsMonstre.afficherPvRestantsMonstre;
 
 public class Personnage extends Entite {
     private String m_nom;
@@ -125,18 +127,60 @@ public class Personnage extends Entite {
 
     @Override
     public boolean estAttaquePar(Monstre agresseur) {
-        if (agresseur == null) {
+
+        if (agresseur == null || agresseur.getAttaque() == null) {
             return false;
         }
-        int pvCible = this.getPvs();
-        pvCible -= agresseur.getDegats();
-        this.getCaracteristiques().modifyPvs(pvCible);
-        if (pvCible <= 0) {
-            afficherMonstreVaincu();
-        } else {
-            afficherPvRestantsMonstre(pvCible);
+
+        System.out.println("[DEBUG] Personnage est attaqué par monstre " + agresseur.getEspece().getNomEspece());
+
+        // pr gérer selon l'attaque du monste
+        AttaqueMonstre atkAgresseur = agresseur.getAttaque();
+
+        // check si distance c bon
+        int distance = Math.abs(this.getX() - agresseur.getX()) + Math.abs(this.getY() - agresseur.getY());
+        if (distance > atkAgresseur.getPortee()) {
+            AfficherDsPersonnage.afficherErreurPortee();
+            return false;
         }
+
+        // jet d'attaque
+        De de = new De(1, 20);
+        int jetAtk = de.lancer_de();
+
+        // si portee > 1 --> dexterite si portee = 1 --> force
+        int force = agresseur.getForce();
+        int dexterite = agresseur.getDexterite();
+        if (agresseur.getAttaque().getPortee() == 1) {
+            jetAtk += agresseur.getForce();
+        }
+        else if (agresseur.getAttaque().getPortee() > 1) {
+            jetAtk += agresseur.getDexterite();
+        }
+
+        int classeArmure = 0;
+
+        if (this.getArmure_equipee() != null) {
+            classeArmure = this.getArmure_equipee().getClasseArmure();
+        }
+
+
+        if (jetAtk > classeArmure) {
+            int degats = agresseur.getAttaque().getDegats();
+            int pvCible = this.getPvs() - degats;
+            this.getCaracteristiques().modifyPvs(Math.max(0, pvCible)); // permet de renvoyer 0 meme si on descend ds les negatifs
+            AfficherDsPersonnage.afficherPvRestantsPerso(pvCible);
+
+            if (pvCible <= 0) {
+                AfficherDsPersonnage.afficherPersoVaincu();
+            }
+        }
+        else {
+            AfficherDsMonstre.afficherAttaqueEchouee();
+        }
+
         return true;
+
     }
 
     @Override

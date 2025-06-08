@@ -52,7 +52,7 @@ public class RecupInfos {
 
     public static char scanOuiNon(){
         // la phrase doit etre écrite avant car ce n'est pas une phrase commune
-        String reponse = RecupInfos.scanString().toUpperCase();
+        String reponse = scanString().toUpperCase();
         if (reponse.equals("O") || reponse.equals("OUI")) {
             return 'O';
         }

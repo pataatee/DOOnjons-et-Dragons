@@ -1,4 +1,7 @@
 package gameContent.personnages.monstre;
+import fonctionnement.affichage.AfficherDsMonstre;
+import fonctionnement.de.De;
+import gameContent.items.armes.Arme;
 import gameContent.personnages.*;
 import gameContent.personnages.perso.Personnage;
 
@@ -30,7 +33,7 @@ public class Monstre extends Entite {
 
     @Override
     public int getPvs() {
-        return 0;
+        return m_caracteristique.getPvs();
     }
 
     @Override
@@ -77,17 +80,74 @@ public class Monstre extends Entite {
 
     @Override
     public boolean estAttaquePar(Personnage agresseur) {
-        if (agresseur == null) {
+
+        if (agresseur == null || agresseur.getArme_equipee() == null) {
             return false;
         }
-        int pvCible = this.getPvs();
-        pvCible -= agresseur.getDegats(); //TODO prendre en compte les pvs de l'armure (idem pour personnage)
-        this.getCaracteristiques().modifyPvs(pvCible);
-        if (pvCible <= 0) {
-            afficherPersonnageVaincu();
-        } else {
-            afficherPvRestantsPerso(pvCible);
+
+
+        Arme armePerso = agresseur.getArme_equipee();
+
+        // verif la range
+        int range = Math.abs(this.getX() - agresseur.getX()) + Math.abs(this.getY() - agresseur.getY());
+        if (range > armePerso.getPortee()) {
+            AfficherDsMonstre.afficherErreurPortee();
+            return false;
         }
+
+        // jet d'attaque
+        De de = new De(1, 20);
+        int jetAtk = de.lancer_de();
+
+        // bonus d'attak
+        if (armePerso.getPortee() == 1) {
+            jetAtk += agresseur.getForce();
+        }
+        else if (armePerso.getPortee() > 1) {
+            jetAtk += agresseur.getDexterite();
+        }
+
+        int classeArmure = this.getClasseArmure();
+
+        if (jetAtk > classeArmure) {
+            int degats = armePerso.getDegats();
+            int pvRestants = this.getPvs() - degats;
+
+
+
+
+            pvRestants = (Math.max(0, pvRestants));
+            this.m_caracteristique.modifyPvs(pvRestants);
+            AfficherDsMonstre.afficherPvRestantsMonstre(pvRestants);
+
+            if (pvRestants <= 0) {
+                AfficherDsMonstre.afficherMonstreVaincu();
+            }
+
+
+        }
+        else {
+            AfficherDsMonstre.afficherAttaqueEchouee();
+        }
+
+
+
         return true;
     }
+
+    public int getClasseArmure() {
+        return this.m_caracteristique.getClasseArmure();
+    }
+
+    public String toString() {
+        return m_espece.toString() + " | Coordonnées : (" + this.getX() + "," + this.getY() + ")\n\nCaracteristiques : \n" + m_caracteristique.toString() + "\n\nAttaque : \n" + m_attaque.toString();
+    }
+
+    //PROFILS PAR DEFAUT
+    public static final Monstre dragon = new Monstre(Espece.dragon, CaracteristiqueMonstre.carDragon, AttaqueMonstre.Boule_de_feu);
+    public static final Monstre rat = new Monstre(Espece.rat, CaracteristiqueMonstre.carRat, AttaqueMonstre.Croc_empoisonne);
+    public static final Monstre loupGarou = new Monstre(Espece.loupGarou, CaracteristiqueMonstre.c3, AttaqueMonstre.Griffure_dechirante);
+    public static final Monstre goblin = new Monstre(Espece.goblin, CaracteristiqueMonstre.c4, AttaqueMonstre.Attaque_furtive);
+    public static final Monstre troll = new Monstre(Espece.troll, CaracteristiqueMonstre.c5, AttaqueMonstre.Coup_de_tete);
+
 }

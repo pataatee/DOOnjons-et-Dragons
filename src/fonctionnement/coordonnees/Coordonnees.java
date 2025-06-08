@@ -1,6 +1,8 @@
 
 package fonctionnement.coordonnees;
 
+import gameContent.personnages.monstre.Monstre;
+
 public abstract class Coordonnees {
     private int m_x;
     private int m_y;
@@ -30,5 +32,9 @@ public abstract class Coordonnees {
 
     public String toString() {
         return "x : " + m_x + " ; y : " + m_y + " ; affichage : " + getAffichage();
+    }
+
+    public Monstre getMonstre() {
+        return null;
     }
 }

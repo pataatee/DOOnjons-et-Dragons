@@ -97,6 +97,7 @@ public class Map {
     public void createRandomMap(){
         Random random = new Random();
         initMap();
+        // placer obstacles
         int obstacles = random.nextInt((this.m_longueur * this.m_largeur) / 15, (this.m_longueur * this.m_largeur) / 10);
         int monstres = random.nextInt(3, 5);
         int tresors = random.nextInt(2, 4);
@@ -109,17 +110,22 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
+        // placer monstres
+        m_monstres = new Monstre[monstres];
         for (int i = 0; i < monstres; i++) {
-            int x = random.nextInt(0, this.m_longueur);
-            int y = random.nextInt(0, this.m_largeur);
-            if (m_carte[x][y] == null) {
-                Monstre monstre = new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1, 1));
-                monstre.setPosition(x,y);
-                m_carte[x][y] = new CoordonneesMonstre(x,y, monstre);
-            } else {
-                i--; // Si la case est déjà occupée, on recommence
-            }
+            Monstre monstre = createRandomMonstres();
+            int x, y;
+            do {
+                x = random.nextInt(0, this.m_longueur);
+                y = random.nextInt(0, this.m_largeur);
+            } while (m_carte[x][y] != null);
+
+            monstre.setPosition(x, y);
+            m_carte[x][y] = new CoordonneesMonstre(x, y, monstre);
+            m_monstres[i] = monstre;
         }
+
+        // placer trésors
         for (int i = 0; i < tresors; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
@@ -129,6 +135,8 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
+
+        //placer joueurs
         for (int i = 0; i < this.m_nbJoueurs; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
@@ -139,6 +147,8 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
+
+        
         for (int i = 0; i < this.m_longueur; i++) {
             for (int j = 0; j < this.m_largeur; j++) {
                 if (m_carte[i][j] == null) {
@@ -242,8 +252,8 @@ public class Map {
         int nbMonstres;
         do {
             AffichageCarte.demanderMonstres();
-            nbMonstres = RecupInfos.scanInt();
-            if (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur)) {
+            m_nbMonstre = RecupInfos.scanInt();
+            if (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur)) {
                 Affichage.afficherErreur("Erreur : Trop de monstres.");
             }
         } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur));
@@ -251,10 +261,10 @@ public class Map {
         createMonstre();
 
         int [] CoordMonstre;
-        for (int i = 0; i < nbMonstres; i++) {
+        for (int i = 0; i < m_nbMonstre; i++) {
             do {
                 CoordMonstre = RecupInfos.scanCoord(this);
-                if (CoordMonstre[0] < 0 || CoordMonstre[0] > m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] > m_largeur) {
+                if (CoordMonstre[0] < 0 || CoordMonstre[0] >= m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] >= m_largeur) {
                     AffichageCarte.CoordInvalide();
                 }
             } while (CoordMonstre[0] < 0 || CoordMonstre[0] > m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] > m_largeur);
@@ -264,7 +274,9 @@ public class Map {
                 i--; // cancel ce tour de boucleeeee
             }
             else {
-                m_carte[CoordMonstre[0]][CoordMonstre[1]] = new CoordonneesMonstre(CoordMonstre[0]-1,CoordMonstre[1], new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1, 1)));
+
+                m_monstres[i].setPosition(CoordMonstre[0], CoordMonstre[1]);
+                m_carte[CoordMonstre[0]][CoordMonstre[1]] = new CoordonneesMonstre(CoordMonstre[0],CoordMonstre[1], m_monstres[i]);
             }
         }
     }
@@ -294,6 +306,15 @@ public class Map {
         return this.m_nbMonstre;
     }
 
+    public Monstre createRandomMonstres() {
+        // creer des monstres pour la map random : renvoie un monstre random parmi les 5 profils existants
+        Monstre[] profilsMonstre = {Monstre.dragon, Monstre.goblin, Monstre.rat, Monstre.troll, Monstre.loupGarou};
+        Random random = new Random();
+        int index = random.nextInt(profilsMonstre.length);
+        return profilsMonstre[index];
+    }
+
+
     public void createMonstre() {
 
         this.m_monstres = new Monstre[this.m_nbMonstre];
@@ -307,8 +328,8 @@ public class Map {
             especeMonstre = RecupInfos.scanString();
             Espece espece = null;
             boolean existeEspece = false;
-            for (int j = 0; j < m_monstres.length; j++) {
-                if (especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
+            for (int j = 0; j < i; j++) {
+                if (m_monstres[j] != null && especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
                     espece = CreerEntites.createEspece(especeMonstre, j);
                     existeEspece = true;
                     break;
@@ -333,7 +354,20 @@ public class Map {
     }
 
     public Personnage[] getJoueurs() {
-        return this.m_joueurs;
+        return m_joueurs;
+    }
+
+
+    public Monstre getMontreByNom(String nomMonstre) {
+        for (int i = 0; i < m_longueur; i++) {
+            for (int j = 0; j < m_largeur; j++) {
+                Monstre m = m_carte[i][j].getMonstre();
+                if (m != null && m.getEspece().getNomEspece().equalsIgnoreCase(nomMonstre)) {
+                    return m;
+                }
+            }
+        }
+        return null;
     }
 }
 

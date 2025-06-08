@@ -10,6 +10,7 @@ public class CoordonneesMonstre extends Coordonnees{
         this.m_monstre = monstre;
     }
 
+    @Override
     public Monstre getMonstre() {
         return m_monstre;
     }
