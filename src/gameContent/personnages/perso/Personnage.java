@@ -198,8 +198,8 @@ public class Personnage extends Entite {
     }
 
     //TODO euh revoir les bails de caractéristiques partout help
-    public CaracteristiqueMonstre getCaracteristiques() {
-        return getCaracteristiques();
+    public CaracteristiquePersonnage getCaracteristiques() {
+        return m_caracteristiques;
     }
 
     public List<Arme> getInventaireArmes(){

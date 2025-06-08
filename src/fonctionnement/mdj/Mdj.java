@@ -11,15 +11,13 @@ import gameContent.items.Equipement;
 import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
+import gameContent.personnages.monstre.AttaqueMonstre;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Mdj {
     private Map m_map;
@@ -32,8 +30,15 @@ public class Mdj {
     private final String[] m_MdjActions = new String[]{"Ajouter des obstacles", "Attaquer", "placer un trésor", "déplacer un Personnage ou un Monstre"};
 
     public Mdj() {
-        Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
-        this.m_nbJoueurs = RecupInfos.scanInt();
+        int truc = 0;
+        do{
+            Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
+            truc = RecupInfos.scanInt();
+            if(truc<2||truc>6){
+                Affichage.afficherErreur("vous devez rentrer un nombre entre 2 et 6");
+            }
+        }while(truc<2||truc>6);
+        this.m_nbJoueurs = truc;
         this.m_joueurs = new Personnage[this.m_nbJoueurs];
         for (int i=0; i<this.m_nbJoueurs; i++){
             Affichage.afficher("joueur "+(i+1));
@@ -187,6 +192,10 @@ public class Mdj {
                     return;
                 }
             }
+            tourMonstres();
+            if (verify_morts()){
+                Affichage.afficher("votre équipe a été vaincue");
+            }
             tourMdj(tour);
             tour++;
         }
@@ -269,6 +278,16 @@ public class Mdj {
                 }
             }
         }
+    }
+    public void tourMonstres(){
+        Personnage perso = null;
+        Random rand = new Random();
+        for (Monstre monstre : m_map.getMonstres()){
+            int index = rand.nextInt(m_nbJoueurs); // entre 0 et size - 1
+            AttaqueMonstre attaque = monstre.getAttaque();
+            monstre.attaquer(m_joueurs[index]);
+        }
+
     }
 
 
