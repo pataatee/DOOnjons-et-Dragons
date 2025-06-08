@@ -58,31 +58,47 @@ package gameContent
 
         package armures {
 
-            interface Armure <<interface>> {
-                +getNom():String;
+            interface Armure <<interface>> extends gameContent.items.armes.Item {
+                +getNom():String
                 +getClasseArmure():Integer
+
+                +avecArticleDefini():String
+                +avecArticleIndefini():String
+                +avecArticlePartitif():String
             }
 
             class ArmureLourde implements Armure {
                 -m_nom:String
                 -m_classeArmure:Integer
 
-                +<<create>> ArmureLourde(nom:String):ArmureLourde
+                +<<create>> ArmureLourde(nom:String, classeArmure:Integer, genre:Substantif):ArmureLourde
 
                 +getNom():String
                 +getClasseArmure():Integer
+                
+                +avecArticleDefini():String
+                +avecArticleIndefini():String
+                +avecArticlePartitif():String
             }
+
+            ArmureLourde "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
 
             class ArmureLegere implements Armure {
                 -m_nom:String
                 -m_classeArmure:Integer
 
-                +<<create>> ArmureLegere(nom:String):ArmureLegere
+                +<<create>> ArmureLegere(nom:String, classeArmure:Integer, genre:Substantif):ArmureLegere
 
                 +getNom():String
                 +getClasseArmure():Integer
 
+                +avecArticleDefini():String
+                +avecArticleIndefini():String
+                +avecArticlePartitif():String
+
             }
+
+            ArmureLegere "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
 
 
         }
@@ -141,6 +157,7 @@ package gameContent
             }
 
             ArmeGuerre "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
+            ArmeGuerre "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
 
             class ArmeDistance implements Arme {
                 -m_nom:String
