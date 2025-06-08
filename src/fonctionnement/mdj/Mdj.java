@@ -12,6 +12,7 @@ import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,9 +21,10 @@ public class Mdj {
     private final int m_nbJoueurs; //nombre de joueurs
     private int m_nbMonstres;
     private int m_nbTresors;
-    private Personnage[] m_joueurs; // Tableau contenant tous les joueurs
+    private final Personnage[] m_joueurs; // Tableau contenant tous les joueurs
     private Monstre[] m_monstres; // Tableau contenant tous les monstres (à implémenter plus tard)
     private Armurerie[] m_tresors; // Tableau contenant tous les trésors (à implémenter plus tard)
+    private final String[] m_MdjActions = new String[]{"Ajouter des obstacles", "Attaquer", "placer un trésor"};
 
     public Mdj() {
         Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
@@ -139,8 +141,8 @@ public class Mdj {
                     Affichage.afficher("y'a eu un mort, so fin du jeu heheeee"); // ! A MODIF C UNE BLAGUE D'ACCORD, CA FAIT 16H QUE J'SUIS DESSUS ALED
                     return;
                 }
-                //TODO tour du Mdj
             }
+            tourMdj(tour);
             tour++;
         }
     }
@@ -154,6 +156,30 @@ public class Mdj {
         }
         return val_retour;
     }
+
+    public void tourMdj(int tour){
+        Affichage.afficherTour(tour,this.m_map, m_MdjActions);
+        int numaction = RecupInfos.scanInt();
+        if (numaction> 3 || numaction <= 0){
+            Affichage.afficherErreur("Vous devez saisir un nombre entre 1 et 3");
+            tourMdj(tour);
+        }
+        else {
+            if (numaction == 1){
+                m_map.placerObstacle();
+            }
+            else if (numaction == 2){
+                Affichage.afficher("Saisissez les coordonnées de l'entité a attaquer");
+                int [] coords = RecupInfos.scanCoord(m_map);
+
+                //attaquer un monstre / un personnage
+            }
+            else {
+                m_map.placerTresor();
+            }
+        }
+    }
+
 
 
 }

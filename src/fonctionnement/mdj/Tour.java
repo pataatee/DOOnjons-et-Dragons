@@ -167,10 +167,14 @@ public class Tour {
             if (numaction == 4) {
                 m_nbActions--;
                 anciennesActions();
+                m_actionsprecedentes.clear();
+                m_actionsprecedentes.add(String.valueOf(numaction));
             }
 
             if (numaction == 1) {
+                m_actionsprecedentes.clear();
                 m_nbActions--;
+                m_actionsprecedentes.add(String.valueOf(numaction));
                 utiliserAttak();
             }
         }
@@ -191,6 +195,7 @@ public class Tour {
             utiliserAttak();
         }
         else {
+            m_actionsprecedentes.add(cible.getEspece().getNomEspece());
             System.out.println("[DEBUG] " + m_pers.getNom() + " attaque " + cible.getEspece().getNomEspece());
             System.out.println("[DEBUG] PV avant attaque : Perso = " + m_pers.getPvs() + ", Monstre = " + cible.getCaracteristiques().getPvs());
 
@@ -448,6 +453,8 @@ public class Tour {
         }
         else {
             switch (m_actionsprecedentes.get(0)) {
+                case "1":
+                    Affichage.afficher("vous avez attaqué un " +m_actionsprecedentes.get(1));
                 case "2":
                     Affichage.afficher(m_actionsprecedentes.get(1));
                     break;
@@ -459,6 +466,9 @@ public class Tour {
                     CoordlettreY = (char) ('A' + Integer.parseInt(m_actionsprecedentes.get(4)));
                     coords += Coordx + "," + CoordlettreY +".";
                      Affichage.afficher("Vous vous êtes déplacé de la case "+ coords);
+                    break;
+                case "4":
+                    Affichage.afficher("Vous avez demandé a pouvoir voir les actions précédentes");
                     break;
                 case "6":
                     switch (m_actionsprecedentes.get(1)) {

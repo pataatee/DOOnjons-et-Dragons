@@ -100,6 +100,18 @@ public class Affichage {
         afficherActions(truc.getActions(), truc.getListActions());
     }
 
+    public static void afficherTour(int tour, Map map, String[] actions){
+        afficher("---------------------------------------------------");
+        afficher("                Tour n°" + tour);
+        afficher("               le maître du jeu joue               ");
+        afficher("---------------------------------------------------");
+        afficher("");
+        afficherMap(map);
+        afficher("");
+        afficherActions(actions);
+
+    }
+
     public static void afficherInventaire(Personnage pers){
         String inventaire = "";
         for (Item item : pers.getInventaireItem()){
@@ -119,6 +131,13 @@ public class Affichage {
         afficher("Actions possibles : ");
         for (int i = 0; i < nombreActions ; i++) {
             afficher((i + 1) + " - " + actions.get(i));
+        }
+    }
+
+    public static void afficherActions(String[] actions) {
+        afficher("Actions possibles : ");
+        for (int i = 0; i < actions.length ; i++) {
+            afficher((i + 1) + " - " + actions[i]);
         }
     }
 

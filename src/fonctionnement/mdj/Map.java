@@ -20,8 +20,10 @@ public class Map {
     private int m_longueur;
     private int m_largeur;
     private int m_nbJoueurs;
+    private int m_nbObstacles = 0;
+    private int m_nbTresors = 0;
     private Personnage[] m_joueurs;
-    private int m_nbMonstre;
+    private int m_nbMonstre = 0;
     private Monstre[] m_monstres;
 
     public Map(int nbjoueurs, Personnage[] joueurs){
@@ -98,10 +100,10 @@ public class Map {
     public void createRandomMap(){
         Random random = new Random();
         initMap();
-        int obstacles = random.nextInt((this.m_longueur * this.m_largeur) / 15, (this.m_longueur * this.m_largeur) / 10);
+        m_nbObstacles = random.nextInt((this.m_longueur * this.m_largeur) / 15, (this.m_longueur * this.m_largeur) / 10);
         m_nbMonstre = random.nextInt(3, 5);
-        int tresors = random.nextInt(2, 4);
-        for (int i = 0; i < obstacles; i++) {
+        m_nbTresors = random.nextInt(2, 4);
+        for (int i = 0; i < m_nbObstacles; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {
@@ -121,7 +123,7 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
-        for (int i = 0; i < tresors; i++) {
+        for (int i = 0; i < m_nbTresors; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {
@@ -182,18 +184,16 @@ public class Map {
 
     }
     public void placerObstacle() {
-        int nbObstacles;
         do {
             AffichageCarte.demanderObstacles();
-            nbObstacles = RecupInfos.scanInt();
-            if (nbObstacles < 0 || nbObstacles > (m_longueur * m_largeur)) { // il ne peut pas y avoir + d'obstacles que de cases...
+            m_nbObstacles = RecupInfos.scanInt();
+            if (m_nbObstacles < 0 || m_nbObstacles > ((m_longueur * m_largeur)-m_nbMonstre-m_nbJoueurs-m_nbTresors)) { // il ne peut pas y avoir + d'obstacles que de cases...
                 Affichage.afficherErreur("Nombre d'obstacles invalide.");
             }
-        } while (nbObstacles < 0 || nbObstacles > (m_longueur * m_largeur)); // on veut pas + d'obstaces que de cases
-
+        } while (m_nbObstacles < 0 || m_nbObstacles > (m_longueur * m_largeur)-m_nbMonstre-m_nbJoueurs-m_nbTresors); // on veut pas + d'obstacles que de cases
         int [] CoordObstacle;
 
-        for (int i = 0; i < nbObstacles; i++) {
+        for (int i = 0; i < m_nbObstacles; i++) {
 
             do {
                 CoordObstacle = RecupInfos.scanCoord(this);
@@ -202,7 +202,7 @@ public class Map {
                 }
             } while (CoordObstacle[0] < 0 || CoordObstacle[0] > m_longueur || CoordObstacle[1] < 0 || CoordObstacle[1] > m_largeur);
 
-             if (m_carte[CoordObstacle[0]][CoordObstacle[1]] != null) {
+             if (m_carte[CoordObstacle[0]][CoordObstacle[1]] != null && m_carte[CoordObstacle[0]][CoordObstacle[1]].getCaseVide() ==null) {
                 AffichageCarte.caseOccupee();
                 i--; // pr recommencer
             }
@@ -212,17 +212,15 @@ public class Map {
         }
     }
     public void placerTresor() {
-        int nbTresors;
         do {
             AffichageCarte.demanderTresors();
-            nbTresors = RecupInfos.scanInt();
-            if (nbTresors < 0 || nbTresors > (m_largeur * m_longueur)) {
+            m_nbTresors = RecupInfos.scanInt();
+            if (m_nbTresors < 0 ||m_nbTresors > (m_largeur * m_longueur)-m_nbObstacles-m_nbMonstre-m_nbJoueurs) {
                 Affichage.afficherErreur("Trop de trésors");
             }
-        } while (nbTresors < 0 || nbTresors > (m_largeur * m_longueur));
-
+        } while (m_nbTresors < 0 || m_nbTresors > (m_largeur * m_longueur)-m_nbObstacles-m_nbMonstre-m_nbJoueurs);
         int CoordTresor[];
-        for (int i = 0; i < nbTresors; i++) {
+        for (int i = 0; i < m_nbTresors; i++) {
             do {
                 CoordTresor = RecupInfos.scanCoord(this);
                 if (CoordTresor[0] < 0 || CoordTresor[0] > m_longueur || CoordTresor[1] < 0 || CoordTresor[1] > m_largeur) {
@@ -230,7 +228,7 @@ public class Map {
                 }
             } while (CoordTresor[0] < 0 || CoordTresor[0] > m_longueur || CoordTresor[1] < 0 || CoordTresor[1] > m_largeur);
 
-           if (m_carte[CoordTresor[0]][CoordTresor[1]] != null) {
+           if (m_carte[CoordTresor[0]][CoordTresor[1]] != null&&m_carte[CoordTresor[0]][CoordTresor[1]].getCaseVide() ==null) {
                 AffichageCarte.caseOccupee();
                 i--; // cancel ce tour de boucle
             }
@@ -240,14 +238,13 @@ public class Map {
         }
     }
     public void placerMonstre() {
-        int nbMonstres;
         do {
             AffichageCarte.demanderMonstres();
             m_nbMonstre = RecupInfos.scanInt();
-            if (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur)) {
+            if (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur)-m_nbObstacles-m_nbJoueurs-m_nbTresors) {
                 Affichage.afficherErreur("Erreur : Trop de monstres.");
             }
-        } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur));
+        } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur)-m_nbObstacles-m_nbJoueurs-m_nbTresors);
 
         createMonstre();
 
