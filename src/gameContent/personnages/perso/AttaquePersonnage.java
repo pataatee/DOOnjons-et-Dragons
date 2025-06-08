@@ -16,7 +16,4 @@ public class AttaquePersonnage implements Attaque {
         return m_degats;
     }
 
-    public void setDegats(Personnage perso) {
-        // y'a surement pas besoin de ça au final
-    }
 }
