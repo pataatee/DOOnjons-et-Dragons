@@ -400,6 +400,10 @@ public class Map {
         }
         return null;
     }
+
+    public Monstre[] getMonstres(){
+        return m_monstres;
+    }
 }
 
 // TODO des monstres par defaut

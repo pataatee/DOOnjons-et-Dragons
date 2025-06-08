@@ -72,7 +72,7 @@ public class Tour {
     }
 
     public void jouerTour(int i) {
-        Affichage.afficherTour(this.m_tour, i, this.m_pers, this.m_map);
+        Affichage.afficherTour(this.m_tour, i, this.m_pers, this.m_map, this.m_map.getMonstres());
         int numaction = RecupInfos.scanInt();
         if (numaction == 5) {
             m_actionsprecedentes.clear();

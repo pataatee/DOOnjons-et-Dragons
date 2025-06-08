@@ -62,7 +62,7 @@ public class Affichage {
 
 
 
-    public static void afficherTour(int tour,int action, Personnage pers, Map map){
+    public static void afficherTour(int tour,int action, Personnage pers, Map map, Monstre[] monstres){
         afficher("---------------------------------------------------");
         afficher("                Tour n°" + tour);
         afficher("                Action n°"+action);
@@ -92,12 +92,24 @@ public class Affichage {
 
         afficherInventaire(pers);
 
+        afficher("");
+        afficher("");
+        afficherAllMonstres(monstres);
 
         afficher("");
         afficherMap(map);
         afficher("");
         Tour truc = new Tour(pers);
         afficherActions(truc.getActions(), truc.getListActions());
+    }
+
+    private static void afficherAllMonstres(Monstre[] monstres) {
+        afficher("Monstres :");
+        for (Monstre monstre:monstres){
+            char lettre = (char) (monstre.getY()+'A');
+            afficher("Nom : " + monstre.getEspece().getNomEspece()+monstre.getEspece().getNum() + " | Pvs : "+monstre.getPvs() +" | Coordonnées : (" + (monstre.getX()+1) + "," + lettre + ")");
+        }
+
     }
 
     public static void afficherTour(int tour, Map map, String[] actions){
