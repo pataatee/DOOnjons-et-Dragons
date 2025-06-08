@@ -62,9 +62,10 @@ public class Affichage {
 
 
 
-    public static void afficherTour(int tour, Personnage pers, Map map){
+    public static void afficherTour(int tour,int action, Personnage pers, Map map){
         afficher("---------------------------------------------------");
         afficher("                Tour n°" + tour);
+        afficher("                Action n°"+action);
         afficher("             Personnage : " + pers.getNom());
         afficher("---------------------------------------------------");
         afficher("");
@@ -99,6 +100,18 @@ public class Affichage {
         afficherActions(truc.getActions(), truc.getListActions());
     }
 
+    public static void afficherTour(int tour, Map map, String[] actions){
+        afficher("---------------------------------------------------");
+        afficher("                Tour n°" + tour);
+        afficher("               le maître du jeu joue               ");
+        afficher("---------------------------------------------------");
+        afficher("");
+        afficherMap(map);
+        afficher("");
+        afficherActions(actions);
+
+    }
+
     public static void afficherInventaire(Personnage pers){
         String inventaire = "";
         for (Item item : pers.getInventaireItem()){
@@ -118,6 +131,13 @@ public class Affichage {
         afficher("Actions possibles : ");
         for (int i = 0; i < nombreActions ; i++) {
             afficher((i + 1) + " - " + actions.get(i));
+        }
+    }
+
+    public static void afficherActions(String[] actions) {
+        afficher("Actions possibles : ");
+        for (int i = 0; i < actions.length ; i++) {
+            afficher((i + 1) + " - " + actions[i]);
         }
     }
 
@@ -152,6 +172,13 @@ public class Affichage {
         System.out.println("Qui souhaitez vous attaquer ?");
     }
 
+    public static void afficherArmes(Personnage pers){
+        List<Arme> armes = pers.getInventaireArmes();
+        Affichage.afficher("Armes disponibles pour " + pers.getNom() + " :");
+        for (Arme item : armes) {
+            Affichage.afficher(" - " + item.getNom());
+        }
+    }
     public static void plusDInfos() {
         System.out.println("Plus d'infos (+)");
     }
