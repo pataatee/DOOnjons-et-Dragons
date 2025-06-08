@@ -263,7 +263,7 @@ package gameContent
                     abstract class Race <<abstract>>{
                         -m_nom:String
 
-                        +<<create>> Race(nom:String, pv:Integer, force:Integer, dexterite:Integer, vitesse:Integer, initiative:Integer):Race
+                        +<<create>> Race(nom:String, pv:Integer, force:Integer, dexterite:Integer, initiative:Integer, vitesse:Integer):Race
 
                         +getCaracteristiques():CaracteristiquePersonnage
                         +getNom():String
