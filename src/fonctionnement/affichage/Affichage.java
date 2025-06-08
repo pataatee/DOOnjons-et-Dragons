@@ -1,8 +1,10 @@
 package fonctionnement.affichage;
 
-import gameContent.items.Item;
+import fonctionnement.coordonnees.Coordonnees;
+import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
+import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 import fonctionnement.mdj.Map;
 import fonctionnement.mdj.Tour;
@@ -117,5 +119,22 @@ public class Affichage {
             afficher((i + 1) + " - " + actions.get(i));
         }
     }
+
+    public static void afficherMonstres(Coordonnees[][] map) {
+        System.out.println("Monstres : ");
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                Monstre m = map[i][j].getMonstre();
+                if (m != null) {
+                    System.out.println(m.getEspece().getNomEspece() + " | Coordonnées : x = " + i + ", y = " + j);
+                }
+            }
+        }
+    }
+
+    public static void demanderQuiAttaquer() {
+        System.out.println("Qui souhaitez vous attaquer ?");
+    }
+
 
 }
