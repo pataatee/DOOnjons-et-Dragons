@@ -37,15 +37,15 @@ public class ArmeDistance implements Arme{
     }
     @Override
     public String avecArticleDefini(){
-        return m_genre.avecArticleDefini();
+        return m_genre.avecArticleDefini()+ m_nom;
     }
     @Override
     public String avecArticleIndefini(){
-        return m_genre.avecArticleIndefini();
+        return m_genre.avecArticleIndefini()+ m_nom;
     }
     @Override
     public String avecArticlePartitif(){
-        return m_genre.avecArticleIndefini();
+        return m_genre.avecArticlePartitif()+ m_nom;
     }
     public static final ArmeDistance Fronde = new ArmeDistance("Fronde", new De(1,4), 6, new Substantif("épée longue", new Feminin()));
     public static final ArmeDistance Arbalete_legere = new ArmeDistance("Arbalète légère", new De(1,8), 16, new Substantif("épée longue", new Feminin()));

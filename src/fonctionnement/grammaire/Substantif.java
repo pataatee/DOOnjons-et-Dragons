@@ -23,28 +23,28 @@ public class Substantif // un nom
     {
         if(this.m_elision)
         {
-            return "l'" + this.m_nom;
+            return "l'";
         }
         else
         {
-            return this.m_genre.getArticleDefini() + " " + this.m_nom;
+            return this.m_genre.getArticleDefini();
         }
     }
 
     public String avecArticleIndefini()
     {
-        return this.m_genre.getArticleIndefini() + " " + this.m_nom;
+        return this.m_genre.getArticleIndefini();
     }
 
     public String avecArticlePartitif()
     {
         if(this.m_elision)
         {
-            return "de l'" + this.m_nom;
+            return "de l'";
         }
         else
         {
-            return this.m_genre.getArticlePartitif() + " " + this.m_nom;
+            return this.m_genre.getArticlePartitif();
         }
     }
 

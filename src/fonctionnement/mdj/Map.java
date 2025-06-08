@@ -113,9 +113,9 @@ public class Map {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {
-                Monstre monstre = new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1, 1)); // 1 pour les monstres
+                Monstre monstre = new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1, 1));
                 monstre.setPosition(x,y);
-                m_carte[x][y] = new CoordonneesMonstre(x,y, monstre); // 1 pour les monstres
+                m_carte[x][y] = new CoordonneesMonstre(x,y, monstre);
             } else {
                 i--; // Si la case est déjà occupée, on recommence
             }
@@ -124,7 +124,7 @@ public class Map {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {
-                m_carte[x][y] = new CoordonneesItem(x,y); // 2 pour les trésors
+                m_carte[x][y] = new CoordonneesItem(x,y);
             } else {
                 i--; // Si la case est déjà occupée, on recommence
             }
@@ -134,7 +134,7 @@ public class Map {
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {
                 this.m_joueurs[i].setPosition(x,y);
-                m_carte[x][y] = new CoordonneesPersonnage(x,y, this.m_joueurs[i]); // 2 pour les trésors
+                m_carte[x][y] = new CoordonneesPersonnage(x,y, this.m_joueurs[i]);
             } else {
                 i--; // Si la case est déjà occupée, on recommence
             }
@@ -142,7 +142,7 @@ public class Map {
         for (int i = 0; i < this.m_longueur; i++) {
             for (int j = 0; j < this.m_largeur; j++) {
                 if (m_carte[i][j] == null) {
-                    m_carte[i][j] = new CoordonneesCaseVide(i,j); // 0 pour les cases vides
+                    m_carte[i][j] = new CoordonneesCaseVide(i,j);
                 }
             }
         }
@@ -239,7 +239,7 @@ public class Map {
         }
     }
     public void placerMonstre() {
-        //int nbMonstres;
+        int nbMonstres;
         do {
             AffichageCarte.demanderMonstres();
             m_nbMonstre = RecupInfos.scanInt();
