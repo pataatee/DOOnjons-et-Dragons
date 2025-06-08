@@ -189,7 +189,7 @@ public class Tour {
         // get le monstre qu'il faut attaquer
         // demander quel mosntre souhaitez-vs attaquer + liste des monstres de la map et leurs co
         Affichage.demanderQuiAttaquer();
-        Affichage.afficherMonstres(m_map.getM_carte());
+        Affichage.afficherAllMonstres(m_map.getMonstres());
         String nomMonstre = RecupInfos.scanString();
         // ok donc là, on récup le nom du monstre qu'on veut attaquer.
         // ensuite dcp faut qu'on prenne le monstre associé aux co du nom, et qu'on utilise attaquer sur lui !

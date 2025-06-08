@@ -456,8 +456,6 @@ public class Map {
                     }
 
                     while (true) {
-
-
                         AffichageCreateMonstre.demanderCaracPredefinies();
                         String t = RecupInfos.scanString();
                         if (t.equalsIgnoreCase("+")) {
