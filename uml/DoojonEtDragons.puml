@@ -199,7 +199,7 @@ package gameContent
 
             +getX():Integer
             +getY():Integer
-            
+
             +setPosition(x:Integer, y:Integer)
         }
 
@@ -492,6 +492,36 @@ package gameContent
             +toString():String
         }
 
+    }
+
+    package sorts {
+        abstract class Sorts <<abstract>> {
+            -m_nbSorts:Integer
+            -m_guerison:Integer
+            -m_boogieWoogie:Integer
+            -m_armeMagique:Integer
+            #m_nom:String
+
+            +<<create>> Sorts(nom:String):Sorts
+        }
+
+        class ArmeMagique extends gameContent.sorts.Sorts {
+            +<<create>> ArmeMagique():ArmeMagique
+
+            + {static} lancer(pers:Personnage, arme:Arme)
+        }
+
+        class BoogieWoogie extends gameContent.sorts.Sorts {
+            +<<create>> BoogieWoogie():BoogieWoogie
+
+            + {static} lancer(perso1:Entite, perso2:Entite, map:Map)
+        }
+
+        class Guerison extends gameContent.sorts.Sorts {
+            +<<create>> Guerison():Guerison
+
+            + {static} lancer(pers:Personnage)
+        }
     }
 
 
