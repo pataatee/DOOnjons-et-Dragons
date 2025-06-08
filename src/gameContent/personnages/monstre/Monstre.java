@@ -2,7 +2,6 @@ package gameContent.personnages.monstre;
 import fonctionnement.affichage.AfficherDsMonstre;
 import fonctionnement.de.De;
 import gameContent.items.armes.Arme;
-import gameContent.items.armures.Armure;
 import gameContent.personnages.*;
 import gameContent.personnages.perso.Personnage;
 
@@ -94,6 +93,7 @@ public class Monstre extends Entite {
         int range = Math.abs(this.getX() - agresseur.getX()) + Math.abs(this.getY() - agresseur.getY());
         if (range > armePerso.getPortee()) {
             AfficherDsMonstre.afficherErreurPortee();
+            return false;
         }
 
         // jet d'attaque
@@ -112,17 +112,32 @@ public class Monstre extends Entite {
 
         if (jetAtk > classeArmure) {
             int degats = armePerso.getDegats();
-            int pvCible = this.getPvs() - degats;
-            this.m_caracteristique.modifyPvs(Math.max(0, pvCible));
-            afficherPvRestantsPerso(pvCible);
+            int pvRestants = this.getPvs() - degats;
 
-            if (pvCible <= 0) {
+
+            System.out.println("[DEBUG] PV avant = " + (pvRestants + degats));
+            System.out.println("[DEBUG] Dégâts infligés = " + degats);
+            System.out.println("[DEBUG] PV après = " + pvRestants);
+
+
+            pvRestants = (Math.max(0, pvRestants));
+            this.m_caracteristique.modifyPvs(pvRestants);
+            afficherPvRestantsPerso(pvRestants);
+
+            if (pvRestants <= 0) {
                 afficherPersonnageVaincu();
             }
+
+            System.out.println("[DEBUG] PV avant = " + (pvRestants + degats));
+            System.out.println("[DEBUG] Dégâts infligés = " + degats);
+            System.out.println("[DEBUG] PV après = " + pvRestants);
+
         }
         else {
             AfficherDsMonstre.afficherAttaqueEchouee();
         }
+
+
 
         return true;
     }

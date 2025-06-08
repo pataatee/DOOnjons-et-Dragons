@@ -254,7 +254,7 @@ public class Map {
         for (int i = 0; i < m_nbMonstre; i++) {
             do {
                 CoordMonstre = RecupInfos.scanCoord(this);
-                if (CoordMonstre[0] < 0 || CoordMonstre[0] > m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] > m_largeur) {
+                if (CoordMonstre[0] < 0 || CoordMonstre[0] >= m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] >= m_largeur) {
                     AffichageCarte.CoordInvalide();
                 }
             } while (CoordMonstre[0] < 0 || CoordMonstre[0] > m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] > m_largeur);
@@ -264,7 +264,9 @@ public class Map {
                 i--; // cancel ce tour de boucleeeee
             }
             else {
-                m_carte[CoordMonstre[0]][CoordMonstre[1]] = new CoordonneesMonstre(CoordMonstre[0]-1,CoordMonstre[1], new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1, 1)));
+
+                m_monstres[i].setPosition(CoordMonstre[0], CoordMonstre[1]);
+                m_carte[CoordMonstre[0]][CoordMonstre[1]] = new CoordonneesMonstre(CoordMonstre[0],CoordMonstre[1], m_monstres[i]);
             }
         }
     }
@@ -308,7 +310,7 @@ public class Map {
             Espece espece = null;
             boolean existeEspece = false;
             for (int j = 0; j < i; j++) {
-                if (m_monstres[i] != null && especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
+                if (m_monstres[j] != null && especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
                     espece = CreerEntites.createEspece(especeMonstre, j);
                     existeEspece = true;
                     break;
