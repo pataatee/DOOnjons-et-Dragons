@@ -242,8 +242,8 @@ public class Map {
         int nbMonstres;
         do {
             AffichageCarte.demanderMonstres();
-            nbMonstres = RecupInfos.scanInt();
-            if (nbMonstres < 0 || nbMonstres > (m_longueur * m_largeur)) {
+            m_nbMonstre = RecupInfos.scanInt();
+            if (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur)) {
                 Affichage.afficherErreur("Erreur : Trop de monstres.");
             }
         } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur));
@@ -251,7 +251,7 @@ public class Map {
         createMonstre();
 
         int [] CoordMonstre;
-        for (int i = 0; i < nbMonstres; i++) {
+        for (int i = 0; i < m_nbMonstre; i++) {
             do {
                 CoordMonstre = RecupInfos.scanCoord(this);
                 if (CoordMonstre[0] < 0 || CoordMonstre[0] > m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] > m_largeur) {
@@ -307,8 +307,8 @@ public class Map {
             especeMonstre = RecupInfos.scanString();
             Espece espece = null;
             boolean existeEspece = false;
-            for (int j = 0; j < m_monstres.length; j++) {
-                if (especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
+            for (int j = 0; j < i; j++) {
+                if (m_monstres[i] != null && especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
                     espece = CreerEntites.createEspece(especeMonstre, j);
                     existeEspece = true;
                     break;
@@ -333,7 +333,20 @@ public class Map {
     }
 
     public Personnage[] getJoueurs() {
-        return this.m_joueurs;
+        return m_joueurs;
+    }
+
+
+    public Monstre getMontreByNom(String nomMonstre) {
+        for (int i = 0; i < m_longueur; i++) {
+            for (int j = 0; j < m_largeur; j++) {
+                Monstre m = m_carte[i][j].getMonstre();
+                if (m != null && m.getEspece().getNomEspece().equalsIgnoreCase(nomMonstre)) {
+                    return m;
+                }
+            }
+        }
+        return null;
     }
 }
 
