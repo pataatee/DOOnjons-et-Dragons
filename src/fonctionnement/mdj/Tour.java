@@ -162,23 +162,28 @@ public class Tour {
     public void utiliserAttak() {
         // get le monstre qu'il faut attaquer
         // demander quel mosntre souhaitez-vs attaquer + liste des monstres de la map et leurs co
-        Affichage.demanderQuiAttaquer();
-        Affichage.afficherMonstres(m_map.getM_carte());
-        String nomMonstre = RecupInfos.scanString();
-        // ok donc là, on récup le nom du monstre qu'on veut attaquer.
-        // ensuite dcp faut qu'on prenne le monstre associé aux co du nom, et qu'on utilise attaquer sur lui !
+        String nomMonstre;
+        do {
+            Affichage.demanderQuiAttaquer();
+            Affichage.afficherMonstres(m_map.getM_carte());
+            Affichage.plusDInfos();
+            nomMonstre = RecupInfos.scanString();
+            // ok donc là, on récup le nom du monstre qu'on veut attaquer.
+            // ensuite dcp faut qu'on prenne le monstre associé aux co du nom, et qu'on utilise attaquer sur lui !
+
+            if (nomMonstre.equalsIgnoreCase("+")) {
+                Affichage.afficherDetailsMonstres(m_map.getM_carte());
+            } else if (m_map.getMontreByNom(nomMonstre) == null) {
+                Affichage.afficherErreur("Pas de monstre possédant ce nom !");
+                nomMonstre = null;
+            }
+        } while (nomMonstre == null || nomMonstre.equalsIgnoreCase("+"));
+
         Monstre cible = m_map.getMontreByNom(nomMonstre);
-        if (cible == null) {
-            Affichage.afficherErreur("Pas de monstre possédant ce nom !");
-            utiliserAttak();
-        }
-        else {
+        m_pers.attaquer(cible);
+        m_actions.add("1");
+        Affichage.afficher(this.m_pers.getNom() + " a attqué " + cible.getEspece().getNomEspece());
 
-            m_pers.attaquer(cible);
-
-            m_actions.add("1");
-            Affichage.afficher(this.m_pers.getNom() + " a attqué " + cible.getEspece().getNomEspece());
-        }
     }
 
 

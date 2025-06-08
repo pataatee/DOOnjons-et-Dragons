@@ -121,21 +121,39 @@ public class Affichage {
         }
     }
 
-    public static void afficherMonstres(Coordonnees[][] map) {
+    public static void afficherDetailsMonstres(Coordonnees[][] map) {
         System.out.println("Monstres : ");
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 Monstre m = map[i][j].getMonstre();
                 if (m != null) {
-                    String aAfficher = m.toString();
+                    String aAfficher = "\n\n" + m.toString();
                     System.out.println(aAfficher);
                 }
             }
         }
     }
 
+    public static void afficherMonstres(Coordonnees[][] map) {
+        System.out.println("Monstres :\n");
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                Monstre m = map[i][j].getMonstre();
+                if (m != null) {
+                    String aAfficher = "Nom : " + m.getEspece().getNomEspece() + " | Coordonnées : (" + i + "," + j + ")";
+                    System.out.println(aAfficher);
+                }
+            }
+        }
+    }
+
+
     public static void demanderQuiAttaquer() {
         System.out.println("Qui souhaitez vous attaquer ?");
+    }
+
+    public static void plusDInfos() {
+        System.out.println("Plus d'infos (+)");
     }
 
 

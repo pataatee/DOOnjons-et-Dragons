@@ -111,6 +111,7 @@ public class Map {
             }
         }
         // placer monstres
+        m_monstres = new Monstre[monstres];
         for (int i = 0; i < monstres; i++) {
             Monstre monstre = createRandomMonstres();
             int x, y;
