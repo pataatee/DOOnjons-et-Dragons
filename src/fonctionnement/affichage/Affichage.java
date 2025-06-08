@@ -156,5 +156,6 @@ public class Affichage {
         System.out.println("Plus d'infos (+)");
     }
 
-
+    //TODO possibilite de selectionner un profil par defaut de monstre meme qd pas random
+    //TODO modif euh pour que les co s'affichent correctement qd on montre les co des montres p ex
 }
