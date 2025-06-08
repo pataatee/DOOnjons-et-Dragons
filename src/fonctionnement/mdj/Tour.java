@@ -9,11 +9,15 @@ import gameContent.items.armures.Armure;
 import gameContent.personnages.Entite;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
+import gameContent.sorts.ArmeMagique;
+import gameContent.sorts.BoogieWoogie;
+import gameContent.sorts.Guerison;
 import gameContent.sorts.Sorts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static fonctionnement.affichage.Affichage.*;
 import static gameContent.sorts.Sorts.*;
@@ -53,9 +57,15 @@ public class Tour {
         this.m_actions.add("Se déplacer");
         this.m_actions.add("Détailler l'action précédente ");
         this.m_actions.add("Finir le tour");
-        if (!Arrays.equals(m_pers.getSorts(), new boolean[]{false, false, false})) {
+        if (SortDisponibles(this.m_pers.getSorts())) {
             this.m_actions.add("Lancer un sort");
         }
+    }
+    public static boolean SortDisponibles(Optional<Sorts>[] sorts) {
+        for (Optional<Sorts> s : sorts) {
+            if (s.isPresent()) return true; // au moins un sort
+        }
+        return false; // aucun sort
     }
 
     public void jouerTour() {
@@ -90,13 +100,13 @@ public class Tour {
                 m_actionsprecedentes.clear();
                 m_actionsprecedentes.add("6");
                 Affichage.afficher("Sorts disponibles :");
-                if (m_pers.getSorts()[0]) {
+                if ((m_pers.getSorts()[m_guerison] != null && m_pers.getSorts()[m_guerison].isPresent())) {
                     Affichage.afficher("1. Guérison");
                 }
-                if (m_pers.getSorts()[1]) {
+                if ((m_pers.getSorts()[m_boogieWoogie] != null && m_pers.getSorts()[m_boogieWoogie].isPresent())) {
                     Affichage.afficher("2. Boogie Woogie");
                 }
-                if (m_pers.getSorts()[2]) {
+                if ((m_pers.getSorts()[m_armeMagique] != null && m_pers.getSorts()[m_armeMagique].isPresent())) {
                     Affichage.afficher("3. Arme Magique");
                 }
                 Affichage.afficher("quel sort voulez vous lancer ?");
@@ -118,12 +128,13 @@ public class Tour {
                     }
                     else{
                         m_actionsprecedentes.add(perso.getNom());
-                        Guerison(perso);
+                        Guerison guer = (Guerison) this.m_pers.getSorts()[m_guerison].get();
+                        guer.lancer(perso);
                     }
 
                 } else if (sort == 2) {
                     m_actionsprecedentes.add(String.valueOf(sort));
-                    if (!m_pers.getSorts()[1]) {
+                    if (m_pers.getSorts()[m_boogieWoogie].isEmpty()) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Boogie Woogie, il n'est pas disponible pour votre personnage.");
                         jouerTour();
                     }
@@ -133,7 +144,7 @@ public class Tour {
                 }
                 else if (sort == 3){
                     m_actionsprecedentes.add(String.valueOf(sort));
-                    if (!m_pers.getSorts()[1]) {
+                    if (m_pers.getSorts()[m_armeMagique].isEmpty()) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Arme Magique, il n'est pas disponible pour votre personnage.");
                         jouerTour();
                     }
@@ -372,7 +383,8 @@ public class Tour {
             initBoogieWoogie();
             return;
         }
-        Sorts.BoogieWoogie(perso1, perso2, m_map);
+        BoogieWoogie bw = (BoogieWoogie) this.m_pers.getSorts()[m_boogieWoogie].get();
+        bw.lancer(perso1, perso2, m_map);
 
     }
 
@@ -391,6 +403,7 @@ public class Tour {
             initArmeMagique();
         }
         else {
+            Affichage.afficherArmes(pers);
             Affichage.afficher("Quel arme voulez-vous rendre plus puissante ?");
             String armeNom = RecupInfos.scanString();
             Arme arme = null;
@@ -415,7 +428,10 @@ public class Tour {
             else{
                 m_actionsprecedentes.add(pers.getNom());
                 m_actionsprecedentes.add(arme.avecArticleDefini());
-                Sorts.armeMagique(pers, arme);
+                //Guerison guer = (Guerison) perso.getSorts()[m_guerison].get();
+                //guer.lancer(perso);
+                ArmeMagique am = (ArmeMagique) this.m_pers.getSorts()[m_armeMagique].get();
+                am.lancer(pers, arme);
             }
         }
     }

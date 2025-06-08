@@ -2,6 +2,7 @@ package fonctionnement.affichage;
 
 import fonctionnement.coordonnees.Coordonnees;
 import fonctionnement.utilisateur.RecupInfos;
+import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.monstre.Monstre;
@@ -136,5 +137,12 @@ public class Affichage {
         System.out.println("Qui souhaitez vous attaquer ?");
     }
 
+    public static void afficherArmes(Personnage pers){
+        List<Arme> armes = pers.getInventaireArmes();
+        Affichage.afficher("Armes disponibles pour " + pers.getNom() + " :");
+        for (Arme item : armes) {
+            Affichage.afficher(" - " + item.getNom());
+        }
+    }
 
 }
