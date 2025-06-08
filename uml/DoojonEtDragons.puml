@@ -665,7 +665,12 @@ package fonctionnement {
     }
 
     package utilisateur {
-
+        class RecupInfos {
+            + {static} scanString():String
+            + {static} scanInt():Integer
+            + {static} scanCoord(map:Map):Integer[*]
+            + {static} scanOuiNon():Char
+        }
     }
 
     package grammaire {
