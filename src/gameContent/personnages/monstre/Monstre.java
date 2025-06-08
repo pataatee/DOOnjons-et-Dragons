@@ -85,7 +85,6 @@ public class Monstre extends Entite {
             return false;
         }
 
-        System.out.println("[DEBUG] Monstre est attaqué par perso " + agresseur.getNom());
 
         Arme armePerso = agresseur.getArme_equipee();
 
@@ -115,9 +114,6 @@ public class Monstre extends Entite {
             int pvRestants = this.getPvs() - degats;
 
 
-            System.out.println("[DEBUG] PV avant = " + (pvRestants + degats));
-            System.out.println("[DEBUG] Dégâts infligés = " + degats);
-            System.out.println("[DEBUG] PV après = " + pvRestants);
 
 
             pvRestants = (Math.max(0, pvRestants));
@@ -128,9 +124,6 @@ public class Monstre extends Entite {
                 AfficherDsMonstre.afficherMonstreVaincu();
             }
 
-            System.out.println("[DEBUG] PV avant = " + (pvRestants + degats));
-            System.out.println("[DEBUG] Dégâts infligés = " + degats);
-            System.out.println("[DEBUG] PV après = " + pvRestants);
 
         }
         else {
@@ -144,5 +137,9 @@ public class Monstre extends Entite {
 
     public int getClasseArmure() {
         return this.m_caracteristique.getClasseArmure();
+    }
+
+    public String toString() {
+        return m_espece.toString() + " | Coordonnées : (" + this.getX() + "," + this.getY() + ")\n\nCaracteristiques : \n" + m_caracteristique.toString() + "\n\nAttaque : \n" + m_attaque.toString();
     }
 }

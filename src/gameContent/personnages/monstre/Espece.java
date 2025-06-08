@@ -23,5 +23,7 @@ public class Espece {
         return m_numero;
     }
 
-
+    public String toString() {
+        return "Nom : " + this.getNomEspece() + " " + this.getNum();
+    }
 }

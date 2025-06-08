@@ -127,7 +127,8 @@ public class Affichage {
             for (int j = 0; j < map[i].length; j++) {
                 Monstre m = map[i][j].getMonstre();
                 if (m != null) {
-                    System.out.println(m.getEspece().getNomEspece() + " | Coordonnées : x = " + i + ", y = " + j);
+                    String aAfficher = m.toString();
+                    System.out.println(aAfficher);
                 }
             }
         }

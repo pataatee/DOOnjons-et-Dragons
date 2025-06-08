@@ -1,5 +1,7 @@
 package fonctionnement.affichage;
 
+import gameContent.personnages.monstre.Monstre;
+
 public class AfficherDsMonstre {
     public static void afficherMonstreVaincu() {
         System.out.println("Le monstre est vaincu !");
@@ -14,5 +16,9 @@ public class AfficherDsMonstre {
 
     public static void afficherErreurPortee() {
         System.err.println("Cible hors de portée.");
+    }
+
+    public static void afficherMonstre(Monstre m) {
+        System.out.println(m.toString());
     }
 }

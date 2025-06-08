@@ -18,4 +18,8 @@ public class CaracteristiqueMonstre extends Caracteristique {
     }
 
 
+
+    public String toString() {
+        return "PVs : " + super.getPvs() + "\nForce : " + super.getForce() + "\nDextérité : " + super.getDexterite() + "\nVitesse : " + super.getVitesse() + "\nClasse d'armure : " + this.getClasseArmure() + "\nInitiative : " + getInitiative();
+    }
 }

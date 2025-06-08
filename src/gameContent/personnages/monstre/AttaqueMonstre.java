@@ -29,6 +29,9 @@ public class AttaqueMonstre implements Attaque {
         return m_degats;
     }
 
+    public String toString() {
+        return "Nom attaque : " + m_nom + "\nDégâts : " + m_degats + "\nPortée : " + m_portee;
+    }
 
 
 }

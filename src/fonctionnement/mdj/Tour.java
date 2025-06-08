@@ -173,12 +173,9 @@ public class Tour {
             utiliserAttak();
         }
         else {
-            System.out.println("[DEBUG] " + m_pers.getNom() + " attaque " + cible.getEspece().getNomEspece());
-            System.out.println("[DEBUG] PV avant attaque : Perso = " + m_pers.getPvs() + ", Monstre = " + cible.getCaracteristiques().getPvs());
 
             m_pers.attaquer(cible);
 
-            System.out.println("[DEBUG] PV après attaque : Perso = " + m_pers.getPvs() + ", Monstre = " + cible.getCaracteristiques().getPvs());
             m_actions.add("1");
             Affichage.afficher(this.m_pers.getNom() + " a attqué " + cible.getEspece().getNomEspece());
         }
