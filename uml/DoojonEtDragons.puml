@@ -653,6 +653,7 @@ package fonctionnement {
             +getNbMonstre():Integer
             +getJoueurs():Personnage[*]
             +getMonstreByNom():Monstre
+            +getMonstres():Monstre[*]
         }
 
         'Des coordonnées n'existent pas sans carte ; 1 carte a 1x des coordonnées, et les coordonnées ne sont associées qu'à 1 carte
@@ -740,6 +741,8 @@ package fonctionnement {
             +getAffichage():String
             +getMonstre():Monstre
             +getCaseVide():String
+            +getPersonnage():Personnage
+            +getItem():Item
 
             +setX(newX:Integer)
             +setY(newY:Integer)
@@ -754,6 +757,7 @@ package fonctionnement {
 
         class CoordonneesItem extends Coordonnees {
             +<<create>> CoordonneesItem(x:Integer, y:Integer):CoordonneesItem
+            +<<create>> CoordonneesItem(x:Integern y:Integer, i:Integer):CoordonneesItem
             +getItem():Item
         }
         CoordonneesItem "1" o--> "1-m_item" gameContent.items.Item: is part of >
