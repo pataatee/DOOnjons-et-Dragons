@@ -75,7 +75,7 @@ package gameContent
 
                 +getNom():String
                 +getClasseArmure():Integer
-                
+
                 +avecArticleDefini():String
                 +avecArticleIndefini():String
                 +avecArticlePartitif():String
