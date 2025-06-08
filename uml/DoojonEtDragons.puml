@@ -550,6 +550,8 @@ package fonctionnement {
             + {static} demanderQuiAttaquer()
             + {static} afficherArmes(Personnage pers)
             + {static} plusDInfos()
+            + {static} afficherAllMonstres(monstres:Monstre[*])
+            + {static} afficherLstItems(lst:String[*])
         }
 
         class AfficherDsMonstre {
