@@ -34,7 +34,7 @@ public class AffichageCreateMonstre {
     }
 
     public static void demanderClasseArmure() {
-        System.out.println("Classe 'armure du monstre ?");
+        System.out.println("Classe d'armure du monstre ?");
     }
 
     public static void demanderVitesse() {

@@ -112,8 +112,8 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
-        m_monstres = new Monstre[monstres];
-        for (int i = 0; i < monstres; i++) {
+        m_monstres = new Monstre[m_nbMonstre];
+        for (int i = 0; i < m_nbMonstre; i++) {
             Monstre monstre = createRandomMonstres();
             int x, y;
             do {
