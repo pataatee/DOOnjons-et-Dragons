@@ -18,13 +18,10 @@ TODO big brouillon
 
 
 Finir Arme magique -> Lucie
-Attaquer -> Manon
-Creation Monstre -> Manon
 Finir narration par le Mdj (1 - Attaquer, 6-1 - Guerison) -> Lucie
 Mdj puisse choisir l'item a mettre sur une caseItem -> Lucie
 
-mdj -> déplacer un monstre ou un personnage par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il peut infliger des dégâts à un joueur ou un monstre,
-ajouter des obstacles dans le donjon
+mdj -> déplacer un monstre ou un personnage par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il peut infliger des dégâts à un joueur ou un monstr
 
 CHANGER TOUS LES INSTANCEOF
 verif que le nom du perso n'est pas déjà pris
