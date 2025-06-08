@@ -15,7 +15,7 @@ public class De {
         int total = 0;
         Random rand = new Random();
         for (int i = 0; i<m_nbdedes; i++){
-            total += rand.nextInt(m_faces+1);
+            total += rand.nextInt(m_faces) + 1;
         }
         return total;
     }

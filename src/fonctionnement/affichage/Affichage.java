@@ -147,11 +147,26 @@ public class Affichage {
             for (int j = 0; j < map[i].length; j++) {
                 Monstre m = map[i][j].getMonstre();
                 if (m != null) {
-                    System.out.println(m.getEspece().getNomEspece() + " | Coordonnées : x = " + i + ", y = " + j);
+                    String aAfficher = "\n\n" + m.toString();
+                    System.out.println(aAfficher);
                 }
             }
         }
     }
+
+    public static void afficherMonstres(Coordonnees[][] map) {
+        System.out.println("Monstres :\n");
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                Monstre m = map[i][j].getMonstre();
+                if (m != null) {
+                    String aAfficher = "Nom : " + m.getEspece().getNomEspece() + " | Coordonnées : (" + i + "," + j + ")";
+                    System.out.println(aAfficher);
+                }
+            }
+        }
+    }
+
 
     public static void demanderQuiAttaquer() {
         System.out.println("Qui souhaitez vous attaquer ?");
@@ -168,4 +183,6 @@ public class Affichage {
         System.out.println("Plus d'infos (+)");
     }
 
+    //TODO possibilite de selectionner un profil par defaut de monstre meme qd pas random
+    //TODO modif euh pour que les co s'affichent correctement qd on montre les co des montres p ex
 }
