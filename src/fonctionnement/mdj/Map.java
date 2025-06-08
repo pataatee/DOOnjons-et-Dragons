@@ -112,15 +112,16 @@ public class Map {
         }
         // placer monstres
         for (int i = 0; i < monstres; i++) {
-            int x = random.nextInt(0, this.m_longueur);
-            int y = random.nextInt(0, this.m_largeur);
-            if (m_carte[x][y] == null) {
-                Monstre monstre = new Monstre(new CaracteristiqueMonstre(1, 1, 1, 1, 1, 1));
-                monstre.setPosition(x,y);
-                m_carte[x][y] = new CoordonneesMonstre(x,y, monstre);
-            } else {
-                i--; // Si la case est déjà occupée, on recommence
-            }
+            Monstre monstre = createRandomMonstres();
+            int x, y;
+            do {
+                x = random.nextInt(0, this.m_longueur);
+                y = random.nextInt(0, this.m_largeur);
+            } while (m_carte[x][y] != null);
+
+            monstre.setPosition(x, y);
+            m_carte[x][y] = new CoordonneesMonstre(x, y, monstre);
+            m_monstres[i] = monstre;
         }
 
         // placer trésors
