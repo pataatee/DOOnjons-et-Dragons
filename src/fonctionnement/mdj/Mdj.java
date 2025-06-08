@@ -16,6 +16,7 @@ import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
@@ -46,6 +47,12 @@ public class Mdj {
                     if (m_joueurs[j-1].getNom().equals(nom)){
                         yadeja = true;
                     }
+                }
+                if (yadeja){
+                    Affichage.afficherErreur("ce nom est déjà pris");
+                }
+                if (nom.length()<3){
+                    Affichage.afficherErreur("le nom du personnage doit contenir au minimum 3 caractères");
                 }
             }
             while (nom.length()<3||yadeja);
@@ -142,11 +149,36 @@ public class Mdj {
         this.m_nbMonstres = 0;
         this.m_nbTresors = 0;
 
+        Personnage[] copy = new Personnage[m_nbJoueurs];
+
+        for (int i = 0; i < m_nbJoueurs; i++) {
+            int max = 0;
+            Personnage perso = null;
+
+            for (Personnage p : m_joueurs) {
+                boolean yest = false;
+
+                for (Personnage p2 : copy) {
+                    if (p2 != null && p.getNom().equals(p2.getNom())) {
+                        yest = true;
+                        break;
+                    }
+                }
+
+                if (p.getInitiative() > max && !yest) {
+                    max = p.getInitiative();
+                    perso = p;
+                }
+            }
+
+            copy[i] = perso;
+        }
+
         Affichage.afficher("La partie peut commencer !");
         int tour = 0;
         while (!verify_morts()) {
             for (int pers = 0; pers < m_nbJoueurs; pers++) {
-                Tour t = new Tour(this.m_joueurs[pers], tour, this.m_map); //on lance le tour pour chaque joueur
+                Tour t = new Tour(copy[pers], tour, this.m_map); //on lance le tour pour chaque joueur
                 if (t.getStatut() != 0) {
                     return;
                 }
@@ -172,7 +204,17 @@ public class Mdj {
 
     public void tourMdj(int tour){
         Affichage.afficherTour(tour,this.m_map, m_MdjActions);
-        int numaction = RecupInfos.scanInt();
+        String str= RecupInfos.scanString();
+        int numaction = -1;
+        if (str.equals("")){
+            return;
+        }
+        try {
+            numaction = Integer.parseInt(str.trim()); // Convertit seulement si c’est bien un entier
+        } catch (NumberFormatException e) {
+            Affichage.afficherErreur("Entrée invalide. Veuillez saisir un nombre entier ou rien.");
+            tourMdj(tour); //
+        }
         if (numaction> 4 || numaction <= 0){
             Affichage.afficherErreur("Vous devez saisir un nombre entre 1 et 3");
             tourMdj(tour);

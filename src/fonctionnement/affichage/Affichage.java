@@ -114,7 +114,7 @@ public class Affichage {
 
     public static void afficherTour(int tour, Map map, String[] actions){
         afficher("---------------------------------------------------");
-        afficher("                Tour n°" + tour);
+        afficher("                Tour n°" + (tour+1));
         afficher("               le maître du jeu joue               ");
         afficher("---------------------------------------------------");
         afficher("");

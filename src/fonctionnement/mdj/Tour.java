@@ -131,9 +131,13 @@ public class Tour {
                     }
                     else{
                         m_actionsprecedentes.add(perso.getNom());
+                        int pvsDeBase = perso.getPvs();
                         Guerison guer = (Guerison) this.m_pers.getSorts()[m_guerison].get();
                         m_nbActions--;
                         guer.lancer(perso);
+                        int pvsApres = perso.getPvs()-pvsDeBase;
+                        m_actionsprecedentes.add(String.valueOf(pvsApres));
+                        Affichage.afficher(perso.getNom() + " a gagné "+pvsApres+" Pvs !");
                     }
 
                 } else if (sort == 2) {
@@ -493,7 +497,7 @@ public class Tour {
                 case "6":
                     switch (m_actionsprecedentes.get(1)) {
                         case "1":
-                            Affichage.afficher("Vous avez lancé le sort Guérison.");
+                            Affichage.afficher("Vous avez lancé le sort Guérison et "+m_actionsprecedentes.get(2)+ " a gagné "+m_actionsprecedentes.get(3)+" Pvs.");
                             break;
                         case "2":
                             Affichage.afficher("Vous avez lancé le sort Boogie Woogie.");
