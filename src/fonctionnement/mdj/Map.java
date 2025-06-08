@@ -291,10 +291,10 @@ public class Map {
         } while (m_nbMonstre < 0 || m_nbMonstre > (m_longueur * m_largeur)-m_nbObstacles-m_nbJoueurs-m_nbTresors);
 
         createMonstre();
-
         int [] CoordMonstre;
         for (int i = 0; i < m_nbMonstre; i++) {
             do {
+                Affichage.afficher("où voulez vous placer le monstre ?");
                 CoordMonstre = RecupInfos.scanCoord(this);
                 if (CoordMonstre[0] < 0 || CoordMonstre[0] >= m_longueur || CoordMonstre[1] < 0 || CoordMonstre[1] >= m_largeur) {
                     AffichageCarte.CoordInvalide();
@@ -316,7 +316,9 @@ public class Map {
     public void placerPerso() {
         int [] CoordPerso;
         for (int i = 0; i < m_nbJoueurs; i++) {
+
             do {
+                Affichage.afficher("où voulez vous placer "+m_joueurs[i].getNom()+" ?");
                 CoordPerso = RecupInfos.scanCoord(this);
                 if (CoordPerso[0] < 0 || CoordPerso[0] > m_longueur || CoordPerso[1] < 0 || CoordPerso[1] > m_largeur) {
                     AffichageCarte.CoordInvalide();
