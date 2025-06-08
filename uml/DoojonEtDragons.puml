@@ -204,6 +204,8 @@ package gameContent
         package perso {
             class Personnage extends gameContent.personnages.Entite {
                 -m_nom:String
+                -m_pvsMax:Integer
+                -m_sorts:Optional[*]
 
                 +<<create>> Personnage(nom:String, race:Race, classe:Classe):Personnage
 
@@ -223,9 +225,13 @@ package gameContent
                 +setEquipementArme(Arme arme)
                 +setEquipementArmure(Armure armure)
                 +setInventaire(Armurerie inventaire)
+
                 +attaquer(entite:Entite):Boolean
                 +estAttaquePar(agresseur:Monstre):Boolean
                 +estAttaquePar(agresseur:Personnage):Boolean
+                +equiperArme()
+                +equiperArmure()
+                +estPasMort():Boolean
 
             }
 
@@ -250,11 +256,7 @@ package gameContent
             class CaracteristiquePersonnage extends gameContent.personnages.Caracteristique {
                 -m_vitesse:Integer
 
-                +<<create>> CaracteristiquePersonnage(pv:Integer, force:Integer, dexterite:Integer, initiav=tive:Integer, vitesse:Integer):CaracteristiquePersonnage
-
-                +getVitesse():Integer
-                +modifyVitesse(vitesse:Integer)
-                +bonusVitesse(bonus:Integer)
+                +<<create>> CaracteristiquePersonnage(pv:Integer, force:Integer, dexterite:Integer, initiative:Integer, vitesse:Integer):CaracteristiquePersonnage
             }
 
 
