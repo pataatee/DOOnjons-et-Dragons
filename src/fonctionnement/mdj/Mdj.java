@@ -103,10 +103,10 @@ public class Mdj {
         }
 
     }
-    public Map mdj_map_dimensions(){
+        public Map mdj_map_dimensions(){
         Map map;
         Affichage.afficher("Voulez vous des dimensions random pour votre map ?");
-        char ouinon = Affichage.scanOuiNon();
+        char ouinon = RecupInfos.scanOuiNon();
         if (ouinon == 'O'){
             map = new Map(this.m_nbJoueurs, this.m_joueurs); //on crée la map avec des dimensions random
         }

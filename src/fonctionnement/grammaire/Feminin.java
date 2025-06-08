@@ -5,25 +5,25 @@ public class Feminin implements Genre
     @Override
     public String getArticleDefini()
     {
-        return "la";
+        return "la ";
     }
 
     @Override
     public String getArticleIndefini()
     {
-        return "une";
+        return "une ";
     }
 
     @Override
     public String getArticlePartitif()
     {
-        return "de la";
+        return "de la ";
     }
 
     @Override
     public String getArticleDemonstratif()
     {
-        return "cette";
+        return "cette ";
     }
 
     @Override

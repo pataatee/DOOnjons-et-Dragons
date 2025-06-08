@@ -5,25 +5,25 @@ public class Masculin implements Genre
     @Override
     public String getArticleDefini()
     {
-        return "le";
+        return "le ";
     }
 
     @Override
     public String getArticleIndefini()
     {
-        return "un";
+        return "un ";
     }
 
     @Override
     public String getArticlePartitif()
     {
-        return "du";
+        return "du ";
     }
 
     @Override
     public String getArticleDemonstratif()
     {
-        return "ce";
+        return "ce ";
     }
 
     @Override
