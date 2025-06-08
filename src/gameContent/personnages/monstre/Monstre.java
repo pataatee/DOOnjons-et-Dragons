@@ -122,10 +122,10 @@ public class Monstre extends Entite {
 
             pvRestants = (Math.max(0, pvRestants));
             this.m_caracteristique.modifyPvs(pvRestants);
-            afficherPvRestantsPerso(pvRestants);
+            AfficherDsMonstre.afficherPvRestantsMonstre(pvRestants);
 
             if (pvRestants <= 0) {
-                afficherPersonnageVaincu();
+                AfficherDsMonstre.afficherMonstreVaincu();
             }
 
             System.out.println("[DEBUG] PV avant = " + (pvRestants + degats));

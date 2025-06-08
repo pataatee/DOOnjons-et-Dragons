@@ -2,6 +2,7 @@ package fonctionnement.affichage;
 
 import fonctionnement.coordonnees.Coordonnees;
 import fonctionnement.utilisateur.RecupInfos;
+import gameContent.items.Item;
 import gameContent.items.armes.Arme;
 import gameContent.items.armures.Armure;
 import gameContent.personnages.monstre.Monstre;
