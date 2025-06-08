@@ -507,6 +507,8 @@ package fonctionnement {
             -m_longueur:Integer
             -m_largeur:Integer
             -m_nbMonstre:Integer
+            -m_nbTresors:Integer
+            -m_nbObstacles:Integer
 
             +<<create>> Map(longueur:Integer, largeur:Integer, nbJoueurs:Integer, joueurs:Personnage[*]):Map
             +<<create>> Map(nbJoueurs:Integer, joueurs:Personnage[*]):Map
@@ -515,21 +517,30 @@ package fonctionnement {
             +redemanderMap()
             +initMap()
             +createMap()
+            +createRandomMap()
+
             +placerPerso();
             +placerMonstre();
             +placerObstacle();
             +placerTresor();
-            +createRandomMap()
-            +setCase(i:Integer, j:Integer, co:Coordonnees)
+
+            +createRandomMonstres():Monstre
+            +createMonstre():Monstre
+
             +seDeplacer()
-            +demandeCaractere():char
             +Deplacement():Boolean
+            +demandeCaractere():char
+
+            +setCase(i:Integer, j:Integer, co:Coordonnees)
+
 
             +getCarte():Integer[15:25]
             +getLongueur():Integer
             +getLargeur():Integer
             +getCase():Coordonnees
             +getNbMonstre():Integer
+            +getJoueurs():Personnage[*]
+            +getMonstreByNom():Monstre
         }
 
         'Des coordonnées n'existent pas sans carte ; 1 carte a 1x des coordonnées, et les coordonnées ne sont associées qu'à 1 carte
@@ -538,10 +549,13 @@ package fonctionnement {
         'Perso existe sans carte ; map peut avoir 0 perso mais perso peut qu'etre sur 1 map
         Map "0..*" o--> "1-m_joueurs" gameContent.personnages.perso.Personnage: is part of >
 
+        Map "0..*" o--> "1-m_monstres" gameContent.personnages.monstre.Monstre: is part of >
+
         class Mdj{
             -m_nbJoueurs:Integer
             -m_nbMonstres:Integer
             -m_nbTresors:Integer
+            -m_mdjActions:String[*]
 
             +<<create>> Mdj():Mdj
 
@@ -552,8 +566,9 @@ package fonctionnement {
             +chooseRace():Race
             +chooseClasse():Classe
             +mdjMapDimensions():Map
-            +tours()
             +verifyMorts():Boolean
+            +donjon()
+            +tourMdj(tour:Integer)
         }
 
         Mdj "0" *--> "1-m_map" fonctionnement.mdj.Map: possède une >
@@ -567,20 +582,37 @@ package fonctionnement {
             -m_nbActions:Integer
             -m_actions:String[*]
             -m_finTour:Boolean
+            -m_actionsPrecedentes:String[*]
 
-            +<<create>> Tour():Tour
+            +<<create>> Tour(pers:Personnage):Tour
             +<<create>> Tour(pers:Personnage, tour:Integer, map:Map):Tour
 
-            +jouerTour()
+            +jouerTour(i:Integer)
             +choisirEquipement()
             +caseTresor(coord:Coordonnees):Boolean
+            +initialiserActions()
+            +sortsDisponibles(sorts:Optional[*]):Boolean
+            +utiliserAttak()
+            +seDeplacer()
+            +Deplacement(posActuelle:Coordonnees, posVoulue:Coordonnees):Boolean
+            +initBoogieWoogie()
+            +initArmeMagique()
+            +anciennesActions()
 
             +getActions():String[*]
+            +getStatut():Integer
+            +getListActions():Integer
         }
 
         Tour "0" o--> "1-m_perso" gameContent.personnages.perso.Personnage: fait jouer un >
         Tour "1" o--> "1-m_map" fonctionnement.mdj.Map: est réalisé sur une >
 
+        class CreerEntites {
+            + {static} createCaracMonstre():CaracteristiqueMonstre
+            + {static} createAttaqueMonstre():AttaqueMonstre
+            + {static} createEspece(especeMonstre:String, num:Integer):Espece
+            + {static} createEspece(especeMonstre:String):Espece
+        }
 
     }
 
