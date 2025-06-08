@@ -5,8 +5,7 @@ import gameContent.items.armes.Arme;
 import gameContent.personnages.*;
 import gameContent.personnages.perso.Personnage;
 
-import static fonctionnement.affichage.AfficherDsPersonnage.afficherPersonnageVaincu;
-import static fonctionnement.affichage.AfficherDsPersonnage.afficherPvRestantsPerso;
+import static fonctionnement.affichage.AfficherDsPersonnage.*;
 
 public class Monstre extends Entite {
     private Espece m_espece;
@@ -25,6 +24,12 @@ public class Monstre extends Entite {
 
     public Monstre(CaracteristiqueMonstre caracteristique) {
         this(caracteristique, new AttaqueMonstre("rafale de feu", 5, 50));
+    }
+
+    public Monstre(Monstre aCopier) {
+        this.m_attaque = aCopier.getAttaque();
+        this.m_caracteristique = aCopier.getCaracteristiques();
+        this.m_espece = aCopier.getEspece();
     }
 
     public CaracteristiqueMonstre getCaracteristiques() {
@@ -143,11 +148,72 @@ public class Monstre extends Entite {
         return m_espece.toString() + " | Coordonnées : (" + this.getX() + "," + this.getY() + ")\n\nCaracteristiques : \n" + m_caracteristique.toString() + "\n\nAttaque : \n" + m_attaque.toString();
     }
 
+    public String toStringSansCo() {
+        return m_espece.toString() + "\n\nCaracteristiques : \n" + m_caracteristique.toString() + "\n\nAttaque : \n" + m_attaque.toString();
+    }
+
     //PROFILS PAR DEFAUT
     public static final Monstre dragon = new Monstre(Espece.dragon, CaracteristiqueMonstre.carDragon, AttaqueMonstre.Boule_de_feu);
     public static final Monstre rat = new Monstre(Espece.rat, CaracteristiqueMonstre.carRat, AttaqueMonstre.Croc_empoisonne);
     public static final Monstre loupGarou = new Monstre(Espece.loupGarou, CaracteristiqueMonstre.c3, AttaqueMonstre.Griffure_dechirante);
     public static final Monstre goblin = new Monstre(Espece.goblin, CaracteristiqueMonstre.c4, AttaqueMonstre.Attaque_furtive);
     public static final Monstre troll = new Monstre(Espece.troll, CaracteristiqueMonstre.c5, AttaqueMonstre.Coup_de_tete);
+
+
+
+
+
+
+    public static Monstre getMonstreByNom(String nom) {
+        // exemple simple, tu peux adapter
+        switch (nom.toLowerCase()) {
+            case "dragon": return Monstre.dragon;
+            case "rat": return Monstre.rat;
+            case "loupgarou": return Monstre.loupGarou;
+            case "goblin": return Monstre.goblin;
+            case "troll": return Monstre.troll;
+            default: return null;
+        }
+    }
+
+    public static Espece getEspeceByNom(String nom) {
+        switch (nom.toLowerCase()) {
+            case "dragon": return Espece.dragon;
+            case "rat": return Espece.rat;
+            case "loupgarou": return Espece.loupGarou;
+            case "goblin": return Espece.goblin;
+            case "troll": return Espece.troll;
+            case "ogre": return Espece.ogre;
+            default: return null;
+        }
+    }
+
+    public static AttaqueMonstre getAttaqueByNom(String nom) {
+        switch (nom.toLowerCase()) {
+            case "boule de feu": return AttaqueMonstre.Boule_de_feu;
+            case "croc empoisonne": return AttaqueMonstre.Croc_empoisonne;
+            case "griffure dechirante": return AttaqueMonstre.Griffure_dechirante;
+            case "attaque furtive": return AttaqueMonstre.Attaque_furtive;
+            case "coup de tete": return AttaqueMonstre.Coup_de_tete;
+            case "poison": return  AttaqueMonstre.Poison;
+            default: return null;
+        }
+    }
+
+    public static CaracteristiqueMonstre getCaracByNom(String nom) {
+        switch (nom.toLowerCase()) {
+            case "cardragon": return CaracteristiqueMonstre.carDragon;
+            case "carrat": return CaracteristiqueMonstre.carRat;
+            case "c1": return CaracteristiqueMonstre.c1;
+            case "c2": return CaracteristiqueMonstre.c2;
+            case "c3": return CaracteristiqueMonstre.c3;
+            case "c4": return CaracteristiqueMonstre.c4;
+            case "c5": return CaracteristiqueMonstre.c5;
+            default: return null;
+        }
+    }
+
+
+
 
 }

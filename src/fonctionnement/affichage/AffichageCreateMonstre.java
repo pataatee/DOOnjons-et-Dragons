@@ -40,4 +40,16 @@ public class AffichageCreateMonstre {
     public static void demanderVitesse() {
         System.out.println("Vitesse du monstre ?");
     }
+
+    public static void demanderEspecePredefinie() {
+        System.out.println("Voulez vous utiliser une espèce prédéfinie ? ([+] Plus d'infos / Oui / Non");
+    }
+
+    public static void demanderAttaquePredefinie() {
+        System.out.println("Voulez vous utiliser une attaque prédéfinie ? ([+] Plus d'infos / Oui / Non");
+    }
+
+    public static void demanderCaracPredefinies() {
+        System.out.println("Voulez vous utiliser des caractéristiques prédéfinies ? ([+] Plus d'infos / Oui / Non");
+    }
 }
