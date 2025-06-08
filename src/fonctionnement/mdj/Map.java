@@ -3,6 +3,7 @@ package fonctionnement.mdj;
 import fonctionnement.affichage.Affichage;
 import fonctionnement.affichage.AffichageCarte;
 import fonctionnement.affichage.AffichageCreateMonstre;
+import fonctionnement.affichage.AfficherDsMonstre;
 import fonctionnement.coordonnees.*;
 import fonctionnement.de.De;
 import fonctionnement.utilisateur.RecupInfos;
@@ -315,40 +316,161 @@ public class Map {
     }
 
 
+
+    // je m'excuse pour cette fonction je l'ai modifiée alors que y'avait pas assez de temps alors c'est tout moche ;-;
+    // pas le temps de remodifier pour que ce soit clean malheureusement :')
+
     public void createMonstre() {
 
         this.m_monstres = new Monstre[this.m_nbMonstre];
 
         for (int i = 0; i < m_nbMonstre; i++) {
 
+            Espece espece = null;
+            AttaqueMonstre atk = null;
+            CaracteristiqueMonstre carac = null;
+
 
             // pouf on crée l'espèce du monstre
             String especeMonstre;
-            AffichageCreateMonstre.demanderEspece();
-            especeMonstre = RecupInfos.scanString();
-            Espece espece = null;
-            boolean existeEspece = false;
-            for (int j = 0; j < i; j++) {
-                if (m_monstres[j] != null && especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
-                    espece = CreerEntites.createEspece(especeMonstre, j);
-                    existeEspece = true;
-                    break;
+
+            while (true) {
+                // laisser possibilité de faire monstre random
+                AffichageCarte.creerMonstreExistantOuPas();
+                String temp = RecupInfos.scanString();
+
+
+                if (temp.equalsIgnoreCase("+")) {
+                    AfficherDsMonstre.possibilitesMonstre();
+                    continue;
                 }
+                else if (temp.equalsIgnoreCase("oui")) {
+                    AffichageCarte.afficherMonstresPossibles();
+                    String monstre = RecupInfos.scanString();
+                    Monstre m = Monstre.getMonstreByNom(monstre);
+                    if (m != null) {
+                        this.m_monstres[i] = new Monstre(m);
+                        break; // pr skip le reste et retourner au debut du for, faire la prochaine bcl
+                    }
+                    // verif que le nom du monstre existe bien ds la liste
+                }
+                else if (temp.equalsIgnoreCase("non")) {
+
+                    // on doit creer monstre custom
+
+                    // ESPECE
+                    while (true) {
+                        AffichageCreateMonstre.demanderEspecePredefinie();
+                        String t = RecupInfos.scanString();
+                        if (t.equalsIgnoreCase("+")) {
+                            AfficherDsMonstre.possibilitesEspece();
+                            continue;
+
+                        } else if (t.equalsIgnoreCase("oui")) {
+                            AffichageCarte.afficherEspecesPossibles();
+                            // string if == un truc qui existe ds la liste boum espece = ça
+                            String nomEspece = RecupInfos.scanString();
+                            espece = Monstre.getEspeceByNom(nomEspece);
+                            if (espece == null) {
+                                Affichage.afficherErreur("Erreur : espèce inconnue");
+                                continue;
+                            }
+                        } else if (t.equalsIgnoreCase("Non")) {
+                            AffichageCreateMonstre.demanderEspece();
+                            especeMonstre = RecupInfos.scanString();
+                            boolean existeEspece = false;
+                            for (int j = 0; j < i; j++) {
+                                if (m_monstres[j] != null && especeMonstre.trim().equals(m_monstres[j].getEspece().getNomEspece().trim())) { // c barbare, rajouter des getters pr que ca le soit moins i guess
+                                    espece = CreerEntites.createEspece(especeMonstre, j);
+                                    existeEspece = true;
+                                    break;
+                                }
+                            }
+                            if (!existeEspece) {
+                                espece = CreerEntites.createEspece(especeMonstre);
+                            }
+                        }
+                        else {
+                            Affichage.afficherErreur("Erreur : réponse invalide.");
+                            continue;
+                        }
+                        break;
+                    }
+
+                    // ATTAQUE
+                    while (true) {
+                        AffichageCreateMonstre.demanderAttaquePredefinie();
+                        String t = RecupInfos.scanString();
+                        if (t.equalsIgnoreCase("+")) {
+                            AfficherDsMonstre.possibilitesAttaque();
+                            continue;
+                        } else if (t.equalsIgnoreCase("oui")) {
+                            AffichageCarte.afficherAttaquesPossibles();
+                            String nomAtk = RecupInfos.scanString();
+                            atk = Monstre.getAttaqueByNom(nomAtk);
+                            if (atk == null) {
+                                Affichage.afficherErreur("Erreur : attaque inexistante");
+                                continue;
+                            }
+                            // if == un truc qui existe attaque = ça
+                        } else if (t.equalsIgnoreCase("non")) {
+                            // pouf on crée euh l'attaque du monstre
+                            atk = CreerEntites.createAttaqueMonstre();
+                        }
+                        else {
+                            Affichage.afficherErreur("Erreur : réponse invalide");
+                            continue;
+                        }
+                        break;
+                    }
+
+                    while (true) {
+
+
+                        AffichageCreateMonstre.demanderCaracPredefinies();
+                        String t = RecupInfos.scanString();
+                        if (t.equalsIgnoreCase("+")) {
+                            AfficherDsMonstre.possibilitesCarac();
+                            continue;
+                        } else if (t.equalsIgnoreCase("oui")) {
+                            AffichageCarte.afficherCaracPossibles();
+                            String nomCarac = RecupInfos.scanString();
+                            carac = Monstre.getCaracByNom(nomCarac);
+                            if (carac == null) {
+                                Affichage.afficherErreur("Erreur : caractéristiques invalides");
+                                continue;
+                            }
+                            // if == un truc qui existe attaque = ça
+                        } else if (t.equalsIgnoreCase("non")) {
+                            // caracteristiques du monstre
+                            carac = CreerEntites.createCaracMonstre();
+                        }
+                        else {
+                            Affichage.afficherErreur("Erreur : réponse invalide");
+                            continue;
+                        }
+                        break;
+                    }
+
+                    if (espece != null && atk != null && carac != null) {
+                        Monstre monstre = new Monstre(espece, carac, atk);
+                        this.m_monstres[i] = monstre;
+                        Affichage.afficher("Monstre créé avec succès !");
+                        break;  // Fin de la création pour ce monstre
+                    } else {
+                        Affichage.afficherErreur("Impossible de créer le monstre, données manquantes.");
+                        continue;
+                    }
+
+                }
+                else {
+                    Affichage.afficherErreur("Erreur : réponse invalide");
+                    continue;
+                }
+
+
+
             }
-            if (!existeEspece) {
-                espece = CreerEntites.createEspece(especeMonstre);
-            }
-
-            // pouf on crée euh l'attaque du monstre
-            AttaqueMonstre atk = CreerEntites.createAttaqueMonstre();
-
-            // caracteristiques du monstre
-            CaracteristiqueMonstre carac = CreerEntites.createCaracMonstre();
-
-            Monstre monstre = new Monstre(espece, carac, atk);
-
-            this.m_monstres[i] = monstre;
-
 
         }
     }
