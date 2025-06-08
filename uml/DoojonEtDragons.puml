@@ -590,16 +590,22 @@ package fonctionnement {
             -m_y:Integer
             -m_affichage:Char[*]
             +<<create>> Coordonnes(x:Integer, y:Integer, affichage;Char[*]):Coordonnees
+
             +getX():Integer
             +getY():Integer
             +getAffichage():String
-            +setX(newX:Integer):Integer
-            +setY(newY:Integer):Integer
+            +getMonstre():Monstre
+            +getCaseVide():String
+
+            +setX(newX:Integer)
+            +setY(newY:Integer)
+
             +toString():String
         }
 
         class CoordonneesCaseVide extends Coordonnees {
             +<<create>> CoordonneesCaseVide(x:Integer, y:Integer):CoordonneesCaseVide
+            +getCaseVide():String
         }
 
         class CoordonneesItem extends Coordonnees {
@@ -611,6 +617,7 @@ package fonctionnement {
 
         class CoordonneesMonstre extends Coordonnees {
             +<<create>> CoordonneesMonstre(x:Integer, y:Integer):CoordonneesMonstre
+            +getMonstre():Monstre
         }
         CoordonneesMonstre "1" *--> "1-m_monstre" gameContent.personnages.monstre.Monstre: belongs to >
 
@@ -620,6 +627,7 @@ package fonctionnement {
 
         class CoordonneesPersonnage extends Coordonnees {
             +<<create>> CoordonneesPersonnage(x:Integer, y:Integer, personnage:Personnage):CoordonneesPersonnage
+            +getPersonnage():Personnage
         }
         CoordonneesPersonnage "1" *--> "1-m_personnage" gameContent.personnages.perso.Personnage: belongs to >
     }
