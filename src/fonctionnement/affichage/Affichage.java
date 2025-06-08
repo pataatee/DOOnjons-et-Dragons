@@ -62,9 +62,10 @@ public class Affichage {
 
 
 
-    public static void afficherTour(int tour, Personnage pers, Map map){
+    public static void afficherTour(int tour,int action, Personnage pers, Map map){
         afficher("---------------------------------------------------");
         afficher("                Tour n°" + tour);
+        afficher("                Action n°"+action);
         afficher("             Personnage : " + pers.getNom());
         afficher("---------------------------------------------------");
         afficher("");
@@ -99,6 +100,18 @@ public class Affichage {
         afficherActions(truc.getActions(), truc.getListActions());
     }
 
+    public static void afficherTour(int tour, Map map, String[] actions){
+        afficher("---------------------------------------------------");
+        afficher("                Tour n°" + tour);
+        afficher("               le maître du jeu joue               ");
+        afficher("---------------------------------------------------");
+        afficher("");
+        afficherMap(map);
+        afficher("");
+        afficherActions(actions);
+
+    }
+
     public static void afficherInventaire(Personnage pers){
         String inventaire = "";
         for (Item item : pers.getInventaireItem()){
@@ -121,7 +134,14 @@ public class Affichage {
         }
     }
 
-    public static void afficherDetailsMonstres(Coordonnees[][] map) {
+    public static void afficherActions(String[] actions) {
+        afficher("Actions possibles : ");
+        for (int i = 0; i < actions.length ; i++) {
+            afficher((i + 1) + " - " + actions[i]);
+        }
+    }
+
+    public static void afficherMonstres(Coordonnees[][] map) {
         System.out.println("Monstres : ");
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -152,8 +172,12 @@ public class Affichage {
         System.out.println("Qui souhaitez vous attaquer ?");
     }
 
-    public static void plusDInfos() {
-        System.out.println("Plus d'infos (+)");
+    public static void afficherArmes(Personnage pers){
+        List<Arme> armes = pers.getInventaireArmes();
+        Affichage.afficher("Armes disponibles pour " + pers.getNom() + " :");
+        for (Arme item : armes) {
+            Affichage.afficher(" - " + item.getNom());
+        }
     }
 
     //TODO possibilite de selectionner un profil par defaut de monstre meme qd pas random

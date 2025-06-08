@@ -37,4 +37,5 @@ public abstract class Coordonnees {
     public Monstre getMonstre() {
         return null;
     }
+    public String getCaseVide(){return null;}
 }

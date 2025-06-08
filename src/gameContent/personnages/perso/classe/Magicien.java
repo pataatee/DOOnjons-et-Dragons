@@ -2,6 +2,9 @@ package gameContent.personnages.perso.classe;
 
 import gameContent.items.Armurerie;
 import gameContent.items.armes.*;
+import gameContent.sorts.*;
+
+import java.util.Optional;
 
 public class Magicien implements Classe {
 
@@ -37,5 +40,14 @@ public class Magicien implements Classe {
     @Override
     public Armurerie getArmurerie() {
         return this.m_armurerie;
+    }
+
+    @Override
+    public Optional<Sorts>[] definirSorts() {
+        Optional<Sorts>[] sorts = (Optional<Sorts>[]) new Optional[Sorts.m_nbSorts];
+        sorts[Sorts.m_guerison] = Optional.of(new Guerison());
+        sorts[Sorts.m_boogieWoogie] = Optional.of(new BoogieWoogie());
+        sorts[Sorts.m_armeMagique] = Optional.of(new ArmeMagique());
+        return sorts;
     }
 }

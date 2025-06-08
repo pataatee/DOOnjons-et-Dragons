@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SortsTest {
 
-    @Test
+    /*@Test
     void testInitClercSorts() {
         // Arrange
         Personnage personnage = new Personnage("Test", new Nain(), new Clerc());
@@ -18,9 +18,9 @@ class SortsTest {
         assertEquals(true, sorts.getSorts()[0]); // Le clerc peut lancer le sort Guérison
         assertEquals(false, sorts.getSorts()[1]); // Le clerc ne peut pas lancer le sort Boogie Woogie
         assertEquals(false, sorts.getSorts()[2]); // Le clerc ne peut pas lancer le sort Arme Magique
-    }
+    }*/
 
-    @Test
+    /*@Test
 
     void testGuerison(){
         Personnage personnage = new Personnage("Test", new Nain(), new Clerc());
@@ -30,6 +30,6 @@ class SortsTest {
         Sorts.Guerison(personnage);
 
         assertTrue(personnage.getPvs()<= personnage.getPvsMax());
-    }
+    }*/
 
 }

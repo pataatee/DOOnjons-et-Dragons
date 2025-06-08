@@ -19,6 +19,7 @@ import gameContent.personnages.perso.race.Race;
 import gameContent.sorts.Sorts;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class Personnage extends Entite {
@@ -30,7 +31,7 @@ public class Personnage extends Entite {
     private Equipement m_equipements = new Equipement();
     private AttaquePersonnage m_attaque;
     private int m_pvsMax;
-    private boolean[] m_sorts;
+    private Optional<Sorts>[] m_sorts = (Optional<Sorts>[]) new Optional[Sorts.m_nbSorts];;
 
     public Personnage(String nom, Race race, Classe classe){
         this.m_nom = nom;
@@ -40,8 +41,7 @@ public class Personnage extends Entite {
         this.setInventaire(this.m_classe.getArmurerie());
         this.m_caracteristiques.bonusPvs(this.m_classe.getPvs());
         this.m_pvsMax = this.m_caracteristiques.getPvs();
-        Sorts sort = new Sorts(this.m_classe);
-        this.m_sorts = sort.getSorts(); // On initialise les sorts du personnage en fonction de sa classe
+        this.m_sorts = this.m_classe.definirSorts();
     }
 
     public void setEquipement_Arme(Arme arme){
@@ -81,7 +81,7 @@ public class Personnage extends Entite {
     public Classe getClasse(){
         return this.m_classe;
     }
-    public boolean[] getSorts() {
+    public Optional<Sorts>[] getSorts() {
         return this.m_sorts;
     }
 
@@ -218,10 +218,7 @@ public class Personnage extends Entite {
         Armurerie arm = this.getInventaire();
         List<Arme> armes = arm.getArmes();
         if (!armes.isEmpty()){
-            Affichage.afficher("Armes disponibles pour " + this.getNom() + " :");
-            for (Arme item : armes) {
-                Affichage.afficher(" - " + item.getNom());
-            }
+            Affichage.afficherArmes(this);
             Affichage.afficher("Selectionnez l'arme à équiper : ");
             String armeChoisie = RecupInfos.scanString();
             if (!armeChoisie.isEmpty()){
@@ -241,7 +238,6 @@ public class Personnage extends Entite {
                 }
             }
         }
-        Affichage.afficherInventaire(this);
     }
 
     public void equiperArmure() {
@@ -271,6 +267,13 @@ public class Personnage extends Entite {
                 }
             }
         }
+    }
+
+    public boolean estPasMort(){
+        if (getPvs() <= 0){
+            return false;
+        }
+        return true;
     }
 
 }

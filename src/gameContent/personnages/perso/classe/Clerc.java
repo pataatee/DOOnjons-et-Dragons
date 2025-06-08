@@ -3,6 +3,9 @@ package gameContent.personnages.perso.classe;
 import gameContent.items.Armurerie;
 import gameContent.items.armes.*;
 import gameContent.items.armures.ArmureLegere;
+import gameContent.sorts.*;
+
+import java.util.Optional;
 
 public class Clerc implements Classe {
 
@@ -40,5 +43,12 @@ public class Clerc implements Classe {
     @Override
     public Armurerie getArmurerie() {
         return this.m_armurerie;
+    }
+
+    @Override
+    public Optional<Sorts>[] definirSorts() {
+        Optional<Sorts>[] sorts = (Optional<Sorts>[]) new Optional[Sorts.m_nbSorts];
+        sorts[Sorts.m_guerison] = Optional.of(new Guerison());
+        return sorts;
     }
 }

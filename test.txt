@@ -28,6 +28,5 @@ ajouter des obstacles dans le donjon
 
 CHANGER TOUS LES INSTANCEOF
 verif que le nom du perso n'est pas déjà pris
-verif que le nom du perso fait pas moins de 3 caractères
 verif le nombre de joueurs
 
