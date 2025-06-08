@@ -673,10 +673,12 @@ package fonctionnement {
             +avecArticleDefini():String
             +avecArticleIndefini():String
             +avecArticlePartitif():String
-            
+
             +equals(other:Object):Boolean
             +toString():String
         }
+
+        Substantif "1" *--> "1-m_genre" fonctionnement.grammaire.Genre: possède >
     }
 
 }
