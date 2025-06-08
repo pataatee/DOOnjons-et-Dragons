@@ -62,9 +62,10 @@ public class Affichage {
 
 
 
-    public static void afficherTour(int tour, Personnage pers, Map map){
+    public static void afficherTour(int tour,int action, Personnage pers, Map map){
         afficher("---------------------------------------------------");
         afficher("                Tour n°" + tour);
+        afficher("                Action n°"+action);
         afficher("             Personnage : " + pers.getNom());
         afficher("---------------------------------------------------");
         afficher("");

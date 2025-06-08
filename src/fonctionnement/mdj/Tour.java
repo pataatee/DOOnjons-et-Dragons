@@ -43,7 +43,7 @@ public class Tour {
         this.m_finTour = false;
         while (!m_finTour && m_nbActions > 0) {
 
-            jouerTour();
+            jouerTour(4-m_nbActions);
 
         }
     }
@@ -71,8 +71,8 @@ public class Tour {
         return false; // aucun sort
     }
 
-    public void jouerTour() {
-        Affichage.afficherTour(this.m_tour, this.m_pers, this.m_map);
+    public void jouerTour(int i) {
+        Affichage.afficherTour(this.m_tour, i, this.m_pers, this.m_map);
         int numaction = RecupInfos.scanInt();
         if (numaction == 5) {
             m_actionsprecedentes.clear();
@@ -82,7 +82,7 @@ public class Tour {
         }
         if (numaction < 1 || numaction > m_actions.size()) {
             Affichage.afficherErreur("Action invalide. Veuillez choisir une action valide.");
-            jouerTour();
+            jouerTour(i);
         } else {
             String action = m_actions.get(numaction - 1);
             if (numaction == 2) {
@@ -127,7 +127,7 @@ public class Tour {
                     }
                     if (perso == null) {
                         Affichage.afficherErreur("Personnage non trouvé. Veuillez réessayer.");
-                        jouerTour();
+                        jouerTour(i);
                     }
                     else{
                         m_actionsprecedentes.add(perso.getNom());
@@ -139,7 +139,7 @@ public class Tour {
                     m_actionsprecedentes.add(String.valueOf(sort));
                     if (m_pers.getSorts()[m_boogieWoogie].isEmpty()) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Boogie Woogie, il n'est pas disponible pour votre personnage.");
-                        jouerTour();
+                        jouerTour(i);
                     }
                     else{
                         initBoogieWoogie();
@@ -149,7 +149,7 @@ public class Tour {
                     m_actionsprecedentes.add(String.valueOf(sort));
                     if (m_pers.getSorts()[m_armeMagique].isEmpty()) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Arme Magique, il n'est pas disponible pour votre personnage.");
-                        jouerTour();
+                        jouerTour(i);
                     }
                     else {
                         initArmeMagique();
@@ -159,7 +159,7 @@ public class Tour {
 
                 else {
                     Affichage.afficherErreur("Sort inconnu. Veuillez réessayer.");
-                    jouerTour();
+                    jouerTour(i);
                 }
             }
             if (numaction == 4) {
@@ -244,7 +244,6 @@ public class Tour {
             if (this.m_pers.getInventaireArmures().isEmpty()) {
                 Affichage.afficherErreur("Vous n'avez pas d'armures dans votre inventaire.");
                 m_nbActions++;
-                jouerTour();
             }
             else {
                 if (this.m_pers.getArmure_equipee() != null) {

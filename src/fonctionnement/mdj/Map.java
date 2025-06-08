@@ -31,6 +31,7 @@ public class Map {
         this.m_carte = new Coordonnees[this.m_longueur][this.m_largeur];
         this.m_nbJoueurs = nbjoueurs;
         this.m_joueurs = joueurs;
+        Affichage.afficher("la carte fait "+this.m_longueur+" cases de long et "+this.m_largeur+"cases de large");
         this.demanderMap();
     }
     public Map(int longueur, int largeur, int nbjoueurs, Personnage[] joueurs){
@@ -98,7 +99,7 @@ public class Map {
         Random random = new Random();
         initMap();
         int obstacles = random.nextInt((this.m_longueur * this.m_largeur) / 15, (this.m_longueur * this.m_largeur) / 10);
-        int monstres = random.nextInt(3, 5);
+        m_nbMonstre = random.nextInt(3, 5);
         int tresors = random.nextInt(2, 4);
         for (int i = 0; i < obstacles; i++) {
             int x = random.nextInt(0, this.m_longueur);
@@ -109,7 +110,7 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
-        for (int i = 0; i < monstres; i++) {
+        for (int i = 0; i < m_nbMonstre; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
             if (m_carte[x][y] == null) {

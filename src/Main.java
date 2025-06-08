@@ -5,5 +5,8 @@ public class Main {
         System.out.println("Bienvenue dans DOOnjon et Dragons");
 
         Mdj mdj = new Mdj();
+        while(!mdj.verify_morts()){
+            mdj.donjon();
+        }
     }
 }
