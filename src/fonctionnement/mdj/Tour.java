@@ -190,21 +190,10 @@ public class Tour {
         // ok donc là, on récup le nom du monstre qu'on veut attaquer.
         // ensuite dcp faut qu'on prenne le monstre associé aux co du nom, et qu'on utilise attaquer sur lui !
         Monstre cible = m_map.getMontreByNom(nomMonstre);
-        if (cible == null) {
-            Affichage.afficherErreur("Pas de monstre possédant ce nom !");
-            utiliserAttak();
-        }
-        else {
-            m_actionsprecedentes.add(cible.getEspece().getNomEspece());
-            System.out.println("[DEBUG] " + m_pers.getNom() + " attaque " + cible.getEspece().getNomEspece());
-            System.out.println("[DEBUG] PV avant attaque : Perso = " + m_pers.getPvs() + ", Monstre = " + cible.getCaracteristiques().getPvs());
-
-            m_pers.attaquer(cible);
-
-            System.out.println("[DEBUG] PV après attaque : Perso = " + m_pers.getPvs() + ", Monstre = " + cible.getCaracteristiques().getPvs());
-            m_actions.add("1");
-            Affichage.afficher(this.m_pers.getNom() + " a attqué " + cible.getEspece().getNomEspece());
-        }
+        m_actionsprecedentes.add(cible.getEspece().getNomEspece());
+        m_pers.attaquer(cible);
+        m_actions.add("1");
+        Affichage.afficher(this.m_pers.getNom() + " a attaqué " + cible.getEspece().getNomEspece());
     }
 
 

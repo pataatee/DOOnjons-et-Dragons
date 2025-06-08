@@ -141,7 +141,7 @@ public class Affichage {
         }
     }
 
-    public static void afficherMonstres(Coordonnees[][] map) {
+    public static void afficherDetailsMonstres(Coordonnees[][] map) {
         System.out.println("Monstres : ");
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -163,6 +163,9 @@ public class Affichage {
         for (Arme item : armes) {
             Affichage.afficher(" - " + item.getNom());
         }
+    }
+    public static void plusDInfos() {
+        System.out.println("Plus d'infos (+)");
     }
 
 }
