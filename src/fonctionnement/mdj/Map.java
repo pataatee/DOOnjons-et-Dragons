@@ -31,7 +31,7 @@ public class Map {
         this.m_carte = new Coordonnees[this.m_longueur][this.m_largeur];
         this.m_nbJoueurs = nbjoueurs;
         this.m_joueurs = joueurs;
-        Affichage.afficher("la carte fait "+this.m_longueur+" cases de long et "+this.m_largeur+"cases de large");
+        Affichage.afficher("la carte fait "+this.m_longueur+" cases de long et "+this.m_largeur+" cases de large");
         this.demanderMap();
     }
     public Map(int longueur, int largeur, int nbjoueurs, Personnage[] joueurs){

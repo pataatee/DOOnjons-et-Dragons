@@ -90,15 +90,15 @@ public class Tour {
                 m_actionsprecedentes.add("2");
                 afficherInventaire(this.m_pers);
                 choisirEquipement();
+                m_nbActions--;
 
             }
             if (numaction == 3) {
                 m_actionsprecedentes.clear();
                 m_actionsprecedentes.add("3");
                 seDeplacer();
+                m_nbActions--;
             }
-            Affichage.afficher("Action choisie : " + action);
-            m_nbActions--;
             if (numaction == 6) {
                 m_actionsprecedentes.clear();
                 m_actionsprecedentes.add("6");
@@ -132,29 +132,31 @@ public class Tour {
                     else{
                         m_actionsprecedentes.add(perso.getNom());
                         Guerison guer = (Guerison) this.m_pers.getSorts()[m_guerison].get();
+                        m_nbActions--;
                         guer.lancer(perso);
                     }
 
                 } else if (sort == 2) {
                     m_actionsprecedentes.add(String.valueOf(sort));
-                    if (m_pers.getSorts()[m_boogieWoogie].isEmpty()) {
+                    if ((m_pers.getSorts()[m_armeMagique] == null)||m_pers.getSorts()[m_boogieWoogie].isEmpty()) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Boogie Woogie, il n'est pas disponible pour votre personnage.");
                         jouerTour(i);
                     }
                     else{
+                        m_nbActions--;
                         initBoogieWoogie();
                     }
                 }
                 else if (sort == 3){
                     m_actionsprecedentes.add(String.valueOf(sort));
-                    if (m_pers.getSorts()[m_armeMagique].isEmpty()) {
+                    if (m_pers.getSorts()[m_armeMagique].isEmpty() ||(m_pers.getSorts()[m_armeMagique] == null)) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Arme Magique, il n'est pas disponible pour votre personnage.");
                         jouerTour(i);
                     }
                     else {
+                        m_nbActions--;
                         initArmeMagique();
                     }
-
                 }
 
                 else {
@@ -163,10 +165,12 @@ public class Tour {
                 }
             }
             if (numaction == 4) {
+                m_nbActions--;
                 anciennesActions();
             }
 
             if (numaction == 1) {
+                m_nbActions--;
                 utiliserAttak();
             }
         }
