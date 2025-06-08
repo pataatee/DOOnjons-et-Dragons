@@ -293,6 +293,8 @@ package gameContent
                         +getArmurerie():Armurerie
 
                         +modifyArmurerie():Armurerie
+
+                        +definirSorts():Optional[*]
                     }
 
 
@@ -308,6 +310,8 @@ package gameContent
                         +getArmurerie():Armurerie
 
                         +modifyArmurerie():Armurerie
+
+                        +definirSorts():Optional[*]
                     }
 
                     Clerc "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
@@ -340,6 +344,8 @@ package gameContent
                         +getArmurerie():Armurerie
 
                         +modifyArmurerie():Armurerie
+
+                        +definirSorts():Optional[*]
                     }
 
                     Magicien "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
