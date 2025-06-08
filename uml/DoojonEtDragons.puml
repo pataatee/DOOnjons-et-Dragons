@@ -433,31 +433,61 @@ package fonctionnement {
             + {static} afficherLigneMap(largeur:Integer)
             + {static} afficherLigneLettreMap(largeur:Integer)
             + {static} afficherTour(tour:Integer, perso:Personnage, carte:Map)
-            + {static} scanString():String
-            + {static} scanInt():Integer
             + {static} afficherInventaire(perso:Personnage)
             + {static} afficherAction(actions:String[*])
+            + {static} afficherDetailsMonstres(Coordonnees[][] map)
+            + {static} afficherMonstres(Coordonnees[][] map)
+            + {static} demanderQuiAttaquer()
+            + {static} afficherArmes(Personnage pers)
+            + {static} plusDInfos()
         }
 
         class AfficherDsMonstre {
             + {static} afficherMonstreVaincu()
             + {static} afficherPvRestantsMonstre(pvRestants:Integer)
+            + {static} afficherAttaqueEchouee()
+            + {static} afficherErreurPortee()
+            + {static} afficherMonstre(m:Monstre)
+            + {static} possibilitesMonstre()
+            + {static} possibilitesEspece()
+            + {static} possibilitesAttaque()
+            + {static} possibilitesCarac()
         }
 
         class AfficherDsPersonnage {
             + {static} afficherPersonnageVaincu()
             + {static} afficherPvRestantsPerso(pvRestants:Integer)
+            + {static} afficherErreurPortee()
+            + {static} afficherPersoVaincu()
         }
 
         class AffichageCarte {
             + {static} demanderObstacles();
             + {static} demanderTresors();
             + {static} demanderMonstres();
-            + {static} demanderCoordonneeX();
-            + {static} demanderCoordonneeY();
-            + {static} xInvalide();
-            + {static} yInvalide();
+            + {static} coordInvalide()
             + {static} caseOccupee();
+            + {static} creerMonstreExistantOuPas()
+            + {static} afficherMonstresPossibles()
+            + {static} afficherEspecesPossibles()
+            + {static} afficherAttaquesPossibles()
+            + {static} afficherCaracPossibles()
+        }
+
+        class AffichageCreateMonstre {
+            + {static} demanderEspece()
+            + {static} demanderAttaque()
+            + {static} demanderPorteeAttaque()
+            + {static} demanderDegatsAttaque()
+            + {static} demanderPvMonstre()
+            + {static} demanderForce()
+            + {static} demanderDexterite()
+            + {static} demanderInitiative()
+            + {static} demanderClasseArmure()
+            + {static} demanderVitesse()
+            + {static} demanderEspecePredefinie()
+            + {static} demanderAttaquePredefinie()
+            + {static} demanderCaracPredefinies()
         }
 
     }
@@ -592,6 +622,10 @@ package fonctionnement {
             +<<create>> CoordonneesPersonnage(x:Integer, y:Integer, personnage:Personnage):CoordonneesPersonnage
         }
         CoordonneesPersonnage "1" *--> "1-m_personnage" gameContent.personnages.perso.Personnage: belongs to >
+    }
+
+    package utilisateur {
+
     }
 }
 @enduml
