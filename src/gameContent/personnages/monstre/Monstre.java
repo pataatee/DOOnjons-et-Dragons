@@ -142,4 +142,12 @@ public class Monstre extends Entite {
     public String toString() {
         return m_espece.toString() + " | Coordonnées : (" + this.getX() + "," + this.getY() + ")\n\nCaracteristiques : \n" + m_caracteristique.toString() + "\n\nAttaque : \n" + m_attaque.toString();
     }
+
+    //PROFILS PAR DEFAUT
+    public static final Monstre dragon = new Monstre(Espece.dragon, CaracteristiqueMonstre.carDragon, AttaqueMonstre.Boule_de_feu);
+    public static final Monstre rat = new Monstre(Espece.rat, CaracteristiqueMonstre.carRat, AttaqueMonstre.Croc_empoisonne);
+    public static final Monstre loupGarou = new Monstre(Espece.loupGarou, CaracteristiqueMonstre.c3, AttaqueMonstre.Griffure_dechirante);
+    public static final Monstre goblin = new Monstre(Espece.goblin, CaracteristiqueMonstre.c4, AttaqueMonstre.Attaque_furtive);
+    public static final Monstre troll = new Monstre(Espece.troll, CaracteristiqueMonstre.c5, AttaqueMonstre.Coup_de_tete);
+
 }
