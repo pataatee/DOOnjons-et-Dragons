@@ -10,6 +10,7 @@ hide empty members
 class Main {
     + {static} main(args:String[*])
 }
+Main .> fonctionnement.mdj.Mdj: <<appelle>>
 
 
 package gameContent
@@ -28,6 +29,8 @@ package gameContent
             +deleteArmes(arme:Arme)
             +deleteArmures(armure:Armure)
         }
+        Armurerie .> gameContent.items.armes.Arme: <<utilise>>
+        Armurerie .> gameContent.items.armures.Armure: <<utilise>>
 
         Armurerie "1" *--> "0..*-m_armes" gameContent.items.armes.Arme: contient des >
         Armurerie "1" *--> "0..*-m_armures" gameContent.items.armures.Armure: contient des >
@@ -45,6 +48,12 @@ package gameContent
             +setArmure(newShield:Armure):Integer
 
         }
+
+        Equipement .> gameContent.items.armes.Arme: <<utilise>>
+        Equipement .> gameContent.items.armures.Armure: <<utilise>>
+        Equipement .> gameContent.items.armes.ArmeGuerre: <<utilise>>
+        Equipement .> gameContent.items.armures.ArmureLourde: <<utilise>>
+
         Equipement "1" o--> "0..1" gameContent.items.armures.Armure: est composé de >
         Equipement "1" o--> "0..1" gameContent.items.armes.Arme: est composé de >
 
@@ -54,7 +63,6 @@ package gameContent
             +avecArticleIndefini():String
             +avecArticlePartitif():String
         }
-
 
         package armures {
 
@@ -135,6 +143,9 @@ package gameContent
                 +avecArticlePartitif():String
 
             }
+
+            ArmeCourante .> fonctionnement.de.De: <<appelle>>
+
             ArmeCourante "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
             ArmeCourante "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
 
@@ -156,6 +167,8 @@ package gameContent
                 +avecArticlePartitif():String
             }
 
+            ArmeGuerre .> fonctionnement.de.De: <<appelle>>
+
             ArmeGuerre "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
             ArmeGuerre "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
 
@@ -176,6 +189,8 @@ package gameContent
                 +avecArticleIndefini():String
                 +avecArticlePartitif():String
             }
+
+            ArmeDistance .> fonctionnement.de.De: <<appelle>>
 
             ArmeDistance "1" o--> "1-m_degats" fonctionnement.de.De: inflige les dégâts d'un lancer de >
             ArmeDistance "1" *--> "1-m_genre" fonctionnement.grammaire.Substantif: est au >
@@ -202,6 +217,10 @@ package gameContent
 
             +setPosition(x:Integer, y:Integer)
         }
+
+        Entite .> gameContent.personnages.monstre.Monstre: <<instancie>>
+        Entite .> gameContent.personnages.perso.Personnage: <<instancie>>
+        Entite .> gameContent.personnages.Caracteristique: <<utilise>>
 
         package perso {
             class Personnage extends gameContent.personnages.Entite {
@@ -237,6 +256,8 @@ package gameContent
 
             }
 
+            Personnage .> fonctionnement.de.De: <<appelle>>
+
             Personnage "1" *--> "1..*-m_race" gameContent.personnages.perso.race.Race
             Personnage "1" *--> "1..*-m_classe" gameContent.personnages.perso.classe.Classe
             Personnage "1" *--> "1-m_caracteristique" gameContent.personnages.perso.CaracteristiquePersonnage
@@ -253,7 +274,7 @@ package gameContent
                 +getDegats():Integer
             }
 
-            AttaquePersonnage .> De : <<use>>
+            AttaquePersonnage .> De : <<appelle>>
 
             class CaracteristiquePersonnage extends gameContent.personnages.Caracteristique {
                 -m_vitesse:Integer
@@ -273,6 +294,9 @@ package gameContent
                         +getNom():String
 
                     }
+
+                    Race .> fonctionnement.de.De: <<appelle>>
+
                     class Elfe extends gameContent.personnages.perso.race.Race {
                         +<<create>> Elfe()
                     }
@@ -301,6 +325,8 @@ package gameContent
                         +definirSorts():Optional[*]
                     }
 
+                    Classe .> gameContent.sorts.Sorts: <<utilise>>
+
 
 
                     class Clerc implements gameContent.personnages.perso.classe.Classe {
@@ -319,6 +345,7 @@ package gameContent
                     }
 
                     Clerc "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
+                    Clerc .> gameContent.sorts.Sorts: <<utilise>>
 
 
                     class Guerrier implements gameContent.personnages.perso.classe.Classe {
@@ -353,6 +380,7 @@ package gameContent
                     }
 
                     Magicien "1" o--> "1-m_armurerie" gameContent.items.Armurerie: possède une >
+                    Magicien .> gameContent.sorts.Sorts: <<utilise>>
 
 
                     class Roublard implements gameContent.personnages.perso.classe.Classe {
@@ -402,9 +430,15 @@ package gameContent
             +bonusVitesse(bonus:Integer)
         }
 
+        Caracteristique .> gameContent.personnages.perso.CaracteristiquePersonnage: <<instancie>>
+        Caracteristique .> gameContent.personnages.monstre.CaracteristiqueMonstre: <<instancie>>
+
         interface Attaque <<interface>> {
             +getDegats():Integer
         }
+
+        Attaque .> gameContent.personnages.perso.AttaquePersonnage: <<instancie>>
+        Attaque .> gameContent.personnages.monstre.AttaqueMonstre: <<instancie>>
 
 
 
@@ -442,6 +476,8 @@ package gameContent
             + {static} getAttaqueByNom(nom:String):AttaqueMonstre
             + {static} getCaracByNom(nom:String):CaracteristiqueMonstre
         }
+
+        Monstre .> fonctionnement.de.De: <<appelle>>
 
 
         Monstre "1" *--> "1..*-m_espece" gameContent.personnages.monstre.Espece: est un >
@@ -511,17 +547,28 @@ package gameContent
             + {static} lancer(pers:Personnage, arme:Arme)
         }
 
+        ArmeMagique .> gameContent.personnages.perso.Personnage: <<utilise>>
+        ArmeMagique .> gameContent.items.armes.Arme: <<utilise>>
+
         class BoogieWoogie extends gameContent.sorts.Sorts {
             +<<create>> BoogieWoogie():BoogieWoogie
 
             + {static} lancer(perso1:Entite, perso2:Entite, map:Map)
         }
 
+        BoogieWoogie .> gameContent.personnages.Entite: <<utilise>>
+        BoogieWoogie .> gameContent.personnages.perso.Personnage: <<utilise>>
+        BoogieWoogie .> gameContent.personnages.monstre.Monstre: <<utilise>>
+        BoogieWoogie .> fonctionnement.mdj.Map: <<utilise>>
+
         class Guerison extends gameContent.sorts.Sorts {
             +<<create>> Guerison():Guerison
 
             + {static} lancer(pers:Personnage)
         }
+
+        Guerison .> gameContent.personnages.perso.Personnage: <<utilise>>
+        Guerison .> fonctionnement.de.De: <<appelle>>
     }
 
 
@@ -601,6 +648,21 @@ package fonctionnement {
             + {static} demanderAttaquePredefinie()
             + {static} demanderCaracPredefinies()
         }
+
+        Affichage .> gameContent.personnages.perso.Personnage: <<utilise>>
+        Affichage .> gameContent.personnages.monstre.Monstre: <<utilise>>
+        Affichage .> fonctionnement.coordonnees.Coordonnees: <<utilise>>
+        Affichage .> fonctionnement.mdj.Map: <<utilise>>
+        Affichage .> gameContent.items.armes.Arme: <<utilise>>
+        Affichage .> gameContent.items.armures.Armure: <<utilise>>
+        Affichage .> gameContent.items.Equipement: <<utilise>>
+        Affichage .> gameContent.items.Item: <<utilise>>
+        Affichage .> gameContent.personnages.monstre.Espece: <<utilise>>
+
+        AffichageCarte .> fonctionnement.affichage.AfficherDsMonstre: <<appelle>>
+
+        AfficherDsMonstre .> gameContent.personnages.monstre.CaracteristiqueMonstre: <<utilise>>
+        AfficherDsMonstre .> gameContent.personnages.monstre.AttaqueMonstre: <<ut
 
     }
 
