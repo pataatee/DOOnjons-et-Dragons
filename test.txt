@@ -17,9 +17,6 @@ renvoie true
 TODO big brouillon
 
 Finir narration par le Mdj (1 - Attaquer, 6-1 - Guerison) -> Lucie
-Mdj puisse choisir l'item a mettre sur une caseItem -> Lucie
 Mdj peut infliger des dégâts à un joueur ou un monstre -> Lucie
-
-verif que le nom du perso n'est pas déjà pris
 verif le nombre de joueurs
 

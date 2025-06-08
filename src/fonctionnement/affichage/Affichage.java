@@ -183,6 +183,16 @@ public class Affichage {
         System.out.println("Plus d'infos (+)");
     }
 
+    public static void afficherLstItems(String[][] lst ){
+        for (String[] ligne : lst) {
+            if (ligne[0].equalsIgnoreCase("Arme")) {
+                System.out.println("Type : "+ligne[0]+"\t\t\tNom : " + ligne[1]+"\t\tDégats : "+ligne[2]+"\t\tPortée : " + ligne[3]);
+            } else if (ligne[0].equalsIgnoreCase("Armure")) {
+                System.out.println("Type : " + ligne[0] + "\t\tNom : " + ligne[1] + "\t\tClasse d'armure : " + ligne[2]);
+            }
+        }
+    }
+
     //TODO possibilite de selectionner un profil par defaut de monstre meme qd pas random
     //TODO modif euh pour que les co s'affichent correctement qd on montre les co des montres p ex
 }
