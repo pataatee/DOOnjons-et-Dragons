@@ -1,6 +1,7 @@
 
 package fonctionnement.coordonnees;
 
+import gameContent.items.Item;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 
@@ -42,4 +43,5 @@ public abstract class Coordonnees {
     public Personnage getPersonnage() {
         return null;
     }
+    public Item getItem(){return null;}
 }

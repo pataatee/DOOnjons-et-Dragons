@@ -273,40 +273,65 @@ public class Tour {
 
     public void seDeplacer() {
         Affichage.afficher("Où voulez-vous vous déplacer ?");
-        int[] coordAct = RecupInfos.scanCoord(m_map);
+        int[] coordVoulues = RecupInfos.scanCoord(m_map);
+        if (m_map.getCase(coordVoulues[0], coordVoulues[1]).getCaseVide() != null){
+            int x_pers = this.m_pers.getX();
+            int y_pers = this.m_pers.getY();
+            CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers,this.m_pers );
+            CoordonneesCaseVide posVoulue = new CoordonneesCaseVide(coordVoulues[0], coordVoulues[1]);
+            if (!Deplacement(posActuelle, posVoulue)) {
+                seDeplacer();
+            }
+            else {
+                m_actionsprecedentes.add(String.valueOf(x_pers));
+                m_actionsprecedentes.add(String.valueOf(y_pers));
+                m_actionsprecedentes.add(String.valueOf(coordVoulues[0]));
+                m_actionsprecedentes.add(String.valueOf(coordVoulues[1]));
+                m_actionsprecedentes.add("none");
 
-        int x_pers = this.m_pers.getX();
-        int y_pers = this.m_pers.getY();
-        CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers, this.m_pers);
-        Coordonnees posVoulue = new CoordonneesCaseVide(coordAct[0], coordAct[1]);
-
-        if (!Deplacement(posActuelle, posVoulue)) {
-            seDeplacer();
-        } else {
+                this.m_map.setCase(coordVoulues[0], coordVoulues[1], posActuelle); // On met à jour la position sur la carte
+                this.m_map.setCase(x_pers, y_pers, new CoordonneesCaseVide(x_pers, y_pers)); // On vide l'ancienne position
+                m_pers.setPosition(coordVoulues[0], coordVoulues[1]); // on met à jour la position du personnage
+                Affichage.afficherMap(m_map);
+            }
+        }
+        else if (m_map.getCase(coordVoulues[0], coordVoulues[1]).getItem() != null) {
+            int x_pers = this.m_pers.getX();
+            int y_pers = this.m_pers.getY();
+            CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers,this.m_pers );
+            CoordonneesItem posVoulue = new CoordonneesItem(coordVoulues[0], coordVoulues[1]);
+            if (!Deplacement(posActuelle, posVoulue)) {
+                seDeplacer();
+                return;
+            }
             m_actionsprecedentes.add(String.valueOf(x_pers));
             m_actionsprecedentes.add(String.valueOf(y_pers));
-            m_actionsprecedentes.add(String.valueOf(coordAct[0]));
-            m_actionsprecedentes.add(String.valueOf(coordAct[1]));
-            if (this.m_map.getCase(coordAct[0], coordAct[1]) instanceof CoordonneesItem) {
-                boolean item = CaseTresor(this.m_map.getCase(coordAct[0], coordAct[1]));
+            m_actionsprecedentes.add(String.valueOf(coordVoulues[0]));
+            m_actionsprecedentes.add(String.valueOf(coordVoulues[1]));
 
-                if (!item) {
-                    Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
-                }
+            boolean item = CaseTresor(this.m_map.getCase(coordVoulues[0], coordVoulues[1]));
+            if (!item) {
+                Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
+                m_actionsprecedentes.add("N");
             }
-            this.m_map.setCase(coordAct[0], coordAct[1], posActuelle); // On met à jour la position sur la carte
+            else {
+                m_actionsprecedentes.add("O");
+            }
+
+            this.m_map.setCase(coordVoulues[0], coordVoulues[1], posActuelle); // On met à jour la position sur la carte
             this.m_map.setCase(x_pers, y_pers, new CoordonneesCaseVide(x_pers, y_pers)); // On vide l'ancienne position
-            m_pers.setPosition(coordAct[0], coordAct[1]); // on met à jour la position du personnage
+            m_pers.setPosition(coordVoulues[0], coordVoulues[1]); // on met à jour la position du personnage
             Affichage.afficherMap(m_map);
+
+        }
+        else {
+            Affichage.afficherErreur("vous ne pouvez pas vous déplacer sur une case occupée par un monstre ou un obstacle.");
+            seDeplacer();
         }
     }
 
     public boolean Deplacement(Coordonnees posActuelle, Coordonnees posVoulue) {
-        if (posVoulue instanceof CoordonneesMonstre || posVoulue instanceof CoordonneesObstacle) {
-            Affichage.afficherErreur("vous ne pouvez pas vous déplacer sur une case occupée par un monstre ou un obstacle.");
-            return false;
-        }
-        int vitesse = m_pers.getVitesse() / 3;
+        int vitesse = this.m_pers.getVitesse() / 3;
         //distance = racine carre((x1 - x2)2 + (y1 - y2)2)
         int distance = (int) Math.sqrt(Math.pow(posActuelle.getX() - posVoulue.getX(), 2) + Math.pow(posActuelle.getY() - posVoulue.getY(), 2));
         if (distance > vitesse) {
@@ -455,6 +480,12 @@ public class Tour {
                     CoordlettreY = (char) ('A' + Integer.parseInt(m_actionsprecedentes.get(4)));
                     coords += Coordx + "," + CoordlettreY +".";
                      Affichage.afficher("Vous vous êtes déplacé de la case "+ coords);
+                     if (m_actionsprecedentes.get(5).equals("O")){
+                         Affichage.afficher("et vous avez ramassé un objet");
+                     }
+                     else if (m_actionsprecedentes.get(5).equals("N")){
+                         Affichage.afficher("et vous avez n'avez pas ramassé l'objet sur la case");
+                     }
                     break;
                 case "4":
                     Affichage.afficher("Vous avez demandé a pouvoir voir les actions précédentes");
