@@ -635,5 +635,49 @@ package fonctionnement {
     package utilisateur {
 
     }
+
+    package grammaire {
+        interface Genre <<interface>> {
+            +getArticleDefini():String
+            +getArticleIndefini():String
+            +getAtriclePartitif():String
+            +getArticleDemonstratif():String
+        }
+
+        class Feminin implements fonctionnement.grammaire.Genre {
+            +getArticleDefini():String
+            +getArticleIndefini():String
+            +getAtriclePartitif():String
+            +getArticleDemonstratif():String
+
+            +toString():String
+        }
+
+        class Masculin implements fonctionnement.grammaire.Genre {
+            +getArticleDefini():String
+            +getArticleIndefini():String
+            +getAtriclePartitif():String
+            +getArticleDemonstratif():String
+
+            +toString():String
+        }
+
+        class Substantif {
+            -m_nom:String
+            -m_elision:Boolean
+
+            +<<create>> Substantif(nom:String, genre:Genre):Substantif
+
+            +getNom():String
+
+            +avecArticleDefini():String
+            +avecArticleIndefini():String
+            +avecArticlePartitif():String
+            
+            +equals(other:Object):Boolean
+            +toString():String
+        }
+    }
+
 }
 @enduml
