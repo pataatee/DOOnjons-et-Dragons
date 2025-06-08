@@ -72,7 +72,7 @@ public class Tour {
     }
 
     public void jouerTour(int i) {
-        Affichage.afficherTour(this.m_tour, i, this.m_pers, this.m_map);
+        Affichage.afficherTour(this.m_tour, i, this.m_pers, this.m_map, this.m_map.getMonstres());
         int numaction = RecupInfos.scanInt();
         if (numaction == 5) {
             m_actionsprecedentes.clear();
@@ -131,9 +131,13 @@ public class Tour {
                     }
                     else{
                         m_actionsprecedentes.add(perso.getNom());
+                        int pvsDeBase = perso.getPvs();
                         Guerison guer = (Guerison) this.m_pers.getSorts()[m_guerison].get();
                         m_nbActions--;
                         guer.lancer(perso);
+                        int pvsApres = perso.getPvs()-pvsDeBase;
+                        m_actionsprecedentes.add(String.valueOf(pvsApres));
+                        Affichage.afficher(perso.getNom() + " a gagné "+pvsApres+" Pvs !");
                     }
 
                 } else if (sort == 2) {
@@ -149,7 +153,7 @@ public class Tour {
                 }
                 else if (sort == 3){
                     m_actionsprecedentes.add(String.valueOf(sort));
-                    if (m_pers.getSorts()[m_armeMagique].isEmpty() ||(m_pers.getSorts()[m_armeMagique] == null)) {
+                    if (m_pers.getSorts()[m_armeMagique] == null ||(m_pers.getSorts()[m_armeMagique].isEmpty())) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Arme Magique, il n'est pas disponible pour votre personnage.");
                         jouerTour(i);
                     }
@@ -273,40 +277,65 @@ public class Tour {
 
     public void seDeplacer() {
         Affichage.afficher("Où voulez-vous vous déplacer ?");
-        int[] coordAct = RecupInfos.scanCoord(m_map);
+        int[] coordVoulues = RecupInfos.scanCoord(m_map);
+        if (m_map.getCase(coordVoulues[0], coordVoulues[1]).getCaseVide() != null){
+            int x_pers = this.m_pers.getX();
+            int y_pers = this.m_pers.getY();
+            CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers,this.m_pers );
+            CoordonneesCaseVide posVoulue = new CoordonneesCaseVide(coordVoulues[0], coordVoulues[1]);
+            if (!Deplacement(posActuelle, posVoulue)) {
+                seDeplacer();
+            }
+            else {
+                m_actionsprecedentes.add(String.valueOf(x_pers));
+                m_actionsprecedentes.add(String.valueOf(y_pers));
+                m_actionsprecedentes.add(String.valueOf(coordVoulues[0]));
+                m_actionsprecedentes.add(String.valueOf(coordVoulues[1]));
+                m_actionsprecedentes.add("none");
 
-        int x_pers = this.m_pers.getX();
-        int y_pers = this.m_pers.getY();
-        CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers, this.m_pers);
-        Coordonnees posVoulue = new CoordonneesCaseVide(coordAct[0], coordAct[1]);
-
-        if (!Deplacement(posActuelle, posVoulue)) {
-            seDeplacer();
-        } else {
+                this.m_map.setCase(coordVoulues[0], coordVoulues[1], posActuelle); // On met à jour la position sur la carte
+                this.m_map.setCase(x_pers, y_pers, new CoordonneesCaseVide(x_pers, y_pers)); // On vide l'ancienne position
+                m_pers.setPosition(coordVoulues[0], coordVoulues[1]); // on met à jour la position du personnage
+                Affichage.afficherMap(m_map);
+            }
+        }
+        else if (m_map.getCase(coordVoulues[0], coordVoulues[1]).getItem() != null) {
+            int x_pers = this.m_pers.getX();
+            int y_pers = this.m_pers.getY();
+            CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(x_pers, y_pers,this.m_pers );
+            CoordonneesItem posVoulue = new CoordonneesItem(coordVoulues[0], coordVoulues[1]);
+            if (!Deplacement(posActuelle, posVoulue)) {
+                seDeplacer();
+                return;
+            }
             m_actionsprecedentes.add(String.valueOf(x_pers));
             m_actionsprecedentes.add(String.valueOf(y_pers));
-            m_actionsprecedentes.add(String.valueOf(coordAct[0]));
-            m_actionsprecedentes.add(String.valueOf(coordAct[1]));
-            if (this.m_map.getCase(coordAct[0], coordAct[1]) instanceof CoordonneesItem) {
-                boolean item = CaseTresor(this.m_map.getCase(coordAct[0], coordAct[1]));
+            m_actionsprecedentes.add(String.valueOf(coordVoulues[0]));
+            m_actionsprecedentes.add(String.valueOf(coordVoulues[1]));
 
-                if (!item) {
-                    Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
-                }
+            boolean item = CaseTresor(this.m_map.getCase(coordVoulues[0], coordVoulues[1]));
+            if (!item) {
+                Affichage.afficher("Vous avez choisi de ne pas ramasser l'objet.");
+                m_actionsprecedentes.add("N");
             }
-            this.m_map.setCase(coordAct[0], coordAct[1], posActuelle); // On met à jour la position sur la carte
+            else {
+                m_actionsprecedentes.add("O");
+            }
+
+            this.m_map.setCase(coordVoulues[0], coordVoulues[1], posActuelle); // On met à jour la position sur la carte
             this.m_map.setCase(x_pers, y_pers, new CoordonneesCaseVide(x_pers, y_pers)); // On vide l'ancienne position
-            m_pers.setPosition(coordAct[0], coordAct[1]); // on met à jour la position du personnage
+            m_pers.setPosition(coordVoulues[0], coordVoulues[1]); // on met à jour la position du personnage
             Affichage.afficherMap(m_map);
+
+        }
+        else {
+            Affichage.afficherErreur("vous ne pouvez pas vous déplacer sur une case occupée par un monstre ou un obstacle.");
+            seDeplacer();
         }
     }
 
     public boolean Deplacement(Coordonnees posActuelle, Coordonnees posVoulue) {
-        if (posVoulue instanceof CoordonneesMonstre || posVoulue instanceof CoordonneesObstacle) {
-            Affichage.afficherErreur("vous ne pouvez pas vous déplacer sur une case occupée par un monstre ou un obstacle.");
-            return false;
-        }
-        int vitesse = m_pers.getVitesse() / 3;
+        int vitesse = this.m_pers.getVitesse() / 3;
         //distance = racine carre((x1 - x2)2 + (y1 - y2)2)
         int distance = (int) Math.sqrt(Math.pow(posActuelle.getX() - posVoulue.getX(), 2) + Math.pow(posActuelle.getY() - posVoulue.getY(), 2));
         if (distance > vitesse) {
@@ -455,6 +484,12 @@ public class Tour {
                     CoordlettreY = (char) ('A' + Integer.parseInt(m_actionsprecedentes.get(4)));
                     coords += Coordx + "," + CoordlettreY +".";
                      Affichage.afficher("Vous vous êtes déplacé de la case "+ coords);
+                     if (m_actionsprecedentes.get(5).equals("O")){
+                         Affichage.afficher("et vous avez ramassé un objet");
+                     }
+                     else if (m_actionsprecedentes.get(5).equals("N")){
+                         Affichage.afficher("et vous avez n'avez pas ramassé l'objet sur la case");
+                     }
                     break;
                 case "4":
                     Affichage.afficher("Vous avez demandé a pouvoir voir les actions précédentes");
@@ -462,7 +497,7 @@ public class Tour {
                 case "6":
                     switch (m_actionsprecedentes.get(1)) {
                         case "1":
-                            Affichage.afficher("Vous avez lancé le sort Guérison.");
+                            Affichage.afficher("Vous avez lancé le sort Guérison et "+m_actionsprecedentes.get(2)+ " a gagné "+m_actionsprecedentes.get(3)+" Pvs.");
                             break;
                         case "2":
                             Affichage.afficher("Vous avez lancé le sort Boogie Woogie.");

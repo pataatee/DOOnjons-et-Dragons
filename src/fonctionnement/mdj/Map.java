@@ -13,6 +13,8 @@ import gameContent.personnages.monstre.Espece;
 import gameContent.personnages.monstre.Monstre;
 import gameContent.personnages.perso.Personnage;
 
+import javax.swing.plaf.basic.BasicFormattedTextFieldUI;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -228,7 +230,41 @@ public class Map {
             }
         } while (m_nbTresors < 0 || m_nbTresors > (m_largeur * m_longueur)-m_nbObstacles-m_nbMonstre-m_nbJoueurs);
         int CoordTresor[];
+        String nomObj = "";
+        boolean trouve;
+        int indexfinal = 0;
+        String[][] listItem = {
+                {"Arme","Bâton", "1d6", "1"},
+                {"Arme","Rapière", "1d4", "1"},
+                {"Arme","Épée longue", "1d4", "2"},
+                {"Arme","Masse d'armes", "1d6", "1"},
+                {"Arme","Fronde", "1d4", "6"},
+                {"Arme","Arbalète légère", "1d8", "16"},
+                {"Arme","Arc court", "1d6", "16"},
+                {"Arme","Épée à deux mains", "2d6", "1"},
+                {"Armure","Armure d'écailles", "9", "-"},
+                {"Armure","Demi-plates", "10", "-"},
+                {"Armure","Cotte de maille", "11", "-"},
+                {"Armure","Harnois", "12", "-"}
+        };
         for (int i = 0; i < m_nbTresors; i++) {
+            Affichage.afficherLstItems(listItem);
+            Affichage.afficher("");
+            do {
+                Affichage.afficher("Saisissez le nom de l'item a mettre a cette case");
+                trouve = false;
+                nomObj = RecupInfos.scanString().toUpperCase();
+                for (int index = 0; index<listItem.length; index++){
+                    if (listItem[index][1].toUpperCase().equals(nomObj)){
+                        trouve = true;
+                        indexfinal = index;
+                    }
+                }
+                if (!trouve){
+                    Affichage.afficherErreur("l'item n'est pas dans la liste");
+                }
+            } while (!trouve);
+            
             do {
                 CoordTresor = RecupInfos.scanCoord(this);
                 if (CoordTresor[0] < 0 || CoordTresor[0] > m_longueur || CoordTresor[1] < 0 || CoordTresor[1] > m_largeur) {
@@ -241,7 +277,7 @@ public class Map {
                 i--; // cancel ce tour de boucle
             }
             else {
-                m_carte[CoordTresor[0]][CoordTresor[1]] = new CoordonneesItem(CoordTresor[0]-1,CoordTresor[1]); // on place un trésor
+                m_carte[CoordTresor[0]][CoordTresor[1]] = new CoordonneesItem(CoordTresor[0]-1,CoordTresor[1],indexfinal); // on place un trésor
             }
         }
     }
@@ -485,6 +521,10 @@ public class Map {
             }
         }
         return null;
+    }
+
+    public Monstre[] getMonstres(){
+        return m_monstres;
     }
 }
 

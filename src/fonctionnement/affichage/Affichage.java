@@ -62,7 +62,7 @@ public class Affichage {
 
 
 
-    public static void afficherTour(int tour,int action, Personnage pers, Map map){
+    public static void afficherTour(int tour,int action, Personnage pers, Map map, Monstre[] monstres){
         afficher("---------------------------------------------------");
         afficher("                Tour n°" + tour);
         afficher("                Action n°"+action);
@@ -92,6 +92,9 @@ public class Affichage {
 
         afficherInventaire(pers);
 
+        afficher("");
+        afficher("");
+        afficherAllMonstres(monstres);
 
         afficher("");
         afficherMap(map);
@@ -100,9 +103,18 @@ public class Affichage {
         afficherActions(truc.getActions(), truc.getListActions());
     }
 
+    private static void afficherAllMonstres(Monstre[] monstres) {
+        afficher("Monstres :");
+        for (Monstre monstre:monstres){
+            char lettre = (char) (monstre.getY()+'A');
+            afficher("Nom : " + monstre.getEspece().getNomEspece()+monstre.getEspece().getNum() + " | Pvs : "+monstre.getPvs() +" | Coordonnées : (" + (monstre.getX()+1) + "," + lettre + ")");
+        }
+
+    }
+
     public static void afficherTour(int tour, Map map, String[] actions){
         afficher("---------------------------------------------------");
-        afficher("                Tour n°" + tour);
+        afficher("                Tour n°" + (tour+1));
         afficher("               le maître du jeu joue               ");
         afficher("---------------------------------------------------");
         afficher("");
@@ -181,6 +193,16 @@ public class Affichage {
     }
     public static void plusDInfos() {
         System.out.println("Plus d'infos (+)");
+    }
+
+    public static void afficherLstItems(String[][] lst ){
+        for (String[] ligne : lst) {
+            if (ligne[0].equalsIgnoreCase("Arme")) {
+                System.out.println("Type : "+ligne[0]+"\t\t\tNom : " + ligne[1]+"\t\tDégats : "+ligne[2]+"\t\tPortée : " + ligne[3]);
+            } else if (ligne[0].equalsIgnoreCase("Armure")) {
+                System.out.println("Type : " + ligne[0] + "\t\tNom : " + ligne[1] + "\t\tClasse d'armure : " + ligne[2]);
+            }
+        }
     }
 
     //TODO possibilite de selectionner un profil par defaut de monstre meme qd pas random

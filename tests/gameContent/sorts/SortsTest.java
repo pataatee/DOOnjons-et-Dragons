@@ -20,16 +20,19 @@ class SortsTest {
         assertEquals(false, sorts.getSorts()[2]); // Le clerc ne peut pas lancer le sort Arme Magique
     }*/
 
-    /*@Test
+    @Test
 
     void testGuerison(){
         Personnage personnage = new Personnage("Test", new Nain(), new Clerc());
-        personnage.setPvs(5); // Points de vie actuels
+        personnage.setPvs(12); // Points de vie actuels
         int pvsMax = personnage.getPvsMax();
+        int pvsDeBase = personnage.getPvs();
 
-        Sorts.Guerison(personnage);
+        Guerison.lancer(personnage);
 
         assertTrue(personnage.getPvs()<= personnage.getPvsMax());
-    }*/
+        assertNotEquals(personnage.getPvs(),pvsDeBase );
+        //si c vrai c que la guérison fonctionne
+    }
 
 }

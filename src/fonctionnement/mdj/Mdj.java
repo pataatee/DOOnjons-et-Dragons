@@ -1,6 +1,10 @@
 package fonctionnement.mdj;
 
 import fonctionnement.affichage.Affichage;
+import fonctionnement.coordonnees.Coordonnees;
+import fonctionnement.coordonnees.CoordonneesCaseVide;
+import fonctionnement.coordonnees.CoordonneesMonstre;
+import fonctionnement.coordonnees.CoordonneesPersonnage;
 import fonctionnement.utilisateur.RecupInfos;
 import gameContent.items.Armurerie;
 import gameContent.items.Equipement;
@@ -12,6 +16,7 @@ import gameContent.personnages.perso.Personnage;
 import gameContent.personnages.perso.classe.*;
 import gameContent.personnages.perso.race.*;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +29,7 @@ public class Mdj {
     private final Personnage[] m_joueurs; // Tableau contenant tous les joueurs
     private Monstre[] m_monstres; // Tableau contenant tous les monstres (à implémenter plus tard)
     private Armurerie[] m_tresors; // Tableau contenant tous les trésors (à implémenter plus tard)
-    private final String[] m_MdjActions = new String[]{"Ajouter des obstacles", "Attaquer", "placer un trésor"};
+    private final String[] m_MdjActions = new String[]{"Ajouter des obstacles", "Attaquer", "placer un trésor", "déplacer un Personnage ou un Monstre"};
 
     public Mdj() {
         Affichage.afficher("Selectionnez le nombre de joueurs (2-6) : ");
@@ -34,8 +39,23 @@ public class Mdj {
             Affichage.afficher("joueur "+(i+1));
             Affichage.afficher("Selectionnez le nom du personnage : ");
             String nom = "";
-            do { nom= RecupInfos.scanString();}
-            while (nom.length()<3);
+            boolean yadeja;
+            do {
+                yadeja = false;
+                nom= RecupInfos.scanString();
+                for (int j = i; j > 0; j--){
+                    if (m_joueurs[j-1].getNom().equals(nom)){
+                        yadeja = true;
+                    }
+                }
+                if (yadeja){
+                    Affichage.afficherErreur("ce nom est déjà pris");
+                }
+                if (nom.length()<3){
+                    Affichage.afficherErreur("le nom du personnage doit contenir au minimum 3 caractères");
+                }
+            }
+            while (nom.length()<3||yadeja);
             Race race = chooseRace();
             Classe classe = chooseClasse();
             Personnage personnage = new Personnage(nom,race, classe);
@@ -129,11 +149,36 @@ public class Mdj {
         this.m_nbMonstres = 0;
         this.m_nbTresors = 0;
 
+        Personnage[] copy = new Personnage[m_nbJoueurs];
+
+        for (int i = 0; i < m_nbJoueurs; i++) {
+            int max = 0;
+            Personnage perso = null;
+
+            for (Personnage p : m_joueurs) {
+                boolean yest = false;
+
+                for (Personnage p2 : copy) {
+                    if (p2 != null && p.getNom().equals(p2.getNom())) {
+                        yest = true;
+                        break;
+                    }
+                }
+
+                if (p.getInitiative() > max && !yest) {
+                    max = p.getInitiative();
+                    perso = p;
+                }
+            }
+
+            copy[i] = perso;
+        }
+
         Affichage.afficher("La partie peut commencer !");
         int tour = 0;
         while (!verify_morts()) {
             for (int pers = 0; pers < m_nbJoueurs; pers++) {
-                Tour t = new Tour(this.m_joueurs[pers], tour, this.m_map); //on lance le tour pour chaque joueur
+                Tour t = new Tour(copy[pers], tour, this.m_map); //on lance le tour pour chaque joueur
                 if (t.getStatut() != 0) {
                     return;
                 }
@@ -159,8 +204,18 @@ public class Mdj {
 
     public void tourMdj(int tour){
         Affichage.afficherTour(tour,this.m_map, m_MdjActions);
-        int numaction = RecupInfos.scanInt();
-        if (numaction> 3 || numaction <= 0){
+        String str= RecupInfos.scanString();
+        int numaction = -1;
+        if (str.equals("")){
+            return;
+        }
+        try {
+            numaction = Integer.parseInt(str.trim()); // Convertit seulement si c’est bien un entier
+        } catch (NumberFormatException e) {
+            Affichage.afficherErreur("Entrée invalide. Veuillez saisir un nombre entier ou rien.");
+            tourMdj(tour); //
+        }
+        if (numaction> 4 || numaction <= 0){
             Affichage.afficherErreur("Vous devez saisir un nombre entre 1 et 3");
             tourMdj(tour);
         }
@@ -174,8 +229,44 @@ public class Mdj {
 
                 //attaquer un monstre / un personnage
             }
-            else {
+            else if (numaction == 3){
                 m_map.placerTresor();
+
+            }
+            else if (numaction == 4) {
+                Affichage.afficher("Saisissez les coordonnées de l'entité a déplacer");
+                int [] coordsAct = RecupInfos.scanCoord(m_map);
+                if (m_map.getCase(coordsAct[0], coordsAct[1]).getPersonnage() != null){
+                    CoordonneesPersonnage posActuelle = new CoordonneesPersonnage(coordsAct[0], coordsAct[1],m_map.getCase(coordsAct[0], coordsAct[1]).getPersonnage() );
+
+                    Affichage.afficher("où voulez vous déplacer"+m_map.getCase(coordsAct[0], coordsAct[1]).getPersonnage().getNom()+" ?");
+                    int [] coordsVoulue = RecupInfos.scanCoord(m_map);
+                    if (m_map.getCase(coordsVoulue[0], coordsVoulue[1]).getCaseVide() != null){  //on switche déjà
+                        this.m_map.setCase(coordsVoulue[0], coordsVoulue[1], posActuelle); // On met à jour la position sur la carte
+                        this.m_map.setCase(coordsAct[0], coordsAct[1], new CoordonneesCaseVide(coordsAct[0], coordsAct[1])); // On vide l'ancienne position
+                    }
+                    else{
+                        Affichage.afficherErreur("la case saisie n'est pas une case vide");
+                        tourMdj(tour);
+                    }
+                }
+                else if (m_map.getCase(coordsAct[0], coordsAct[1]).getMonstre() != null){
+                    CoordonneesMonstre posActuelle = new CoordonneesMonstre(coordsAct[0], coordsAct[1],m_map.getCase(coordsAct[0], coordsAct[1]).getMonstre() );
+                    Affichage.afficher("où voulez vous déplacer le "+m_map.getCase(coordsAct[0], coordsAct[1]).getMonstre().getEspece().getNomEspece()+" ?");
+                    int [] coordsVoulue = RecupInfos.scanCoord(m_map);
+                    if (m_map.getCase(coordsVoulue[0], coordsVoulue[1]).getCaseVide() != null){  //on switche déjà
+                        this.m_map.setCase(coordsVoulue[0], coordsVoulue[1], posActuelle); // On met à jour la position sur la carte
+                        this.m_map.setCase(coordsAct[0], coordsAct[1], new CoordonneesCaseVide(coordsAct[0], coordsAct[1])); // On vide l'ancienne position
+                    }
+                    else{
+                        Affichage.afficherErreur("la case saisie n'est pas une case vide");
+                        tourMdj(tour);
+                    }
+                }
+                else {
+                    Affichage.afficherErreur("la case ne contient pas de personnage ou de monstre");
+                    tourMdj(tour);
+                }
             }
         }
     }
