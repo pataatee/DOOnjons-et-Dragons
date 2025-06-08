@@ -404,6 +404,7 @@ package gameContent
             +<<create>> Monstre(carac:CaracteristiqueMonstre, espece:Espece, attaque:Attaque):Monstre
             +<<create>> Monstre(carac:CaracteristiqueMonstre, attaque:Attaque):Monstre
             +<<create>> Monstre(carac:CaracteristiqueMonstre):Monstre
+            +<<create>> Monstre(aCopier:Monstre):Monstre
 
             +getEspece():String
             +getAttaque():Attaque
@@ -413,10 +414,19 @@ package gameContent
             +getInitiative():Integer
             +getDexterite():Integer
             +getDegats():Integer
+            +getClasseArmure():Integer
+
+            +toString():String
+            +toStringSansCo():String
 
             +attaquer(cible:Entite):Boolean
             +estAttaquePar(agresseur:Personnage):Boolean
             +estAttaquePar(agresseur:Monstre):Boolean
+
+            + {static} getEspeceByNom(nom:String):Espece
+            + {static} getMonstreByNom(nom:String):Monstre
+            + {static} getAttaqueByNom(nom:String):AttaqueMonstre
+            + {static} getCaracByNom(nom:String):CaracteristiqueMonstre
         }
 
 
@@ -430,9 +440,11 @@ package gameContent
         class CaracteristiqueMonstre extends gameContent.personnages.Caracteristique {
             -m_classeArmure:Integer
 
-            +<<create>> CaracteristiqueMonstre(pv:Integer, force:Integer, dexterite:Integer, initiative:Integer, classeArmure:Integer):CaracteristiqueMonstre
+            +<<create>> CaracteristiqueMonstre(pv:Integer, force:Integer, dexterite:Integer, initiative:Integer, vitesse:Integer, classeArmure:Integer):CaracteristiqueMonstre
 
             +getClassArmure():Integer
+
+            +toString():String
         }
 
 
@@ -442,11 +454,13 @@ package gameContent
             -m_portee:Integer
             -m_degats:Integer
 
-            +<<create>> AttaqueMonstre(nom:String, portee:Integer, degats:Integer):AttaqueMonstre
+            +<<create>> AttaqueMonstre(attaque:String, portee:Integer, degats:Integer):AttaqueMonstre
 
-            +getNom():String
+            +getAttaque():String
             +getPortee():Integer
             +getDegats():Integer
+
+            +toString():String
 
 
         }
@@ -456,9 +470,12 @@ package gameContent
             -m_numero:Integer
 
             +<<create>> Espece(espece:String, num:Integer):Espece
+            +<<create>> Espece(espece:String):Espece
 
             +getNomEspece():String
             +getNum():Integer
+
+            +toString():String
         }
 
     }
