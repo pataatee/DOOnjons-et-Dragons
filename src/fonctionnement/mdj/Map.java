@@ -97,6 +97,7 @@ public class Map {
     public void createRandomMap(){
         Random random = new Random();
         initMap();
+        // placer obstacles
         int obstacles = random.nextInt((this.m_longueur * this.m_largeur) / 15, (this.m_longueur * this.m_largeur) / 10);
         int monstres = random.nextInt(3, 5);
         int tresors = random.nextInt(2, 4);
@@ -109,6 +110,7 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
+        // placer monstres
         for (int i = 0; i < monstres; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
@@ -120,6 +122,8 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
+
+        // placer trésors
         for (int i = 0; i < tresors; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
@@ -129,6 +133,8 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
+
+        //placer joueurs
         for (int i = 0; i < this.m_nbJoueurs; i++) {
             int x = random.nextInt(0, this.m_longueur);
             int y = random.nextInt(0, this.m_largeur);
@@ -139,6 +145,8 @@ public class Map {
                 i--; // Si la case est déjà occupée, on recommence
             }
         }
+
+        
         for (int i = 0; i < this.m_longueur; i++) {
             for (int j = 0; j < this.m_largeur; j++) {
                 if (m_carte[i][j] == null) {
@@ -295,6 +303,15 @@ public class Map {
     public int getNbMonstre() {
         return this.m_nbMonstre;
     }
+
+    public Monstre createRandomMonstres() {
+        // creer des monstres pour la map random : renvoie un monstre random parmi les 5 profils existants
+        Monstre[] profilsMonstre = {Monstre.dragon, Monstre.goblin, Monstre.rat, Monstre.troll, Monstre.loupGarou};
+        Random random = new Random();
+        int index = random.nextInt(profilsMonstre.length);
+        return profilsMonstre[index];
+    }
+
 
     public void createMonstre() {
 
