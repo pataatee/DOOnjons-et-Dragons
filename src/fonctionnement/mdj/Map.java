@@ -228,6 +228,7 @@ public class Map {
         } while (m_nbTresors < 0 || m_nbTresors > (m_largeur * m_longueur)-m_nbObstacles-m_nbMonstre-m_nbJoueurs);
         int CoordTresor[];
         for (int i = 0; i < m_nbTresors; i++) {
+
             do {
                 CoordTresor = RecupInfos.scanCoord(this);
                 if (CoordTresor[0] < 0 || CoordTresor[0] > m_longueur || CoordTresor[1] < 0 || CoordTresor[1] > m_largeur) {

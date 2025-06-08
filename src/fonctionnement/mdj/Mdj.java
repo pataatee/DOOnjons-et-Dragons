@@ -38,8 +38,17 @@ public class Mdj {
             Affichage.afficher("joueur "+(i+1));
             Affichage.afficher("Selectionnez le nom du personnage : ");
             String nom = "";
-            do { nom= RecupInfos.scanString();}
-            while (nom.length()<3);
+            boolean yadeja;
+            do {
+                yadeja = false;
+                nom= RecupInfos.scanString();
+                for (int j = i; j > 0; j--){
+                    if (m_joueurs[j-1].getNom().equals(nom)){
+                        yadeja = true;
+                    }
+                }
+            }
+            while (nom.length()<3||yadeja);
             Race race = chooseRace();
             Classe classe = chooseClasse();
             Personnage personnage = new Personnage(nom,race, classe);

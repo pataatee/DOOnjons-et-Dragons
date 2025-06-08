@@ -33,6 +33,11 @@ public class CoordonneesItem extends Coordonnees{
         int index = rand.nextInt(m_items.size()); // entre 0 et size - 1
         this.m_item = m_items.get(index);
     }
+    public CoordonneesItem(int x ,int y, Item item) {
+        super(x, y,new char[] {' ', '*', ' '});
+        this.m_item = item;
+
+    }
 
     public Item getItem() {
         return m_item;

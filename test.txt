@@ -16,14 +16,10 @@ renvoie true
 
 TODO big brouillon
 
-
-Finir Arme magique -> Lucie
 Finir narration par le Mdj (1 - Attaquer, 6-1 - Guerison) -> Lucie
 Mdj puisse choisir l'item a mettre sur une caseItem -> Lucie
+Mdj peut infliger des dégâts à un joueur ou un monstre -> Lucie
 
-mdj -> déplacer un monstre ou un personnage par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il peut infliger des dégâts à un joueur ou un monstr
-
-CHANGER TOUS LES INSTANCEOF
 verif que le nom du perso n'est pas déjà pris
 verif le nombre de joueurs
 

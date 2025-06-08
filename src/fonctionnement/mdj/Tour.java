@@ -149,7 +149,7 @@ public class Tour {
                 }
                 else if (sort == 3){
                     m_actionsprecedentes.add(String.valueOf(sort));
-                    if (m_pers.getSorts()[m_armeMagique].isEmpty() ||(m_pers.getSorts()[m_armeMagique] == null)) {
+                    if (m_pers.getSorts()[m_armeMagique] == null ||(m_pers.getSorts()[m_armeMagique].isEmpty())) {
                         Affichage.afficherErreur("Vous ne pouvez pas lancer le sort Arme Magique, il n'est pas disponible pour votre personnage.");
                         jouerTour(i);
                     }
