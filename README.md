@@ -1,14 +1,14 @@
 # 🐉 DOOnjons et Dragons 
-## A propos du projet
+## 🛈 A propos du projet
 ### Contexte
 Ce jeu a fait l'objet d'un projet supervisé réalisé dans le cadre de ma formation (BUT Informatique). 
 <br>
-Nous étions un groupe de 2 développeurs ([Lucie](https://github.com/cookie2211) et moi-même), et avions 5 semaines pour le réaliser.
-> *Vous pourrez trouver le sujet donné par nos enseignants [ici](https://github.com/pataatee/DOOnjons-et-Dragons/tree/rendu_final/sujet)*
+Nous étions un groupe de 2 développeurs ([Lucie](https://github.com/cookie2211) et moi-même), et avions 5 semaines pour le réaliser. <br>
+*Vous pourrez trouver le sujet donné par nos enseignants [ici](https://github.com/pataatee/DOOnjons-et-Dragons/tree/rendu_final/sujet)*
 ### Statut du jeu
-Ce projet est **fonctionnel**, malgré un affichage uniquement via un terminal.
+Ce projet est **fonctionnel**, malgré un affichage uniquement via un terminal. <br>
 *Un affichage graphique sera peut-être implémenté à l'avenir (très incertain, mais possible)*
-## Description du jeu
+## 🐲 Description du jeu
 Le jeu D&D est un **jeu de rôle** dans lequel vous incarnez un personnage, souvent fantastique (Mage, Elfe...). Durant la partie, vous **explorez un donjon** empli de monstres et trésors... à vous d'affronter les nombreux défis face auxquels vous pouvez tomber !
 <br>
 Un **Maître du Jeu dirige** et raconte l'histoire du début à la fin de la partie. Il **crée et positionne** tout un tas de monstres et butins dans le donjon afin de rendre l'expérience plus intéressante pour tous les personages !
@@ -16,14 +16,14 @@ Un **Maître du Jeu dirige** et raconte l'histoire du début à la fin de la par
 <br>
 Comme vous l'aurez sûrement maintenant compris, ce projet est une implémenttion d'un jeu basé sur le célèbre jeu de rôle **D&D** ! <br>
 
-## Règles du jeu
+## 📜 Règles du jeu
 En entrant dans l'univers de **Donjons et Dragons**, l'objectif est simple : **éliminer tous les monstres** ! <br>
 Ainsi, vous incarnez un **personnage fantastique** afin de mener cette bataille. <br>
 Vous vous battez dans un donjon plus ou moins grand, plus ou moins garni de trésors...ou de pièges. <br>
 
 *Note: Les lancers de dés seront présentés de la manière suivante : **<nb_de_dés>d<nb_de_faces>***
 
-### Les personnages 
+### Les personnages 🧍
 Le personnage que vous incarnez possède une certaine **race** ainsi qu'une certaine **classe**. Ces dites classes et races possèdent des spécificités et offrent ainsi des bonus sur les **caractéristiques** de ce personnage. <br>
 Les **caractéristiques** des personnages sont les suivantes : 
 - PVs *(points de vie)* - le nombre de dégâts que peut subir le personnage avant de mourir
@@ -47,7 +47,7 @@ Les PVs, quant à eux, sont déterminés par la **classe** du personnage. <br>
 - Halfelin : +4 dextérité, +2 vitesse
 - Nain : +6 force
 
-### Les armes et armures
+### Les armes et armures ⚔️
 Les personnages ont accès à des **armes** et **armures** pour se battre et se protéger contre les monstres. Chaque arme possède ses **spécificités** *(dégâts, portée)*, ainsi que chaque armure *(classe d'armure = PVs supplémentaires)*. <br> En voici la liste.<br>
 #### Armes : 
 - Armes à distance :
@@ -90,7 +90,7 @@ Les personnages possèdent un **inventaire** de base différent selon leur **cla
 
 **/!\ A noter** : <br> Lorsque votre personnage équipe une **arme de guerre**, sa **vitesse** est **diminuée de 2 points**, mais sa **force** est **augmentée de 4**. <br> Lorsque votre personnage équipe une **armure lourde**, sa **vitesse** est **diminuée de 4 points**.
 
-### Les sorts
+### Les sorts 🪄
 Les **magiciens** possèdent une spécifité hors du commun : ils peuvent **lancer des sorts** ! <br>
 Les **clercs** peuvent également lancer un unique sort : **guérison**. <br>
 Voici donc la liste de leurs pouvoirs...
@@ -100,15 +100,15 @@ Voici donc la liste de leurs pouvoirs...
 - Boogie Woogie - le magicien échange les positions de deux entités *(personnage ou monstre)*.
 - Arme magique - le magicien offre un bonus de 1 lors des jets d'attaque et de 1 lors des jets de dégâts sur **une arme**. Les bonus sont cumulables.
 
-### Les monstres
+### Les monstres 👹
 Dans le donjon dans lequel vous jouez, des **montres** rôdent, avec comme objectif de vous tuer... <br>
 Les monstres possèdent certaines caractéristiques, qui sont déterminées par le **maître du jeu**. Ces caractéristiques sont un **nom**, une **espèce**, une **attaque**, un nombre de **PVs**, une **force**, une **vitesse**, une **déxtérité**, une **classe d'armure** ainsi qu'une **initiative**. <br>
 Votre objectif en tant que joueur : **tuer ces monstres avant qu'ils ne vous tuent** !
 
-### Fin du jeu
+### Fin du jeu 🏁
 La partie se finit sur une **victoire** si les personnages que vous incarnez ont réussi à éliminer tous les monstres du donjon. Elle se finira cependant sur une **défaite** si ce sont les monstres qui vous tuent...
 
-## Fonctionnalités 
+## ✨ Fonctionnalités 
 - Sélection du nombre de joueurs *(2 à 6 joueurs)*
 - Création des personnages :
   - Choisir un nom
@@ -139,7 +139,7 @@ La partie se finit sur une **victoire** si les personnages que vous incarnez ont
   - Placer un trésor
   - Déplacer un personnage/un monstre
 
-## Installation
+## ⚙️ Installation
 ### Prérequis
 - **Java** doit être installé sur votre machine.
 - **IDE** supportant le Java.
