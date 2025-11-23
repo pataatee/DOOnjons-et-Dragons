@@ -138,3 +138,27 @@ La partie se finit sur une **victoire** si les personnages que vous incarnez ont
   - Attaquer
   - Placer un trésor
   - Déplacer un personnage/un monstre
+
+## Installation
+### Prérequis
+- **Java** doit être installé sur votre machine.
+- **IDE** supportant le Java.
+- **Git** installé sur votre machine.
+
+### Comment installer ?
+**Clonez** ce dépôt git sur votre machine : <br> <br>
+*Avec SSH:*
+```bash
+git clone git@github.com:pataatee/DOOnjons-et-Dragons.git
+```
+*Avec HTTPS:*
+```bash
+https://github.com/pataatee/DOOnjons-et-Dragons.git
+```
+
+**Ouvrez** le projet depuis votre machine sur votre IDE *(IntelliJ, VSCode...)* <br>
+**Naviguez** vers `/src/Main.java` <br>
+**Clic droit** sur `Main.java`, puis cliquez sur **Run**. Votre IDE ouvrira un terminal intégré dans lequel vous pourrez ensuite jouer ! <br>
+<br>
+### 🎉 Vous avez installé le jeu avec succès !
+Maintenant, amusez-vous bien ! 😉
