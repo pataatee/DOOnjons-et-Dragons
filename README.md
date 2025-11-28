@@ -157,7 +157,7 @@ git clone git@github.com:pataatee/DOOnjons-et-Dragons.git
 ```
 *Avec HTTPS:*
 ```bash
-https://github.com/pataatee/DOOnjons-et-Dragons.git
+git clone https://github.com/pataatee/DOOnjons-et-Dragons.git
 ```
 
 **Ouvrez** le projet depuis votre machine sur votre IDE *(IntelliJ, VSCode...)* <br>
