@@ -18,7 +18,7 @@ Le jeu D&D est un **jeu de rôle** dans lequel vous incarnez un personnage, souv
 Un **Maître du Jeu dirige** et raconte l'histoire du début à la fin de la partie. Il **crée et positionne** tout un tas de monstres et butins dans le donjon afin de rendre l'expérience plus intéressante pour tous les personages !
 <br>
 <br>
-Comme vous l'aurez sûrement maintenant compris, ce projet est une implémenttion d'un jeu basé sur le célèbre jeu de rôle **D&D** ! <br>
+Comme vous l'aurez sûrement maintenant compris, ce projet est une implémentation en Java d'un jeu basé sur le célèbre jeu de rôle **D&D** ! <br>
 
 ## 📜 Règles du jeu
 En entrant dans l'univers de **Donjons et Dragons**, l'objectif est simple : **éliminer tous les monstres** ! <br>
